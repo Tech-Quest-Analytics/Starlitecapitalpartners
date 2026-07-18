@@ -19,15 +19,66 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hid
 }
 .nav-inner{
   max-width:1400px;margin:auto;
-  padding:24px 40px;
-  display:flex;justify-content:center;align-items:center;
+  padding:20px 40px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:24px;
 }
-.brand{display:flex;flex-direction:column;align-items:center;line-height:1;text-align:center;}
+.brand{display:flex;flex-direction:column;line-height:1;}
 .brand-main{
   font-family:'Playfair Display',serif;
-  font-size:28px;letter-spacing:-0.5px;color:#1a2138;
+  font-size:24px;letter-spacing:-0.5px;color:#1a2138;
 }
-.brand-sub{font-size:10px;letter-spacing:5px;color:#6b7aaa;margin-top:5px;text-transform:uppercase;}
+.brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
+
+.nav-links{
+  display:flex;align-items:center;gap:36px;
+}
+.nav-links a{
+  text-decoration:none;color:#1a2138;font-size:13px;letter-spacing:0.3px;
+  font-weight:400;position:relative;padding:8px 0;transition:color 0.2s ease;
+}
+.nav-links a:hover{color:#4a7bff;}
+
+.nav-item{position:relative;}
+.nav-item > a::after{
+  content:"";display:inline-block;width:6px;height:6px;
+  border-right:1px solid currentColor;border-bottom:1px solid currentColor;
+  transform:rotate(45deg);margin-left:6px;margin-bottom:1px;
+  transition:transform 0.2s ease;
+}
+.nav-item.open > a::after{transform:rotate(-135deg);}
+
+.dropdown{
+  position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(6px);
+  background:#fff;border:1px solid rgba(0,0,0,0.06);
+  border-radius:14px;padding:10px;min-width:220px;
+  box-shadow:0 20px 50px rgba(26,33,56,0.12);
+  opacity:0;visibility:hidden;
+  transition:opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+.nav-item:hover .dropdown,
+.nav-item.open .dropdown{
+  opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);
+}
+.dropdown a{
+  display:block;padding:10px 14px;border-radius:8px;
+  color:#1a2138;font-size:13px;
+}
+.dropdown a:hover{background:rgba(74,123,255,0.07);color:#4a7bff;}
+
+.nav-cta{
+  border:1px solid rgba(26,33,56,0.18);
+  padding:9px 20px;border-radius:999px;
+  font-size:12px;letter-spacing:0.4px;
+  transition:0.2s ease;white-space:nowrap;
+}
+.nav-cta:hover{background:#1a2138;color:#fff !important;border-color:#1a2138;}
+
+.nav-toggle{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:6px;
+}
+.nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
 
 /* HERO */
 .hero{
@@ -198,6 +249,28 @@ footer{
   font-size:12px;cursor:pointer;letter-spacing:0.5px;
 }
 
+@media(max-width:900px){
+  .nav-links{
+    position:fixed;top:0;right:0;height:100vh;width:280px;
+    background:#fff;flex-direction:column;align-items:flex-start;
+    padding:100px 32px 32px;gap:6px;
+    box-shadow:-10px 0 40px rgba(0,0,0,0.08);
+    transform:translateX(100%);transition:transform 0.3s ease;
+  }
+  .nav-links.open{transform:translateX(0);}
+  .nav-links a{width:100%;padding:12px 0;}
+  .nav-item{width:100%;}
+  .dropdown{
+    position:static;transform:none;opacity:1;visibility:visible;
+    box-shadow:none;border:none;padding:0 0 0 14px;
+    display:none;width:100%;
+  }
+  .nav-item.open .dropdown{display:block;}
+  .nav-item > a::after{float:right;margin-top:6px;}
+  .nav-toggle{display:flex;}
+  .nav-cta{margin-top:12px;}
+}
+
 @media(max-width:768px){
   .nav-inner{padding:18px 20px;}
   .hero{padding:140px 24px 90px;}
@@ -237,6 +310,28 @@ footer{
     <div class="brand">
       <div class="brand-main">STARLITE</div>
       <div class="brand-sub">Capital Partners</div>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="https://www.starlitecp.com/home">Home</a>
+
+      <div class="nav-item" id="productsItem">
+        <a href="https://www.starlitecp.com/products" id="productsToggle">Products</a>
+        <div class="dropdown">
+          <a href="https://www.starlitecp.com/products/venture-capital">Venture Capital</a>
+          <a href="https://www.starlitecp.com/products/private-wealth">Private Wealth</a>
+          <a href="https://www.starlitecp.com/products/private-credit">Private Credit</a>
+          <a href="https://www.starlitecp.com/products/private-equity">Private Equity</a>
+          <a href="https://www.starlitecp.com/products/partners">Partners</a>
+        </div>
+      </div>
+
+      <a href="https://www.starlitecp.com/about-us">About Us</a>
+      <a href="https://www.starlitecp.com/investor-login" class="nav-cta">Investor Login</a>
     </div>
   </div>
 </nav>
@@ -382,10 +477,6 @@ if('IntersectionObserver' in window && statsSection){
 
 // ------------------------------------------------------------------
 // Scroll-linked hero blur effect
-// As the hero section scrolls out of view, the background video
-// progressively blurs and scales up slightly, while the hero copy
-// fades and lifts. Everything is driven directly by scroll position
-// so it feels tactile rather than like a fixed decoration.
 // ------------------------------------------------------------------
 const heroSection = document.getElementById('heroSection');
 const heroOverlay = document.getElementById('heroOverlay');
@@ -402,8 +493,6 @@ function updateHeroScrollEffect(){
   const rect = heroSection.getBoundingClientRect();
   const heroHeight = rect.height || 1;
 
-  // progress: 0 while hero top is at/above the viewport top,
-  // ramps to 1 as the hero fully scrolls past the top of the viewport.
   const progress = Math.min(Math.max(-rect.top / heroHeight, 0), 1);
 
   const blur = progress * MAX_BLUR_PX;
@@ -413,9 +502,6 @@ function updateHeroScrollEffect(){
   heroVideo.style.transform = `scale(${scale.toFixed(3)})`;
 
   if(heroOverlay){
-    // Overlay starts light (video clearly visible) and fades to fully
-    // white as you scroll, so the blur reads as an intentional
-    // transition rather than a static wash.
     heroOverlay.style.opacity = String(0.35 + progress * 0.65);
   }
 
@@ -437,6 +523,38 @@ function onScroll(){
 window.addEventListener('scroll', onScroll, { passive:true });
 window.addEventListener('resize', onScroll);
 updateHeroScrollEffect();
+
+// ------------------------------------------------------------------
+// Nav: mobile toggle + tap-to-open dropdown on touch/small screens
+// ------------------------------------------------------------------
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+const productsItem = document.getElementById('productsItem');
+const productsToggle = document.getElementById('productsToggle');
+
+if(navToggle && navLinks){
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+}
+
+if(productsToggle && productsItem){
+  productsToggle.addEventListener('click', (e) => {
+    if(window.innerWidth <= 900){
+      e.preventDefault();
+      productsItem.classList.toggle('open');
+    }
+  });
+}
+
+document.addEventListener('click', (e) => {
+  if(navLinks && navLinks.classList.contains('open') &&
+     !navLinks.contains(e.target) && e.target !== navToggle && !navToggle.contains(e.target)){
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+});
 </script>
 </body>
 </html>
