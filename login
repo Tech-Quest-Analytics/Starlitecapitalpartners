@@ -179,7 +179,6 @@
             <a href="https://www.starlitecp.com/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
             <a href="https://www.starlitecp.com/commercial">Commercial</a>
             <a href="https://www.starlitecp.com/security">Security</a>
-            <a href="https://www.starlitecp.com/13f-filings">13F Filings</a>
           </div>
         </div>
         <div class="footer-bottom">
@@ -190,24 +189,9 @@
     </footer>
 
     <script>
-        // ------------------------------------------------------------
-        // Matches your actual Apps Script contract:
-        //   - reads params.email / params.password (not "token")
-        //   - returns { status: "success" }, { status: "fail" },
-        //     or { status: "error", message: "..." }
-        //
-        // IMPORTANT: the Content-Type below is intentionally
-        // 'text/plain' rather than 'application/json'. Sending JSON
-        // with an application/json header triggers a CORS preflight
-        // (OPTIONS request), which Apps Script web apps don't answer
-        // unless you add a doOptions() handler — so the browser would
-        // block the real request before it ever reaches doPost().
-        // text/plain is a "simple request" and skips the preflight.
-        // Apps Script doesn't care about the header anyway; it just
-        // reads e.postData.contents as a raw string and JSON.parses it.
-        // ------------------------------------------------------------
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxZW5dLi_V0NkVAc5dv4YCqCB-Uw-wBtEUJ9-PH5P_vzvlsY2jUIo2k-yb_51lHfc4k/exec';
-        const REDIRECT_URL = 'https://www.starlitecp.com/data_exchange'; // where to send users after a successful login
+        // === UPDATED WITH YOUR NEW DEPLOYMENT ID ===
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4zTiXpZLkhnIvR71pSTOSNx-tluCxuL7nUNVJOl1BSNGeChTG_FLvRQ8MAr45svzw/exec';
+        const REDIRECT_URL = 'https://www.starlitecp.com/data_exchange';
 
         function togglePassword() {
             const input = document.getElementById('password');
@@ -282,34 +266,31 @@
                     body: JSON.stringify({ action: 'login', email, password })
                 });
 
+                const raw = await response.text();
+                console.log('Response:', raw);
+
                 if (!response.ok) {
-                    throw new Error(`Server responded with ${response.status}`);
+                    showError(`Server error (${response.status})`);
+                    return;
                 }
 
-                const data = await response.json();
+                const data = JSON.parse(raw);
 
-                if (data && data.status === 'success') {
-                    // Store the session token so the destination page can
-                    // verify it (see the validateSession snippet below).
-                    try {
-                        sessionStorage.setItem('starlite_session_token', data.token);
-                    } catch (storageErr) {
-                        console.warn('Could not persist session token:', storageErr);
-                    }
+                if (data.status === 'success') {
+                    sessionStorage.setItem('starlite_session_token', data.token);
                     showSuccess();
+
                     setTimeout(() => {
-                        window.open(REDIRECT_URL, '_blank', 'noopener,noreferrer');
-                    }, 1200);
-                } else if (data && data.status === 'error') {
-                    // Includes rate-limit messages (e.g. "Too many attempts...")
-                    showError(data.message);
+                        window.location.href = REDIRECT_URL;
+                    }, 900);
+                } else if (data.status === 'fail') {
+                    showError(data.message || 'Invalid email or access token.');
                 } else {
-                    // status === 'fail' (bad credentials)
-                    showError('Invalid email or access token. Please try again.');
+                    showError(data.message || 'Login failed.');
                 }
             } catch (err) {
-                console.error('Login request failed:', err);
-                showError('Something went wrong reaching the server. Please try again in a moment.');
+                console.error(err);
+                showError('Could not connect to server. Please try again.');
             } finally {
                 setLoading(false);
             }
