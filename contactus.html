@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Starlite Capital Partners — Contact Us</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --navy:#1a2138;
+  --deep-navy:#0f1424;
+  --blue:#4a7bff;
+  --soft-bg:#f8f9fc;
+  --cream:#f0ede6;
+  --text:#1a2138;
+  --muted:#6b7aaa;
+  --faint:#9aa3be;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body{
+  background:var(--soft-bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+.accent{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:5px;
+  background:linear-gradient(90deg,#0f1424,#1a2138,#4a7bff,#0f1424);
+  background-size:200%;
+  animation:shimmer 8s linear infinite;
+  z-index:7000;
+}
+
+@keyframes shimmer{
+  0%{background-position:0%;}
+  100%{background-position:200%;}
+}
+
+.logo-bar{
+  position:fixed;
+  top:5px;
+  left:0;
+  width:100%;
+  z-index:6000;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px 24px;
+}
+
+.logo-bar a{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  line-height:1;
+  text-align:center;
+  text-decoration:none;
+}
+
+.logo-bar .brand-main{
+  font-family:'Playfair Display',serif;
+  font-size:26px;
+  letter-spacing:-0.5px;
+  color:var(--navy);
+}
+
+.logo-bar .brand-sub{
+  font-size:9px;
+  letter-spacing:4px;
+  color:var(--muted);
+  margin-top:5px;
+  text-transform:uppercase;
+}
+
+@media(max-width:480px){
+  .logo-bar{ padding:16px 20px; }
+  .logo-bar .brand-main{ font-size:21px; }
+}
+
+.page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:170px 24px 80px;
+  background:
+    radial-gradient(circle at top left,rgba(74,123,255,0.08),transparent 34%),
+    linear-gradient(to bottom,#f8f9fc,#f0ede6);
+}
+
+.form-container{
+  background:#fff;
+  padding:52px 44px;
+  border-radius:28px;
+  max-width:580px;
+  width:100%;
+  box-shadow:0 24px 80px rgba(26,33,56,0.10);
+  border:1px solid rgba(26,33,56,0.10);
+}
+
+.eyebrow{
+  text-align:center;
+  color:var(--blue);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+
+h1{
+  text-align:center;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(40px,6vw,58px);
+  font-weight:500;
+  margin-bottom:10px;
+  background:linear-gradient(90deg,#1a2138,#4a7bff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:-1.4px;
+  line-height:1;
+}
+
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:40px;
+  font-size:1.02rem;
+  font-weight:300;
+  line-height:1.7;
+}
+
+label{
+  display:block;
+  margin-top:22px;
+  font-weight:500;
+  color:#374151;
+  font-size:0.94rem;
+}
+
+input,
+textarea{
+  width:100%;
+  padding:14px 18px;
+  margin-top:8px;
+  border-radius:14px;
+  border:1.5px solid #d9dcea;
+  font-size:1rem;
+  transition:all 0.32s ease;
+  background:#fbfcfe;
+  font-family:inherit;
+}
+
+input:focus,
+textarea:focus{
+  outline:none;
+  border-color:var(--blue);
+  box-shadow:0 0 0 5px rgba(74,123,255,0.16);
+  background:#fff;
+}
+
+textarea{
+  resize:vertical;
+  min-height:140px;
+}
+
+button{
+  margin-top:36px;
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:50px;
+  font-size:1.08rem;
+  font-weight:600;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(90deg,#1a2138,#4a7bff);
+  box-shadow:0 14px 50px rgba(26,33,56,0.35);
+  transition:all 0.36s ease;
+  border:2px solid rgba(26,33,56,0.1);
+  letter-spacing:0.2px;
+}
+
+button:hover{
+  transform:translateY(-6px);
+  box-shadow:0 28px 90px rgba(26,33,56,0.45);
+  opacity:0.95;
+}
+
+.success-msg{
+  margin-top:28px;
+  padding:22px;
+  background:#f0fdf4;
+  color:#166534;
+  border:1.5px solid #86efac;
+  border-radius:16px;
+  text-align:center;
+  font-weight:600;
+  line-height:1.5;
+  display:none;
+}
+
+/* FOOTER — light, matches Starlite site */
+footer{
+  background:#ffffff;
+  padding:70px 24px 0;
+  color:var(--muted);
+  border-top:1px solid rgba(0,0,0,0.07);
+}
+
+.footer-grid{
+  max-width:1180px;
+  margin:0 auto 50px;
+  display:grid;
+  grid-template-columns:2fr repeat(2,1fr);
+  gap:36px;
+}
+
+.footer-brand h3{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  font-weight:400;
+  color:var(--navy);
+  margin-bottom:14px;
+}
+
+.footer-brand p{
+  max-width:380px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.9;
+  font-weight:300;
+}
+
+.footer-brand .contact{
+  margin-top:20px;
+  font-size:13px;
+  color:var(--faint);
+  line-height:1.9;
+}
+
+.footer-brand .contact strong{
+  color:var(--navy);
+  font-weight:500;
+}
+
+.footer-col h4{
+  color:var(--navy);
+  margin-bottom:16px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  font-weight:600;
+}
+
+.footer-col a{
+  display:block;
+  color:var(--muted);
+  text-decoration:none;
+  margin-bottom:10px;
+  font-size:14px;
+  transition:color 0.2s;
+}
+
+.footer-col a:hover{
+  color:var(--navy);
+}
+
+.footer-bottom{
+  max-width:1180px;
+  margin:0 auto;
+  padding-top:28px;
+  padding-bottom:40px;
+  border-top:1px solid rgba(0,0,0,0.07);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+}
+
+.footer-bottom p{ color:var(--faint); font-size:13px; }
+
+.linkedin-btn{
+  text-decoration:none;
+  color:var(--muted);
+  font-size:12px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  border:1px solid rgba(0,0,0,0.12);
+  padding:10px 22px;
+  border-radius:999px;
+  transition:0.2s;
+}
+
+.linkedin-btn:hover{
+  color:var(--navy);
+  border-color:rgba(0,0,0,0.3);
+}
+
+@media(max-width:780px){
+
+  .accent{ height:4px; }
+
+  .page{ padding:150px 20px 70px; }
+
+  .form-container{
+    padding:42px 28px;
+    border-radius:24px;
+  }
+
+  h1{ font-size:clamp(36px,12vw,48px); }
+  .subtitle{ font-size:15px; }
+
+  .footer-grid{ grid-template-columns:1fr; }
+
+  .footer-bottom{
+    flex-direction:column;
+    text-align:center;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="accent"></div>
+
+<div class="logo-bar">
+  <a href="https://www.starlitecp.com">
+    <span class="brand-main">STARLITE</span>
+    <span class="brand-sub">Capital Partners</span>
+  </a>
+</div>
+
+<section class="page">
+
+<div class="form-container">
+
+<div class="eyebrow">Contact Starlite</div>
+
+<h1>Contact Us</h1>
+
+<p class="subtitle">Reach out to the Starlite Capital Partners team regarding inquiries, partnership opportunities, or questions about our investment platform.</p>
+
+<form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+<label for="name">Full Name</label>
+<input type="text" id="name" name="name" placeholder="Your name" required>
+
+<label for="company">Company (optional)</label>
+<input type="text" id="company" name="company" placeholder="Your company">
+
+<label for="email">Email</label>
+<input type="email" id="email" name="email" placeholder="you@company.com" required>
+
+<label for="phone">Phone (optional)</label>
+<input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-1234">
+
+<label for="message">Message</label>
+<textarea id="message" name="message" placeholder="How can we help you?" required></textarea>
+
+<button type="submit">Send Message</button>
+
+<div class="success-msg">
+Message sent successfully!<br>
+Thank you — we'll reply as promptly as possible.
+</div>
+
+</form>
+
+</div>
+
+</section>
+
+<footer>
+
+<div class="footer-grid">
+
+<div class="footer-brand">
+<h3>Starlite</h3>
+<p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
+<div class="contact">
+<strong>info@starlitecp.com</strong><br>
+1910 Pacific Ave Suite 2000<br>
+Dallas, TX 75201, United States
+</div>
+</div>
+
+<div class="footer-col">
+<h4>Products</h4>
+<a href="https://www.starlitecp.com/products/veture-capital">Venture Capital</a>
+<a href="https://www.starlitecp.com/products/private-equity">Private Equity</a>
+<a href="https://www.starlitecp.com/products/private-credit">Private Credit</a>
+<a href="https://www.starlitecp.com/products/private-wealth">Private Wealth</a>
+<a href="https://www.starlitecp.com/products/partners">Our Partners</a>
+</div>
+
+<div class="footer-col">
+<h4>Company</h4>
+<a href="https://www.starlitecp.com/about-us">About Us</a>
+<a href="https://www.starlitecp.com/careers">Careers</a>
+<a href="https://www.starlitecp.com/communities">Communities</a>
+<a href="https://www.starlitecp.com/news">News</a>
+<a href="https://www.starlitecp.com/contact-us">Contact Us</a>
+<a href="https://www.starlitecp.com/13f-filings">13F Filings</a>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+<p>© 2026 Starlite Capital Partners. All Rights Reserved.</p>
+<a href="https://www.linkedin.com/company/109531819/admin/dashboard/" target="_blank" class="linkedin-btn">LinkedIn</a>
+</div>
+
+</footer>
+
+<script>
+
+const form = document.getElementById('contact-form');
+const success = document.querySelector('.success-msg');
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  const data = new FormData(form);
+  fetch(form.action,{
+    method:'POST',
+    body:data,
+    headers:{ 'Accept':'application/json' }
+  })
+  .then(res => {
+    if(res.ok){
+      success.style.display = 'block';
+      form.reset();
+      setTimeout(() => { success.style.display = 'none'; },8000);
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  })
+  .catch(() => {
+    alert('Network error – please check your connection and try again.');
+  });
+});
+
+</script>
+
+</body>
+</html>
