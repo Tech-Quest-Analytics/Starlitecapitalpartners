@@ -96,15 +96,80 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hid
 }
 .nav-inner{
   max-width:1400px;margin:auto;
-  padding:24px 40px;
-  display:flex;justify-content:center;align-items:center;
+  padding:20px 40px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:24px;
 }
-.brand{display:flex;flex-direction:column;align-items:center;line-height:1;text-align:center;}
+.brand{display:flex;flex-direction:column;align-items:flex-start;line-height:1;text-align:left;}
+.brand-link{text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;}
 .brand-main{
   font-family:'Playfair Display',serif;
-  font-size:28px;letter-spacing:-0.5px;color:#1a2138;
+  font-size:24px;letter-spacing:-0.5px;color:#1a2138;
 }
-.brand-sub{font-size:10px;letter-spacing:5px;color:#6b7aaa;margin-top:5px;text-transform:uppercase;}
+.brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
+
+.nav-links{
+  display:flex;align-items:center;gap:36px;
+  list-style:none;
+}
+.nav-links > li{position:relative;}
+.nav-link{
+  text-decoration:none;color:#1a2138;
+  font-size:13px;letter-spacing:0.5px;
+  font-weight:400;
+  padding:8px 0;
+  display:flex;align-items:center;gap:6px;
+  transition:color 0.2s ease;
+  cursor:pointer;
+  background:none;border:none;font-family:'Inter',sans-serif;
+}
+.nav-link:hover{color:#4a7bff;}
+.nav-caret{
+  width:8px;height:8px;
+  border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg);
+  transition:transform 0.2s ease;
+  margin-top:-3px;
+}
+.has-dropdown.open .nav-caret{ transform:rotate(225deg);margin-top:3px; }
+
+.dropdown{
+  position:absolute;top:100%;left:50%;
+  transform:translate(-50%,8px);
+  min-width:220px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,0.07);
+  border-radius:14px;
+  box-shadow:0 18px 40px rgba(26,33,56,0.12);
+  padding:10px;
+  opacity:0;visibility:hidden;
+  transition:opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  z-index:1001;
+}
+.has-dropdown.open .dropdown,
+.has-dropdown:hover .dropdown{
+  opacity:1;visibility:visible;
+  transform:translate(-50%,0);
+}
+.dropdown a{
+  display:block;
+  text-decoration:none;
+  color:#1a2138;
+  font-size:13px;
+  padding:11px 14px;
+  border-radius:9px;
+  transition:background 0.15s ease,color 0.15s ease;
+}
+.dropdown a:hover{background:rgba(74,123,255,0.08);color:#4a7bff;}
+
+/* mobile nav toggle */
+.nav-toggle{
+  display:none;
+  flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:6px;
+}
+.nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
 
 /* HERO */
 .hero{
@@ -147,7 +212,6 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hid
   box-shadow:0 20px 60px rgba(26,33,56,0.06);
 }
 
-/* Logo block — wordmark with a scatter of twinkling starlight */
 .hero-logo-stage{
   position:relative;
   display:flex;
@@ -170,7 +234,6 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hid
   display:inline-block;
 }
 
-/* four-point sparkle, scattered around the wordmark, each twinkling on its own rhythm */
 .star{
   position:absolute;
   z-index:1;
@@ -275,8 +338,30 @@ footer{
   font-size:12px;cursor:pointer;letter-spacing:0.5px;
 }
 
+@media(max-width:900px){
+  .nav-links{
+    position:fixed;top:calc(var(--ticker-h) + 68px);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);
+    max-height:0;overflow:hidden;
+    transition:max-height 0.25s ease;
+  }
+  .nav-links.open{ max-height:520px; }
+  .nav-links > li{width:100%;}
+  .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
+  .dropdown{
+    position:static;transform:none;box-shadow:none;border:none;
+    border-radius:0;padding:0 0 0 12px;
+    max-height:0;overflow:hidden;opacity:1;visibility:visible;
+    transition:max-height 0.2s ease;
+  }
+  .has-dropdown:hover .dropdown{ max-height:0; } /* disable hover-open on touch widths */
+  .has-dropdown.open .dropdown{ max-height:320px; }
+  .nav-toggle{ display:flex; }
+}
+
 @media(max-width:768px){
-  .nav-inner{padding:18px 20px;}
+  .nav-inner{padding:16px 20px;}
   .hero{padding:calc(140px + var(--ticker-h)) 24px 90px;}
   .hero-content{padding:28px 24px;border-radius:24px;}
   .hero-logo-stage{padding:10px 20px;}
@@ -318,10 +403,34 @@ footer{
 
 <nav class="nav">
   <div class="nav-inner">
-    <div class="brand">
-      <div class="brand-main">STARLITE</div>
-      <div class="brand-sub">Capital Partners</div>
-    </div>
+    <a href="https://www.starlitecp.com/home" class="brand-link">
+      <div class="brand">
+        <div class="brand-main">STARLITE</div>
+        <div class="brand-sub">Capital Partners</div>
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://www.starlitecp.com/home" class="nav-link">Home</a></li>
+      <li><a href="https://www.starlitecp.com/investor-login" class="nav-link">Investor Login</a></li>
+      <li class="has-dropdown" id="productsDropdown">
+        <button class="nav-link" id="productsTrigger" aria-haspopup="true" aria-expanded="false">
+          Products<span class="nav-caret"></span>
+        </button>
+        <div class="dropdown">
+          <a href="https://www.starlitecp.com/products/venture-capital">Venture Capital</a>
+          <a href="https://www.starlitecp.com/products/private-wealth">Private Wealth</a>
+          <a href="https://www.starlitecp.com/products/private-credit">Private Credit</a>
+          <a href="https://www.starlitecp.com/products/private-equity">Private Equity</a>
+          <a href="https://www.starlitecp.com/products/partners">Partners</a>
+        </div>
+      </li>
+      <li><a href="https://www.starlitecp.com/about-us" class="nav-link">About Us</a></li>
+    </ul>
   </div>
 </nav>
 
@@ -460,16 +569,11 @@ if('IntersectionObserver' in window && statsSection){
   }, { threshold: 0.4 });
   observer.observe(statsSection);
 } else {
-  // Fallback: just animate on load
   statNumbers.forEach(animateCount);
 }
 
 // ------------------------------------------------------------------
 // Scroll-linked hero blur effect
-// As the hero section scrolls out of view, the background video
-// progressively blurs and scales up slightly, while the hero copy
-// fades and lifts. Everything is driven directly by scroll position
-// so it feels tactile rather than like a fixed decoration.
 // ------------------------------------------------------------------
 const heroSection = document.getElementById('heroSection');
 const heroOverlay = document.getElementById('heroOverlay');
@@ -486,8 +590,6 @@ function updateHeroScrollEffect(){
   const rect = heroSection.getBoundingClientRect();
   const heroHeight = rect.height || 1;
 
-  // progress: 0 while hero top is at/above the viewport top,
-  // ramps to 1 as the hero fully scrolls past the top of the viewport.
   const progress = Math.min(Math.max(-rect.top / heroHeight, 0), 1);
 
   const blur = progress * MAX_BLUR_PX;
@@ -497,9 +599,6 @@ function updateHeroScrollEffect(){
   heroVideo.style.transform = `scale(${scale.toFixed(3)})`;
 
   if(heroOverlay){
-    // Overlay starts light (video clearly visible) and fades to fully
-    // white as you scroll, so the blur reads as an intentional
-    // transition rather than a static wash.
     heroOverlay.style.opacity = String(0.35 + progress * 0.65);
   }
 
@@ -521,6 +620,32 @@ function onScroll(){
 window.addEventListener('scroll', onScroll, { passive:true });
 window.addEventListener('resize', onScroll);
 updateHeroScrollEffect();
+
+// ------------------------------------------------------------------
+// Nav: mobile toggle + Products dropdown (click-based, works for
+// both touch and desktop; desktop also gets a CSS hover-open).
+// ------------------------------------------------------------------
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', ()=>{
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+
+const productsDropdown = document.getElementById('productsDropdown');
+const productsTrigger = document.getElementById('productsTrigger');
+productsTrigger.addEventListener('click', (e)=>{
+  e.preventDefault();
+  const isOpen = productsDropdown.classList.toggle('open');
+  productsTrigger.setAttribute('aria-expanded', String(isOpen));
+});
+
+document.addEventListener('click', (e)=>{
+  if(!productsDropdown.contains(e.target)){
+    productsDropdown.classList.remove('open');
+    productsTrigger.setAttribute('aria-expanded','false');
+  }
+});
 
 // ------------------------------------------------------------------
 // Market ticker — pulls real quotes directly from Twelve Data
@@ -583,8 +708,6 @@ function tickerItemHTML(item, idx){
 function renderTicker(){
   const track = document.getElementById('tickerTrack');
   if(!track) return;
-  // Render the list twice back-to-back so the CSS animation
-  // (translateX(-50%)) loops seamlessly with no visible seam.
   const itemsHTML = tickerData.map(tickerItemHTML).join('');
   track.innerHTML = itemsHTML + itemsHTML;
 }
@@ -618,18 +741,14 @@ async function refreshQuotes(){
     const res = await fetch(url, { cache:'no-store' });
     const data = await res.json();
 
-    // A top-level {code, message} response means the whole request
-    // failed (bad key, rate-limited, etc.) rather than a per-symbol issue.
     if(data && data.status === 'error'){
       throw new Error(data.message || 'API error');
     }
 
     let anySucceeded = false;
     tickerData.forEach(item=>{
-      // With multiple symbols requested, Twelve Data keys the response
-      // by symbol; with a single symbol it returns the quote directly.
       const quote = tickerData.length === 1 ? data : data[item.td];
-      if(!quote || quote.code || quote.status === 'error') return; // this symbol failed, keep last known value
+      if(!quote || quote.code || quote.status === 'error') return;
       const price = parseFloat(quote.close);
       const pct = parseFloat(quote.percent_change);
       if(Number.isNaN(price)) return;
@@ -653,7 +772,7 @@ async function refreshQuotes(){
 
 renderTicker();
 refreshQuotes();
-setInterval(refreshQuotes, 90000); // 7 symbols x 1 credit, every 90s — stays under the 8-credit/min free-tier cap
+setInterval(refreshQuotes, 90000);
 </script>
 </body>
 </html>
