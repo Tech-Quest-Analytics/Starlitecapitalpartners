@@ -329,14 +329,25 @@ footer{
   font-size:12px;cursor:pointer;letter-spacing:0.5px;
 }
 @media(max-width:900px){
+  /* NOTE: .nav-links used to be position:fixed here. But its parent
+     .nav has backdrop-filter, which per spec makes .nav the
+     containing block for fixed-position descendants — so the
+     "fixed" menu (including its border-bottom line) was actually
+     positioning itself relative to the ~70px-tall .nav bar, not the
+     viewport. That mismatch is what threw the panel/border out of
+     place, rendering as a stray line across the page. Using
+     position:absolute + top:100% anchors it correctly right below
+     the nav bar, since .nav is already viewport-fixed. */
   .nav-links{
-    position:fixed;top:calc(var(--ticker-h) + 68px);left:0;right:0;
+    position:absolute;top:100%;left:0;right:0;
     flex-direction:column;align-items:stretch;gap:0;
     background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);
     max-height:0;overflow:hidden;
     transition:max-height 0.25s ease;
+    z-index:998;
+    box-shadow:0 18px 40px rgba(26,33,56,0.12);
   }
-  .nav-links.open{ max-height:520px; }
+  .nav-links.open{ max-height:520px;overflow-y:auto; }
   .nav-links > li{width:100%;}
   .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
   .dropdown{
