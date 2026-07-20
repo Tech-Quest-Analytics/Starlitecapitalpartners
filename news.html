@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Starlite Capital Partners – News</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.75;overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh;}
+.page-content{flex:1;}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;width:100%;z-index:999;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.nav-inner{
+  max-width:1400px;margin:auto;
+  padding:24px 40px;
+  display:flex;justify-content:center;align-items:center;
+}
+.brand{display:flex;flex-direction:column;align-items:center;line-height:1;text-align:center;}
+.brand-main{
+  font-family:'Playfair Display',serif;
+  font-size:28px;letter-spacing:-0.5px;color:#1a2138;
+}
+.brand-sub{font-size:10px;letter-spacing:5px;color:#6b7aaa;margin-top:5px;text-transform:uppercase;}
+
+/* HERO */
+.hero{
+  padding:160px 40px 100px;
+  text-align:center;
+  background:radial-gradient(circle at center,rgba(26,33,56,0.04) 0%,transparent 65%);
+  border-bottom:1px solid rgba(0,0,0,0.07);
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(68px,12vw,150px);
+  line-height:0.9;
+  letter-spacing:-4px;
+  margin-bottom:20px;
+  background:linear-gradient(90deg,#1a2138,#4a7bff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.subtitle{
+  font-size:10px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#9aa3be;
+  margin-bottom:40px;
+}
+.hero h1{
+  font-size:clamp(22px,4vw,36px);
+  font-weight:300;
+  color:#6b7aaa;
+  max-width:820px;
+  margin:0 auto;
+  line-height:1.4;
+}
+
+hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
+
+/* CONTENT */
+.container{
+  max-width:820px;
+  margin:0 auto;
+  padding:80px 40px 120px;
+}
+
+.article-meta{
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#c0c8e8;
+  margin-bottom:32px;
+}
+
+h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,3.5vw,32px);
+  font-weight:400;
+  color:#1a2138;
+  line-height:1.3;
+  margin-bottom:40px;
+}
+
+p{
+  font-size:17px;
+  color:#6b7aaa;
+  margin-bottom:24px;
+  line-height:1.9;
+  font-weight:300;
+}
+
+/* FOOTER */
+footer{
+  border-top:1px solid rgba(0,0,0,0.07);
+  padding:90px 40px 50px;
+  background:#ffffff;
+}
+.footer-inner{max-width:1350px;margin:auto;}
+.footer-top{
+  display:flex;justify-content:space-between;
+  gap:60px;flex-wrap:wrap;margin-bottom:60px;
+  align-items:flex-start;
+}
+.footer-brand h3{
+  font-family:'Playfair Display',serif;
+  font-size:36px;font-weight:400;color:#1a2138;margin-bottom:14px;
+}
+.footer-brand p{color:#6b7aaa;font-size:13px;line-height:1.9;font-weight:300;max-width:380px;margin-bottom:0;}
+.footer-brand .contact{margin-top:20px;font-size:13px;color:#9aa3be;line-height:1.9;}
+.footer-brand .contact strong{color:#1a2138;font-weight:500;}
+.footer-links{display:flex;flex-wrap:wrap;gap:14px 32px;max-width:500px;align-content:flex-start;}
+.footer-links a{text-decoration:none;color:#6b7aaa;font-size:13px;transition:0.2s;}
+.footer-links a:hover{color:#1a2138;}
+.footer-bottom{
+  border-top:1px solid rgba(0,0,0,0.07);
+  padding-top:30px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+  align-items:center;
+}
+.footer-bottom p{color:#9aa3be;font-size:13px;margin-bottom:0;}
+.linkedin-btn{
+  text-decoration:none;color:#6b7aaa;font-size:12px;
+  letter-spacing:1px;text-transform:uppercase;
+  border:1px solid rgba(0,0,0,0.12);
+  padding:10px 22px;border-radius:999px;
+  transition:0.2s;
+}
+.linkedin-btn:hover{color:#1a2138;border-color:rgba(0,0,0,0.3);}
+
+@media(max-width:768px){
+  .nav-inner{padding:18px 20px;}
+  .hero{padding:120px 20px 80px;}
+  .container{padding:60px 24px 80px;}
+  .footer-top{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-main">STARLITE</div>
+      <div class="brand-sub">Capital Partners</div>
+    </div>
+  </div>
+</nav>
+
+<main class="page-content">
+
+  <div class="hero">
+    <div class="logo">STARLITE</div>
+    <div class="subtitle">Capital Partners</div>
+    <h1>News</h1>
+  </div>
+
+  <hr class="divider">
+
+  <div class="container">
+
+    <div class="article-meta">Published October 25, 2025</div>
+
+    <h2>Starlite Capital Partners Raises $700M+ to Expand AI and Enterprise Software Infrastructure</h2>
+
+    <p>Starlite Capital Partners, a leading private investment firm specializing in private credit and equity solutions, announced today that it has successfully raised over $700 million in strategic capital to accelerate the expansion of its AI and enterprise software integration infrastructure.</p>
+
+    <p>This capital raise represents a major milestone in the firm's mission to provide forward-thinking financing solutions and drive long-term value creation for portfolio companies and institutional investors. The funds will be deployed to scale AI-driven enterprise systems, enhance technology infrastructure, and support strategic investments across high-growth sectors.</p>
+
+    <p>Our focus has always been on bridging opportunity with innovation. Raising over $700 million is more than just capital — it's the momentum to build the next generation of AI and enterprise software infrastructure. This allows us to strengthen our partnerships and deliver smarter, technology-driven solutions across industries.</p>
+
+    <p>Starlite Capital Partners leverages data-driven insights, disciplined asset management, and proprietary analytics tools to identify underutilized opportunities in private credit, equity, and technology integration. The new capital will also enable the firm to expand its geographic footprint and invest in sectors demonstrating strong performance and long-term resilience, including logistics, technology, and infrastructure.</p>
+
+    <p>"Investors are seeking stability, innovation, and scalable technology solutions," the spokesperson added. "We're building a firm that embodies all three, combining institutional-grade strategy with forward-thinking agility."</p>
+
+    <p>Founded to redefine private investment, Starlite Capital Partners continues to align financial strength with strategic foresight, ensuring its partners and portfolio companies thrive in a rapidly evolving global economy.</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Starlite</h3>
+        <p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
+        <div class="contact">
+          <strong>info@starlitecp.com</strong><br>
+          1910 Pacific Ave Suite 2000<br>
+          Dallas, TX 75201, United States
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.starlitecp.com/products/veture-capital">Venture Capital</a>
+        <a href="https://www.starlitecp.com/products/private-equity">Private Equity</a>
+        <a href="https://www.starlitecp.com/products/private-credit">Private Credit</a>
+        <a href="https://www.starlitecp.com/products/private-wealth">Private Wealth</a>
+        <a href="https://www.starlitecp.com/products/partners">Our Partners</a>
+        <a href="https://www.starlitecp.com/about-us">About Us</a>
+        <a href="https://www.starlitecp.com/careers">Careers</a>
+        <a href="https://www.starlitecp.com/communities">Communities</a>
+        <a href="https://www.starlitecp.com/13f-filings">13F Filings</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Starlite Capital Partners. All Rights Reserved.</p>
+      <a href="https://www.linkedin.com/company/109531819/admin/dashboard/" target="_blank" class="linkedin-btn">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
