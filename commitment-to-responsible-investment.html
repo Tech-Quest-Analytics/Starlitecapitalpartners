@@ -275,12 +275,13 @@
       font-weight:300;
     }
 
-    ul{
+    /* Scoped to .container so nav <ul>/<li> are not affected */
+    .container ul{
       list-style:none;
       padding:0;
       margin:24px 0 32px;
     }
-    ul li{
+    .container ul li{
       display:flex;
       gap:18px;
       font-size:17px;
@@ -290,10 +291,10 @@
       padding:18px 0;
       border-bottom:1px solid rgba(0,0,0,0.06);
     }
-    ul li:first-child{
+    .container ul li:first-child{
       border-top:1px solid rgba(0,0,0,0.06);
     }
-    ul li .role{
+    .container ul li .role{
       font-family:'Playfair Display',serif;
       font-size:15px;
       font-weight:400;
@@ -301,7 +302,7 @@
       min-width:220px;
       padding-top:2px;
     }
-    ul li .desc{
+    .container ul li .desc{
       flex:1;
     }
 
@@ -337,8 +338,8 @@
       .container{padding:60px 24px 80px;}
       .footer-top{flex-direction:column;}
       footer{padding:70px 24px 40px;}
-      ul li{flex-direction:column;gap:6px;}
-      ul li .role{min-width:auto;}
+      .container ul li{flex-direction:column;gap:6px;}
+      .container ul li .role{min-width:auto;}
     }
   </style>
 </head>
