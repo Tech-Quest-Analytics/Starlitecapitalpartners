@@ -177,24 +177,38 @@
     .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
 
     @media(max-width:900px){
+      /* FIX: .nav-links was position:fixed here. But its parent .nav has
+         backdrop-filter, which per spec makes .nav the containing block
+         for fixed-position descendants — so the "fixed" menu was actually
+         positioning itself relative to the ~70px-tall .nav bar, not the
+         viewport. That mismatch threw the panel out of place and caused
+         the white-out on tap. position:absolute + top:100% anchors it
+         correctly right below the nav bar, since .nav is already
+         viewport-fixed itself. */
       .nav-links{
-        position:fixed;top:calc(var(--ticker-h) + 68px);left:0;right:0;
+        position:absolute;top:100%;left:0;right:0;
         flex-direction:column;align-items:stretch;gap:0;
         background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);
         max-height:0;overflow:hidden;
         transition:max-height 0.25s ease;
+        z-index:998;
+        box-shadow:0 18px 40px rgba(26,33,56,0.12);
       }
-      .nav-links.open{ max-height:520px; }
+      .nav-links.open{ max-height:520px;overflow-y:auto; }
       .nav-links > li{width:100%;}
       .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
+      /* FIX: previously this animated with max-height/overflow:hidden while
+         nested inside .nav-links, which is ALSO animating max-height/overflow:
+         hidden at the same time. Two nested elements animating that pair
+         together is a known mobile WebKit paint bug — the outer box opens
+         visually but the inner dropdown's content silently fails to render.
+         A plain display:none/block toggle sidesteps it entirely. */
       .dropdown{
         position:static;transform:none;box-shadow:none;border:none;
-        border-radius:0;padding:0 0 0 12px;
-        max-height:0;overflow:hidden;opacity:1;visibility:visible;
-        transition:max-height 0.2s ease;
+        border-radius:0;padding:0;
+        display:none;opacity:1;visibility:visible;
       }
-      .has-dropdown:hover .dropdown{ max-height:0; }
-      .has-dropdown.open .dropdown{ max-height:320px; }
+      .has-dropdown.open .dropdown{ display:block;padding:0 0 0 12px; }
       .nav-toggle{ display:flex; }
     }
     @media(max-width:768px){
