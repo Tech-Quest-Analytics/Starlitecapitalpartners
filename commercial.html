@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Starlite Capital – Public Sector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.75;overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh;}
+    .page-content{flex:1;}
+
+    /* HERO */
+    .hero{
+      padding:160px 40px 100px;
+      text-align:center;
+      background:radial-gradient(circle at center,rgba(26,33,56,0.04) 0%,transparent 65%);
+      border-bottom:1px solid rgba(0,0,0,0.07);
+    }
+    .logo{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(68px,12vw,150px);
+      line-height:0.9;
+      letter-spacing:-4px;
+      margin-bottom:20px;
+      background:linear-gradient(90deg,#1a2138,#4a7bff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .subtitle{
+      font-size:10px;
+      letter-spacing:5px;
+      text-transform:uppercase;
+      color:#9aa3be;
+      margin-bottom:40px;
+    }
+    .hero h1{
+      font-size:clamp(22px,4vw,36px);
+      font-weight:300;
+      color:#6b7aaa;
+      max-width:820px;
+      margin:0 auto;
+      line-height:1.4;
+    }
+
+    hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
+
+    /* CONTENT */
+    .container{
+      max-width:820px;
+      margin:0 auto;
+      padding:80px 40px 120px;
+    }
+
+    .intro{
+      font-size:18px;
+      color:#6b7aaa;
+      line-height:1.9;
+      font-weight:300;
+      margin-bottom:64px;
+    }
+
+    h2{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(20px,3vw,26px);
+      font-weight:400;
+      color:#1a2138;
+      line-height:1.3;
+      margin:56px 0 18px;
+      padding-top:56px;
+      border-top:1px solid rgba(0,0,0,0.07);
+    }
+
+    p{
+      font-size:17px;
+      color:#6b7aaa;
+      margin-bottom:22px;
+      line-height:1.9;
+      font-weight:300;
+    }
+
+    /* Expertise grid */
+    .expertise-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1px;
+      background:rgba(0,0,0,0.07);
+      margin:32px 0 0;
+      border:1px solid rgba(0,0,0,0.07);
+    }
+    .expertise-card{
+      background:#fff;
+      padding:32px 28px;
+    }
+    .expertise-card h3{
+      font-family:'Playfair Display',serif;
+      font-size:17px;
+      font-weight:400;
+      color:#1a2138;
+      margin-bottom:10px;
+    }
+    .expertise-card p{
+      font-size:15px;
+      color:#6b7aaa;
+      line-height:1.8;
+      margin-bottom:0;
+    }
+
+    /* List rows */
+    ul{
+      list-style:none;
+      padding:0;
+      margin:24px 0 0;
+    }
+    ul li{
+      display:flex;
+      gap:18px;
+      font-size:17px;
+      color:#6b7aaa;
+      font-weight:300;
+      line-height:1.8;
+      padding:18px 0;
+      border-bottom:1px solid rgba(0,0,0,0.06);
+    }
+    ul li:first-child{
+      border-top:1px solid rgba(0,0,0,0.06);
+    }
+    ul li .label{
+      font-family:'Playfair Display',serif;
+      font-size:15px;
+      font-weight:400;
+      color:#1a2138;
+      min-width:210px;
+      padding-top:2px;
+    }
+    ul li .desc{
+      flex:1;
+    }
+
+    /* FOOTER */
+    footer{
+      padding:90px 40px 50px;
+      border-top:1px solid rgba(0,0,0,0.07);
+    }
+    .footer-inner{max-width:1350px;margin:auto;}
+    .footer-top{
+      display:flex;justify-content:space-between;
+      gap:60px;flex-wrap:wrap;margin-bottom:60px;
+      align-items:flex-start;
+    }
+    .footer-brand h3{
+      font-family:'Playfair Display',serif;
+      font-size:36px;font-weight:400;color:#1a2138;
+      margin-bottom:14px;
+    }
+    .footer-brand p{color:#6b7aaa;font-size:14px;line-height:1.9;max-width:420px;font-weight:300;}
+    .footer-links{display:flex;flex-wrap:wrap;gap:14px 32px;max-width:600px;align-content:flex-start;}
+    .footer-links a{text-decoration:none;color:#6b7aaa;font-size:13px;transition:0.2s;}
+    .footer-links a:hover{color:#1a2138;}
+    .footer-bottom{
+      border-top:1px solid rgba(0,0,0,0.07);
+      padding-top:30px;
+      display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+    }
+    .footer-bottom p{color:#9aa3be;font-size:13px;}
+
+    @media(max-width:768px){
+      .hero{padding:120px 20px 80px;}
+      .container{padding:60px 24px 80px;}
+      .footer-top{flex-direction:column;}
+      footer{padding:70px 24px 40px;}
+      .expertise-grid{grid-template-columns:1fr;}
+      ul li{flex-direction:column;gap:6px;}
+      ul li .label{min-width:auto;}
+    }
+  </style>
+</head>
+<body>
+
+<main class="page-content">
+
+  <div class="hero">
+    <div class="logo">STARLITE</div>
+    <div class="subtitle">Capital Partners</div>
+    <h1>Public Sector</h1>
+  </div>
+
+  <hr class="divider">
+
+  <div class="container">
+
+    <p class="intro">Starlite Capital Partners collaborates with public sector entities to provide innovative financing, infrastructure investment, and technology-enabled solutions. Our mission is to support resilient communities, modernize public services, and drive sustainable development through responsible capital deployment.</p>
+
+    <h2>Our Expertise</h2>
+    <div class="expertise-grid">
+      <div class="expertise-card">
+        <h3>Infrastructure Financing &amp; PPPs</h3>
+        <p>We structure public-private partnerships, project finance, and long-term debt solutions to fund critical infrastructure — from transportation and energy to digital connectivity and public facilities.</p>
+      </div>
+      <div class="expertise-card">
+        <h3>Technology Modernization</h3>
+        <p>Starlite partners with government agencies to implement AI, cloud, and data analytics platforms that improve service delivery, enhance transparency, and reduce operational costs.</p>
+      </div>
+      <div class="expertise-card">
+        <h3>Sustainable Development</h3>
+        <p>We finance green infrastructure, renewable energy projects, and climate-resilient initiatives that align with national sustainability goals and ESG frameworks.</p>
+      </div>
+      <div class="expertise-card">
+        <h3>Risk Management &amp; Governance</h3>
+        <p>Our team ensures full compliance with public procurement laws, fiduciary standards, and transparency requirements, delivering secure, accountable, and impactful outcomes.</p>
+      </div>
+    </div>
+
+    <h2>Why Partner with Starlite</h2>
+    <ul>
+      <li>
+        <span class="label">Proven Public Finance Expertise</span>
+        <span class="desc">Deep experience in PPPs, municipal bonds, and government-backed financing.</span>
+      </li>
+      <li>
+        <span class="label">Technology-Driven Efficiency</span>
+        <span class="desc">AI and analytics to modernize public services and optimize resource allocation.</span>
+      </li>
+      <li>
+        <span class="label">Sustainable Focus</span>
+        <span class="desc">Prioritizing ESG and climate-resilient infrastructure for long-term community benefit.</span>
+      </li>
+      <li>
+        <span class="label">Trusted Partnership</span>
+        <span class="desc">Transparent, compliant, and collaborative approach with public institutions.</span>
+      </li>
+    </ul>
+
+    <h2>Our Services</h2>
+    <ul>
+      <li>
+        <span class="label">Infrastructure Finance</span>
+        <span class="desc">PPP structuring, project bonds, and long-term capital for public assets.</span>
+      </li>
+      <li>
+        <span class="label">Digital Transformation</span>
+        <span class="desc">AI, cloud migration, and smart city technology integration.</span>
+      </li>
+      <li>
+        <span class="label">Green &amp; Resilient Projects</span>
+        <span class="desc">Renewable energy, water systems, and climate adaptation financing.</span>
+      </li>
+      <li>
+        <span class="label">Governance &amp; Compliance</span>
+        <span class="desc">Risk assessment, transparency reporting, and regulatory alignment.</span>
+      </li>
+    </ul>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Starlite</h3>
+        <p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.starlitecp.com/contact-us">Contact Us</a>
+        <a href="https://www.starlitecp.com/modern-slavery-statement">Modern Slavery Statement</a>
+        <a href="https://www.starlitecp.com/privacy">Privacy</a>
+        <a href="https://www.starlitecp.com/use-policy">Use Policy</a>
+        <a href="https://www.starlitecp.com/sustainability">Sustainability</a>
+        <a href="https://www.starlitecp.com/news">News</a>
+        <a href="https://www.starlitecp.com/disclosures">Disclosures</a>
+        <a href="https://www.starlitecp.com/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
+        <a href="https://www.starlitecp.com/commercial">Commercial</a>
+        <a href="https://www.starlitecp.com/security">Security</a>
+        <a href="https://www.starlitecp.com/13f-filings">13F Filings</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Starlite Capital Partners. All Rights Reserved.</p>
+      <p>1910 Pacific Ave Suite 2000, Dallas, TX 75201, United States</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
