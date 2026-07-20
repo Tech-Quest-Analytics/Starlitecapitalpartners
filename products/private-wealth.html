@@ -148,8 +148,26 @@ body {
   transition:color 0.2s ease;
   cursor:pointer;
   background:none;border:none;font-family:'Inter',sans-serif;
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  outline:none;
+  box-shadow:none;
+  border-radius:0;
 }
 .nav-link:hover{color:#4a7bff;}
+.nav-link:focus,
+.nav-link:focus-visible,
+.nav-link:active{
+  background:none;
+  outline:none;
+  box-shadow:none;
+}
+.nav-link:focus-visible{
+  color:#4a7bff;
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
 .nav-caret{
   width:8px;height:8px;
   border-right:1.5px solid currentColor;
@@ -194,7 +212,10 @@ body {
   display:none;
   flex-direction:column;gap:5px;
   background:none;border:none;cursor:pointer;padding:6px;
+  appearance:none;-webkit-appearance:none;outline:none;
 }
+.nav-toggle:focus,
+.nav-toggle:active{ background:none;outline:none;box-shadow:none; }
 .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
 
 @media(max-width:900px){
@@ -215,7 +236,7 @@ body {
     transition:max-height 0.2s ease;
   }
   .has-dropdown:hover .dropdown{ max-height:0; }
-  .has-dropdown.open .dropdown{ max-height:320px; }
+  .has-dropdown.open .dropdown{ max-height:320px;transform:none; }
   .nav-toggle{ display:flex; }
 }
 
@@ -549,6 +570,9 @@ productsTrigger.addEventListener('click', (e)=>{
   e.preventDefault();
   const isOpen = productsDropdown.classList.toggle('open');
   productsTrigger.setAttribute('aria-expanded', String(isOpen));
+  // don't leave the button focused after a mouse click — that's what
+  // was causing the lingering highlight pill in Chrome/macOS
+  productsTrigger.blur();
 });
 
 document.addEventListener('click', (e)=>{
