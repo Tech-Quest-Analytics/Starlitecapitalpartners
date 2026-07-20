@@ -264,26 +264,26 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   margin:0 auto;
   padding:80px 40px 120px;
 }
-h2{
+.container h2{
   font-family:'Playfair Display',serif;
   font-size:24px;
   font-weight:400;
   color:#1a2138;
   margin:56px 0 16px;
 }
-p{font-size:17px;color:#6b7aaa;margin-bottom:24px;line-height:1.9;font-weight:300;}
-p strong{color:#1a2138;font-weight:500;}
-ul{list-style:none;margin:24px 0;}
-li{
+.container p{font-size:17px;color:#6b7aaa;margin-bottom:24px;line-height:1.9;font-weight:300;}
+.container p strong{color:#1a2138;font-weight:500;}
+.container ul{list-style:none;margin:24px 0;}
+.container li{
   font-size:17px;padding-left:24px;
   margin-bottom:18px;position:relative;
   color:#6b7aaa;line-height:1.9;font-weight:300;
 }
-li::before{
+.container li::before{
   content:"—";position:absolute;left:0;
   color:#c0c8e8;font-size:14px;top:5px;
 }
-li strong{color:#1a2138;font-weight:500;}
+.container li strong{color:#1a2138;font-weight:500;}
 
 /* FOOTER */
 footer{
@@ -301,10 +301,8 @@ footer{
   font-family:'Playfair Display',serif;
   font-size:36px;font-weight:400;color:#1a2138;margin-bottom:14px;
 }
-.footer-brand p{color:#6b7aaa;font-size:13px;line-height:1.9;font-weight:300;max-width:380px;margin-bottom:0;}
-.footer-brand .contact{margin-top:20px;font-size:13px;color:#9aa3be;line-height:1.9;}
-.footer-brand .contact strong{color:#1a2138;font-weight:500;}
-.footer-links{display:flex;flex-wrap:wrap;gap:14px 32px;max-width:500px;align-content:flex-start;}
+.footer-brand p{color:#6b7aaa;font-size:14px;line-height:1.9;max-width:420px;font-weight:300;}
+.footer-links{display:flex;flex-wrap:wrap;gap:14px 32px;max-width:600px;align-content:flex-start;}
 .footer-links a{text-decoration:none;color:#6b7aaa;font-size:13px;transition:0.2s;}
 .footer-links a:hover{color:#1a2138;}
 .footer-bottom{
@@ -314,14 +312,6 @@ footer{
   align-items:center;
 }
 .footer-bottom p{color:#9aa3be;font-size:13px;margin-bottom:0;}
-.linkedin-btn{
-  text-decoration:none;color:#6b7aaa;font-size:12px;
-  letter-spacing:1px;text-transform:uppercase;
-  border:1px solid rgba(0,0,0,0.12);
-  padding:10px 22px;border-radius:999px;
-  transition:0.2s;
-}
-.linkedin-btn:hover{color:#1a2138;border-color:rgba(0,0,0,0.3);}
 
 @media(max-width:768px){
   .nav-inner{padding:16px 20px;}
@@ -463,27 +453,24 @@ footer{
       <div class="footer-brand">
         <h3>Starlite</h3>
         <p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
-        <div class="contact">
-          <strong>info@starlitecp.com</strong><br>
-          1910 Pacific Ave Suite 2000<br>
-          Dallas, TX 75201, United States
-        </div>
       </div>
       <div class="footer-links">
-        <a href="https://www.starlitecp.com/products/venture-capital">Venture Capital</a>
-        <a href="https://www.starlitecp.com/products/private-equity">Private Equity</a>
-        <a href="https://www.starlitecp.com/products/private-credit">Private Credit</a>
-        <a href="https://www.starlitecp.com/products/private-wealth">Private Wealth</a>
-        <a href="https://www.starlitecp.com/products/partners">Our Partners</a>
-        <a href="https://www.starlitecp.com/about-us">About Us</a>
-        <a href="https://www.starlitecp.com/careers">Careers</a>
-        <a href="https://www.starlitecp.com/communities">Communities</a>
-        <a href="https://www.starlitecp.com/13f-filings">13F Filings</a>
+        <a href="https://www.starlitecp.com/contactus.html">Contact Us</a>
+        <a href="https://www.starlitecp.com/modern-slavery-statement">Modern Slavery Statement</a>
+        <a href="https://www.starlitecp.com/privacy.html">Privacy</a>
+        <a href="https://www.starlitecp.com/use-policy.html">Use Policy</a>
+        <a href="https://www.starlitecp.com/sustainability.html">Sustainability</a>
+        <a href="https://www.starlitecp.com/news.html">News</a>
+        <a href="https://www.starlitecp.com/disclosures.html">Disclosures</a>
+        <a href="https://www.starlitecp.com/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
+        <a href="https://www.starlitecp.com/commercial.html">Commercial</a>
+        <a href="https://www.starlitecp.com/security.html">Security</a>
+        <a href="https://www.starlitecp.com/13f-filings.html">13F Filings</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Starlite Capital Partners. All Rights Reserved.</p>
-      <a href="https://www.linkedin.com/company/109531819/admin/dashboard/" target="_blank" class="linkedin-btn">LinkedIn</a>
+      <p>© 2026 Starlite Capital Inc. All Rights Reserved.</p>
+      <p>1910 Pacific Ave Suite 2000, Dallas, TX 75201, United States</p>
     </div>
   </div>
 </footer>
