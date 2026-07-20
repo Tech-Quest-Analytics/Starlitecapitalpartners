@@ -11,7 +11,6 @@
         html { scroll-behavior: smooth; }
         html, body { min-height: 100vh; background: #ffffff; color: #1a2138; font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
         body { display: flex; flex-direction: column; }
-
         /* MARKET TICKER */
         :root{ --ticker-h: 38px; }
         .ticker{
@@ -88,7 +87,6 @@
           .ticker-label{ padding:0 10px;font-size:9px;letter-spacing:1.5px; }
           .ticker-item{ padding:0 16px;font-size:11px; }
         }
-
         /* NAV */
         .nav{
           position:fixed;top:var(--ticker-h);left:0;width:100%;z-index:999;
@@ -109,7 +107,6 @@
           font-size:24px;letter-spacing:-0.5px;color:#1a2138;
         }
         .brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
-
         .nav-links{
           display:flex;align-items:center;gap:36px;
           list-style:none;
@@ -135,7 +132,6 @@
           margin-top:-3px;
         }
         .has-dropdown.open .nav-caret{ transform:rotate(225deg);margin-top:3px; }
-
         .dropdown{
           position:absolute;top:100%;left:50%;
           transform:translate(-50%,8px);
@@ -164,14 +160,12 @@
           transition:background 0.15s ease,color 0.15s ease;
         }
         .dropdown a:hover{background:rgba(74,123,255,0.08);color:#4a7bff;}
-
         .nav-toggle{
           display:none;
           flex-direction:column;gap:5px;
           background:none;border:none;cursor:pointer;padding:6px;
         }
         .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
-
         @media(max-width:900px){
           .nav-links{
             position:fixed;top:calc(var(--ticker-h) + 68px);left:0;right:0;
@@ -196,7 +190,6 @@
         @media(max-width:768px){
           .nav-inner{padding:16px 20px;}
         }
-
         /* PRIVACY */
         .privacy-banner{
           position:fixed;bottom:20px;left:20px;right:20px;
@@ -217,7 +210,6 @@
         @media(max-width:768px){
           .privacy-banner{flex-direction:column;align-items:flex-start;left:14px;right:14px;bottom:14px;}
         }
-
         .hero {
             position: relative;
             min-height: 100vh;
@@ -317,7 +309,6 @@
     </style>
 </head>
 <body>
-
 <div class="privacy-banner" id="privacyBanner">
   <div class="privacy-text">We use cookies and analytics to improve platform performance and user experience. By continuing, you agree to our privacy and use policies.</div>
   <div class="privacy-actions">
@@ -325,14 +316,12 @@
     <button id="acceptPrivacy">Accept</button>
   </div>
 </div>
-
 <div class="ticker" id="marketTicker">
   <div class="ticker-label"><span class="ticker-dot"></span>Markets<span class="ticker-status" id="tickerStatus"></span></div>
   <div class="ticker-track-wrap">
     <div class="ticker-track" id="tickerTrack"></div>
   </div>
 </div>
-
 <nav class="nav">
   <div class="nav-inner">
     <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="brand-link">
@@ -341,11 +330,9 @@
         <div class="brand-sub">Capital Partners</div>
       </div>
     </a>
-
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-
     <ul class="nav-links" id="navLinks">
       <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="nav-link">Home</a></li>
       <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/login" class="nav-link">Investor Login</a></li>
@@ -365,7 +352,6 @@
     </ul>
   </div>
 </nav>
-
     <main class="page-content">
         <div class="hero">
             <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto">
@@ -417,7 +403,6 @@
             </div>
         </div>
     </main>
-
     <footer>
       <div class="footer-inner">
         <div class="footer-top">
@@ -445,12 +430,10 @@
         </div>
       </div>
     </footer>
-
     <script>
         // === UPDATED WITH YOUR NEW DEPLOYMENT ID ===
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4zTiXpZLkhnIvR71pSTOSNx-tluCxuL7nUNVJOl1BSNGeChTG_FLvRQ8MAr45svzw/exec';
-        const REDIRECT_URL = 'https://www.starlitecp.com/data_exchange';
-
+        const REDIRECT_URL = 'https://tech-quest-analytics.github.io/Starlitecapitalpartners/data-exchange';
         function togglePassword() {
             const input = document.getElementById('password');
             const icon = document.getElementById('eyeIcon');
@@ -462,7 +445,6 @@
                 icon.classList.replace('fa-eye-slash', 'fa-eye');
             }
         }
-
         function initVideo() {
             const video = document.getElementById('heroVideo');
             if (video) {
@@ -476,7 +458,6 @@
                 }
             }
         }
-
         function setLoading(on) {
             const btn = document.getElementById('loginBtn');
             const btnText = document.getElementById('btnText');
@@ -484,60 +465,46 @@
             btn.classList.toggle('loading', on);
             btnText.textContent = on ? 'Signing In…' : 'Sign In';
         }
-
         function showError(msg) {
             document.getElementById('successMsg').classList.remove('show');
             const errorEl = document.getElementById('errorMsg');
             document.getElementById('errorText').textContent = msg || 'Invalid email or access token. Please try again.';
             errorEl.classList.add('show');
         }
-
         function hideMessages() {
             document.getElementById('errorMsg').classList.remove('show');
             document.getElementById('successMsg').classList.remove('show');
         }
-
         function showSuccess() {
             document.getElementById('errorMsg').classList.remove('show');
             document.getElementById('successMsg').classList.add('show');
         }
-
         async function handleLogin(event) {
             if (event) event.preventDefault();
-
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
-
             hideMessages();
-
             if (!email || !password) {
                 showError('Please enter both your email and access token.');
                 return;
             }
-
             setLoading(true);
-
             try {
                 const response = await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({ action: 'login', email, password })
                 });
-
                 const raw = await response.text();
                 console.log('Response:', raw);
-
                 if (!response.ok) {
                     showError(`Server error (${response.status})`);
                     return;
                 }
-
                 const data = JSON.parse(raw);
-
                 if (data.status === 'success') {
                     sessionStorage.setItem('starlite_session_token', data.token);
                     showSuccess();
-
                     setTimeout(() => {
                         window.location.href = REDIRECT_URL;
                     }, 900);
@@ -553,12 +520,10 @@
                 setLoading(false);
             }
         }
-
         document.addEventListener('DOMContentLoaded', function() {
             initVideo();
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
         });
-
         // ------------------------------------------------------------------
         // Privacy banner
         // ------------------------------------------------------------------
@@ -568,7 +533,6 @@
           localStorage.setItem('starlitePrivacyAccepted','true');
           banner.style.display='none';
         });
-
         // ------------------------------------------------------------------
         // Nav: mobile toggle + Products dropdown (same behavior as homepage)
         // ------------------------------------------------------------------
@@ -578,7 +542,6 @@
           const isOpen = navLinks.classList.toggle('open');
           navToggle.setAttribute('aria-expanded', String(isOpen));
         });
-
         const productsDropdown = document.getElementById('productsDropdown');
         const productsTrigger = document.getElementById('productsTrigger');
         productsTrigger.addEventListener('click', (e)=>{
@@ -586,38 +549,33 @@
           const isOpen = productsDropdown.classList.toggle('open');
           productsTrigger.setAttribute('aria-expanded', String(isOpen));
         });
-
         document.addEventListener('click', (e)=>{
           if(!productsDropdown.contains(e.target)){
             productsDropdown.classList.remove('open');
             productsTrigger.setAttribute('aria-expanded','false');
           }
         });
-
         // ------------------------------------------------------------------
         // Market ticker — pulls real quotes from Twelve Data (same feed and
         // caveats as the homepage ticker; see homepage source for full notes
         // on API key exposure and the free-plan rate limit).
         // ------------------------------------------------------------------
         const TWELVE_DATA_API_KEY = 'c1eaf40e17c346f0ae8d2dde93f5deec';
-
         const tickerData = [
           { sym:'S&P 500 (SPY)', td:'SPY', price:0, chg:0 },
-          { sym:'DOW (DIA)',     td:'DIA', price:0, chg:0 },
+          { sym:'DOW (DIA)', td:'DIA', price:0, chg:0 },
           { sym:'NASDAQ-100 (QQQ)', td:'QQQ', price:0, chg:0 },
-          { sym:'AAPL',    td:'AAPL', price:0, chg:0 },
-          { sym:'MSFT',    td:'MSFT', price:0, chg:0 },
-          { sym:'NVDA',    td:'NVDA', price:0, chg:0 },
+          { sym:'AAPL', td:'AAPL', price:0, chg:0 },
+          { sym:'MSFT', td:'MSFT', price:0, chg:0 },
+          { sym:'NVDA', td:'NVDA', price:0, chg:0 },
           { sym:'BTC/USD', td:'BTC/USD', price:0, chg:0 }
         ];
-
         function formatPrice(item){
           const p = item.price;
           if(!p) return '—';
           if(p >= 1000) return p.toLocaleString('en-US', { maximumFractionDigits:0 });
           return p.toFixed(2);
         }
-
         function tickerItemHTML(item, idx){
           const up = item.chg >= 0;
           return `<div class="ticker-item" data-idx="${idx}">
@@ -628,14 +586,12 @@
             </span>
           </div>`;
         }
-
         function renderTicker(){
           const track = document.getElementById('tickerTrack');
           if(!track) return;
           const itemsHTML = tickerData.map(tickerItemHTML).join('');
           track.innerHTML = itemsHTML + itemsHTML;
         }
-
         function updateTickerDOM(){
           document.querySelectorAll('#tickerTrack .ticker-item').forEach(el=>{
             const idx = Number(el.dataset.idx);
@@ -648,27 +604,21 @@
             chgEl.innerHTML = `<span class="arrow">${up ? '▲' : '▼'}</span>${Math.abs(item.chg).toFixed(2)}%`;
           });
         }
-
         function setTickerStatus(text){
           const status = document.getElementById('tickerStatus');
           if(status) status.textContent = '· ' + text;
         }
-
         let lastGoodFetch = null;
-
         async function refreshQuotes(){
           setTickerStatus('Updating…');
           const symbols = tickerData.map(i => i.td).join(',');
           const url = 'https://api.twelvedata.com/quote?symbol=' + encodeURIComponent(symbols) + '&apikey=' + TWELVE_DATA_API_KEY;
-
           try{
             const res = await fetch(url, { cache:'no-store' });
             const data = await res.json();
-
             if(data && data.status === 'error'){
               throw new Error(data.message || 'API error');
             }
-
             let anySucceeded = false;
             tickerData.forEach(item=>{
               const quote = tickerData.length === 1 ? data : data[item.td];
@@ -680,9 +630,7 @@
               item.chg = Number.isNaN(pct) ? item.chg : pct;
               anySucceeded = true;
             });
-
             updateTickerDOM();
-
             if(anySucceeded){
               lastGoodFetch = new Date();
               setTickerStatus('Live · ' + lastGoodFetch.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }));
@@ -693,7 +641,6 @@
             setTickerStatus(lastGoodFetch ? 'Last update ' + lastGoodFetch.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : 'Feed unavailable');
           }
         }
-
         renderTicker();
         refreshQuotes();
         setInterval(refreshQuotes, 90000);
