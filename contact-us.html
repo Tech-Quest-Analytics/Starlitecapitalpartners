@@ -399,103 +399,33 @@ button[type="submit"]:hover{
   display:none;
 }
 
-/* FOOTER — light, matches Starlite site */
+/* FOOTER — matches the shared footer used across the rest of the site */
 footer{
-  background:#ffffff;
-  padding:70px 24px 0;
-  color:var(--muted);
+  padding:90px 40px 50px;
   border-top:1px solid rgba(0,0,0,0.07);
+  background:#ffffff;
 }
-
-.footer-grid{
-  max-width:1180px;
-  margin:0 auto 50px;
-  display:grid;
-  grid-template-columns:2fr repeat(2,1fr);
-  gap:36px;
+.footer-inner{max-width:1350px;margin:auto;}
+.footer-top{
+  display:flex;justify-content:space-between;
+  gap:60px;flex-wrap:wrap;margin-bottom:60px;
+  align-items:flex-start;
 }
-
 .footer-brand h3{
   font-family:'Playfair Display',serif;
-  font-size:32px;
-  font-weight:400;
-  color:var(--navy);
+  font-size:36px;font-weight:400;color:#1a2138;
   margin-bottom:14px;
 }
-
-.footer-brand p{
-  max-width:380px;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.9;
-  font-weight:300;
-}
-
-.footer-brand .contact{
-  margin-top:20px;
-  font-size:13px;
-  color:var(--faint);
-  line-height:1.9;
-}
-
-.footer-brand .contact strong{
-  color:var(--navy);
-  font-weight:500;
-}
-
-.footer-col h4{
-  color:var(--navy);
-  margin-bottom:16px;
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:0.1em;
-  font-weight:600;
-}
-
-.footer-col a{
-  display:block;
-  color:var(--muted);
-  text-decoration:none;
-  margin-bottom:10px;
-  font-size:14px;
-  transition:color 0.2s;
-}
-
-.footer-col a:hover{
-  color:var(--navy);
-}
-
+.footer-brand p{color:#6b7aaa;font-size:14px;line-height:1.9;max-width:420px;font-weight:300;}
+.footer-links{display:flex;flex-wrap:wrap;gap:14px 32px;max-width:600px;align-content:flex-start;}
+.footer-links a{text-decoration:none;color:#6b7aaa;font-size:13px;transition:0.2s;}
+.footer-links a:hover{color:#1a2138;}
 .footer-bottom{
-  max-width:1180px;
-  margin:0 auto;
-  padding-top:28px;
-  padding-bottom:40px;
   border-top:1px solid rgba(0,0,0,0.07);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-  flex-wrap:wrap;
+  padding-top:30px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
 }
-
-.footer-bottom p{ color:var(--faint); font-size:13px; }
-
-.linkedin-btn{
-  text-decoration:none;
-  color:var(--muted);
-  font-size:12px;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  border:1px solid rgba(0,0,0,0.12);
-  padding:10px 22px;
-  border-radius:999px;
-  transition:0.2s;
-}
-
-.linkedin-btn:hover{
-  color:var(--navy);
-  border-color:rgba(0,0,0,0.3);
-}
+.footer-bottom p{color:#9aa3be;font-size:13px;}
 
 @media(max-width:780px){
 
@@ -509,12 +439,7 @@ footer{
   h1{ font-size:clamp(36px,12vw,48px); }
   .subtitle{ font-size:15px; }
 
-  .footer-grid{ grid-template-columns:1fr; }
-
-  .footer-bottom{
-    flex-direction:column;
-    text-align:center;
-  }
+  .footer-top{ flex-direction:column; }
 }
 
 </style>
@@ -611,45 +536,31 @@ Thank you — we'll reply as promptly as possible.
 </section>
 
 <footer>
-
-<div class="footer-grid">
-
-<div class="footer-brand">
-<h3>Starlite</h3>
-<p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
-<div class="contact">
-<strong>info@starlitecp.com</strong><br>
-1910 Pacific Ave Suite 2000<br>
-Dallas, TX 75201, United States
-</div>
-</div>
-
-<div class="footer-col">
-<h4>Products</h4>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/venture-capital">Venture Capital</a>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-equity">Private Equity</a>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-credit">Private Credit</a>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-wealth">Private Wealth</a>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/partners">Our Partners</a>
-</div>
-
-<div class="footer-col">
-<h4>Company</h4>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/about">About Us</a>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/careers">Careers</a>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/communities">Communities</a>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/news">News</a>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/contact-us">Contact Us</a>
-<a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/13f-filings">13F Filings</a>
-</div>
-
-</div>
-
-<div class="footer-bottom">
-<p>© 2026 Starlite Capital Partners. All Rights Reserved.</p>
-<a href="https://www.linkedin.com/company/109531819/admin/dashboard/" target="_blank" class="linkedin-btn">LinkedIn</a>
-</div>
-
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Starlite</h3>
+        <p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/contact-us">Contact Us</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/modern-slavery-statement">Modern Slavery Statement</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/privacy">Privacy</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/use-policy">Use Policy</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/sustainability">Sustainability</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/news">News</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/disclosures">Disclosures</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/commercial">Commercial</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/security">Security</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/13f-filings">13F Filings</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Starlite Capital Inc. All Rights Reserved.</p>
+      <p>1910 Pacific Ave Suite 2000, Dallas, TX 75201, United States</p>
+    </div>
+  </div>
 </footer>
 
 <script>
