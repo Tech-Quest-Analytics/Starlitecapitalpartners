@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Starlite Capital – Responsible Investment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.75;overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh;}
+    .page-content{flex:1;}
+
+    /* HERO */
+    .hero{
+      padding:160px 40px 100px;
+      text-align:center;
+      background:radial-gradient(circle at center,rgba(26,33,56,0.04) 0%,transparent 65%);
+      border-bottom:1px solid rgba(0,0,0,0.07);
+    }
+    .logo{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(68px,12vw,150px);
+      line-height:0.9;
+      letter-spacing:-4px;
+      margin-bottom:20px;
+      background:linear-gradient(90deg,#1a2138,#4a7bff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .subtitle{
+      font-size:10px;
+      letter-spacing:5px;
+      text-transform:uppercase;
+      color:#9aa3be;
+      margin-bottom:40px;
+    }
+    .hero h1{
+      font-size:clamp(22px,4vw,36px);
+      font-weight:300;
+      color:#6b7aaa;
+      max-width:820px;
+      margin:0 auto;
+      line-height:1.4;
+    }
+
+    hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
+
+    /* CONTENT */
+    .container{
+      max-width:820px;
+      margin:0 auto;
+      padding:80px 40px 120px;
+    }
+
+    .article-meta{
+      font-size:11px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      color:#c0c8e8;
+      margin-bottom:48px;
+    }
+
+    h2{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(20px,3vw,26px);
+      font-weight:400;
+      color:#1a2138;
+      line-height:1.3;
+      margin:56px 0 18px;
+      padding-top:56px;
+      border-top:1px solid rgba(0,0,0,0.07);
+    }
+    h2:first-of-type{
+      margin-top:0;
+      padding-top:0;
+      border-top:none;
+    }
+
+    p{
+      font-size:17px;
+      color:#6b7aaa;
+      margin-bottom:22px;
+      line-height:1.9;
+      font-weight:300;
+    }
+
+    ul{
+      list-style:none;
+      padding:0;
+      margin:24px 0 32px;
+    }
+    ul li{
+      display:flex;
+      gap:18px;
+      font-size:17px;
+      color:#6b7aaa;
+      font-weight:300;
+      line-height:1.8;
+      padding:18px 0;
+      border-bottom:1px solid rgba(0,0,0,0.06);
+    }
+    ul li:first-child{
+      border-top:1px solid rgba(0,0,0,0.06);
+    }
+    ul li .role{
+      font-family:'Playfair Display',serif;
+      font-size:15px;
+      font-weight:400;
+      color:#1a2138;
+      min-width:220px;
+      padding-top:2px;
+    }
+    ul li .desc{
+      flex:1;
+    }
+
+    /* FOOTER */
+    footer{
+      padding:90px 40px 50px;
+      border-top:1px solid rgba(0,0,0,0.07);
+    }
+    .footer-inner{max-width:1350px;margin:auto;}
+    .footer-top{
+      display:flex;justify-content:space-between;
+      gap:60px;flex-wrap:wrap;margin-bottom:60px;
+      align-items:flex-start;
+    }
+    .footer-brand h3{
+      font-family:'Playfair Display',serif;
+      font-size:36px;font-weight:400;color:#1a2138;
+      margin-bottom:14px;
+    }
+    .footer-brand p{color:#6b7aaa;font-size:14px;line-height:1.9;max-width:420px;font-weight:300;}
+    .footer-links{display:flex;flex-wrap:wrap;gap:14px 32px;max-width:600px;align-content:flex-start;}
+    .footer-links a{text-decoration:none;color:#6b7aaa;font-size:13px;transition:0.2s;}
+    .footer-links a:hover{color:#1a2138;}
+    .footer-bottom{
+      border-top:1px solid rgba(0,0,0,0.07);
+      padding-top:30px;
+      display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+    }
+    .footer-bottom p{color:#9aa3be;font-size:13px;}
+
+    @media(max-width:768px){
+      .hero{padding:120px 20px 80px;}
+      .container{padding:60px 24px 80px;}
+      .footer-top{flex-direction:column;}
+      footer{padding:70px 24px 40px;}
+      ul li{flex-direction:column;gap:6px;}
+      ul li .role{min-width:auto;}
+    }
+  </style>
+</head>
+<body>
+
+<main class="page-content">
+
+  <div class="hero">
+    <div class="logo">STARLITE</div>
+    <div class="subtitle">Capital Partners</div>
+    <h1>Commitment to Responsible Investment</h1>
+  </div>
+
+  <hr class="divider">
+
+  <div class="container">
+
+    <div class="article-meta">Last Updated November 2025</div>
+
+    <h2>Our Approach</h2>
+    <p>Starlite Capital Inc (the "Firm") believes that the transformative power of technology and smart financial structures can create a more efficient economy, inclusive communities, and broader pathways to prosperity. As responsible stewards of capital, we recognize that maximizing value requires careful management of material business risks and opportunities. Accordingly, and consistent with our fiduciary and legal obligations, we integrate strategic Environmental, Social, and Governance (ESG) initiatives into our firm's operations and investments.</p>
+    <p>Our Responsible Investment Policy (the "Policy") underpins our investment risk management and opportunity focus, reflecting our commitment to creating long-term value for our stakeholders. Consistent with our goal of generating ordered returns for our investors, Starlite Capital is a signatory to voluntary, industry-led initiatives that help define and operationalize our ESG engagement efforts.</p>
+
+    <h2>Scope and Limitations</h2>
+    <p>The Policy is intended as a general framework guiding our approach to identifying and managing material ESG risks and capturing ESG opportunities across Starlite Capital's operations and investment strategies, including private equity, debt, and licensing transactions. In certain cases, distinctions are drawn between responsible investment approaches within various strategies.</p>
+    <p>Given our focus on technology-enabled companies, software platforms, and smart contract-based financial instruments, we have identified certain material ESG risks and opportunities that are important investment considerations. Our approach to incorporating these considerations is dependent on our influence over the management of each investment, which may vary depending on structure, contractual terms, and engagement opportunities.</p>
+    <p>Fund-specific application of the Policy is described in governing fund documents and regulatory disclosures. In the event of conflict between the Policy and fund documentation, governing documentation shall take precedence.</p>
+    <p>In cases where Starlite Capital determines limited ability to conduct ESG due diligence or influence ESG outcomes, only practicable elements of the Policy will be applied. Examples include minority investments, limited governance rights, joint management funds, or passive interests.</p>
+
+    <h2>Roles and Responsibilities</h2>
+    <ul>
+      <li>
+        <span class="role">Executive &amp; Operating Committees</span>
+        <span class="desc">Promote and implement the Policy across the firm and investment strategies.</span>
+      </li>
+      <li>
+        <span class="role">Investment Committees</span>
+        <span class="desc">Oversee ESG integration into investment decisions.</span>
+      </li>
+      <li>
+        <span class="role">Cross-Functional ESG Committee</span>
+        <span class="desc">Meets quarterly to review ESG matters across the portfolio.</span>
+      </li>
+      <li>
+        <span class="role">ESG Team</span>
+        <span class="desc">Conduct pre-investment ESG due diligence and support value creation initiatives.</span>
+      </li>
+      <li>
+        <span class="role">Investment Teams</span>
+        <span class="desc">Incorporate ESG findings into analysis and decision-making.</span>
+      </li>
+      <li>
+        <span class="role">Legal &amp; Compliance Team</span>
+        <span class="desc">Ensure diligence, disclosure, and regulatory compliance.</span>
+      </li>
+      <li>
+        <span class="role">Portfolio Company Boards</span>
+        <span class="desc">Receive ESG briefings to encourage prioritization of ESG topics.</span>
+      </li>
+      <li>
+        <span class="role">Investor Relations</span>
+        <span class="desc">Engages with investors on ESG practices and reporting.</span>
+      </li>
+    </ul>
+
+    <h2>Responsible Business Practices</h2>
+    <p>Our internal operations are governed by a Code of Ethics designed to mitigate conflicts, promote transparency, and measure and offset our GHG footprint. We maintain active DEI programs, community engagement initiatives, charitable giving, and volunteerism as core elements of our people strategy. We also leverage technology solutions to streamline ESG reporting and protect stakeholder information privacy across all business lines.</p>
+
+    <h2>Incorporating ESG in the Investment Process</h2>
+    <p>At the pre-investment stage, ESG assessments identify material risks and opportunities, with findings communicated directly to investment committees as part of the decision-making process. Post-investment, we monitor ESG performance across the portfolio, integrate ESG principles into operational planning, develop targeted programs, and support sustainability initiatives at the portfolio company level.</p>
+
+    <h2>ESG Focus Areas</h2>
+    <ul>
+      <li>
+        <span class="role">Environmental</span>
+        <span class="desc">Emissions management, climate risk mitigation, and eco-friendly product innovation.</span>
+      </li>
+      <li>
+        <span class="role">Social</span>
+        <span class="desc">Diversity, equity &amp; inclusion, philanthropy, employee well-being, and customer safety.</span>
+      </li>
+      <li>
+        <span class="role">Governance</span>
+        <span class="desc">Reporting, transparency, cybersecurity, ethics, responsible supply chain, and technology bias assessment.</span>
+      </li>
+    </ul>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Starlite</h3>
+        <p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.starlitecp.com/contact-us">Contact Us</a>
+        <a href="https://www.starlitecp.com/modern-slavery-statement">Modern Slavery Statement</a>
+        <a href="https://www.starlitecp.com/privacy">Privacy</a>
+        <a href="https://www.starlitecp.com/use-policy">Use Policy</a>
+        <a href="https://www.starlitecp.com/sustainability">Sustainability</a>
+        <a href="https://www.starlitecp.com/news">News</a>
+        <a href="https://www.starlitecp.com/disclosures">Disclosures</a>
+        <a href="https://www.starlitecp.com/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
+        <a href="https://www.starlitecp.com/commercial">Commercial</a>
+        <a href="https://www.starlitecp.com/security">Security</a>
+        <a href="https://www.starlitecp.com/13f-filings">13F Filings</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Starlite Capital Partners. All Rights Reserved.</p>
+      <p>1910 Pacific Ave Suite 2000, Dallas, TX 75201, United States</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
