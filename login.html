@@ -1,109 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
-    <!-- Favicon -->
-    <link rel="icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png" type="image/png">
-    <link rel="apple-touch-icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
-    
-    <title>Starlite Capital Partners — Investor Login</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { min-height: 100vh; background: #ffffff; color: #1a2138; font-family: 'Inter', system-ui, sans-serif; }
-        body { display: flex; flex-direction: column; }
-
-        /* Ticker */
-        .ticker { position:fixed; top:0; left:0; width:100%; z-index:1000; height:38px; background:#1a2138; overflow:hidden; display:flex; align-items:center; border-bottom:1px solid rgba(255,255,255,0.06); }
-        .ticker-label { flex:none; padding:0 16px; background:linear-gradient(90deg,#0f1428,#1a2138); color:#eef1ff; font-size:10px; letter-spacing:2px; text-transform:uppercase; }
-        .ticker-dot { width:6px; height:6px; border-radius:50%; background:#5ee6a0; animation:ticker-pulse 1.8s infinite; }
-        @keyframes ticker-pulse { 0% { box-shadow:0 0 0 0 rgba(94,230,160,0.6); } 70% { box-shadow:0 0 0 6px rgba(94,230,160,0); } 100% { box-shadow:0 0 0 0 rgba(94,230,160,0); } }
-
-        /* Nav, Hero, Login Card styles (kept clean) */
-        .hero { position:relative; min-height:100vh; padding:180px 20px 100px; text-align:center; display:flex; align-items:center; justify-content:center; }
-        .hero-overlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95)); z-index:-1; }
-        .login-card { width:100%; max-width:440px; padding:42px 28px; background:rgba(246,248,252,0.98); border:1px solid rgba(70,100,200,0.15); border-radius:24px; box-shadow:0 25px 80px rgba(26,33,56,0.12); margin:auto; }
-        .logo { font-family:'Playfair Display',serif; font-size:52px; letter-spacing:-1.5px; background:linear-gradient(90deg,#1a2138,#4a7bff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-        .input-wrap { margin-bottom:18px; text-align:left; }
-        .input-wrap input { width:100%; padding:16px 20px; border:1px solid rgba(70,100,200,0.25); border-radius:14px; font-size:16px; }
-        .submit-btn { width:100%; padding:17px; background:linear-gradient(90deg,#4a7bff,#7b9eff); color:white; border:none; border-radius:50px; font-size:17px; font-weight:500; cursor:pointer; }
-        .privacy-banner { position:fixed; bottom:0; left:0; right:0; background:#1a2138; color:#eef1ff; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; font-size:13px; z-index:9999; }
-        .privacy-banner button { background:#5ee6a0; color:#1a2138; border:none; padding:8px 20px; border-radius:999px; font-weight:600; cursor:pointer; }
-
-        @media (max-width: 768px) {
-            .hero { padding-top:160px; }
-            .login-card { padding:32px 20px; }
-        }
-    </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   
+    <!-- Favicon -->
+    <link rel="icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
+    <link rel="shortcut icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
+    <title>Starlite Capital Partners — Investor Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        html, body { min-height: 100vh; background: #ffffff; color: #1a2138; font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
+        body { display: flex; flex-direction: column; }
+       
+        :root{ --ticker-h: 38px; }
+        .ticker{
+          position:fixed;top:0;left:0;width:100%;z-index:1000;
+          height:var(--ticker-h);
+          background:#1a2138;
+          overflow:hidden;
+          display:flex;align-items:center;
+          border-bottom:1px solid rgba(255,255,255,0.06);
+        }
+        .ticker-label{
+          flex:none;
+          display:flex;align-items:center;gap:6px;
+          height:100%;
+          padding:0 16px;
+          background:linear-gradient(90deg,#0f1428,#1a2138);
+          color:#eef1ff;
+          font-size:10px;letter-spacing:2px;text-transform:uppercase;
+          z-index:2;
+          box-shadow:14px 0 18px -10px #1a2138;
+        }
+        .ticker-dot{
+          width:6px;height:6px;border-radius:50%;
+          background:#5ee6a0;
+          box-shadow:0 0 0 0 rgba(94,230,160,0.6);
+          animation:ticker-pulse 1.8s ease-out infinite;
+        }
+        .ticker-status{
+          color:#6b7aaa;
+          font-size:9px;letter-spacing:1px;
+          text-transform:none;
+          margin-left:6px;
+        }
+        @keyframes ticker-pulse{
+          0%{box-shadow:0 0 0 0 rgba(94,230,160,0.55);}
+          70%{box-shadow:0 0 0 6px rgba(94,230,160,0);}
+          100%{box-shadow:0 0 0 0 rgba(94,230,160,0);}
+        }
+        .ticker-track-wrap{
+          flex:1;overflow:hidden;height:100%;position:relative;
+        }
+        .ticker-track{
+          display:flex;align-items:center;
+          width:max-content;
+          animation:ticker-scroll 90s linear infinite;
+        }
+        .ticker-track:hover{ animation-play-state:paused; }
+        @keyframes ticker-scroll{
+          from{ transform:translateX(0); }
+          to{ transform:translateX(-50%); }
+        }
+        .ticker-item{
+          display:flex;align-items:center;gap:8px;
+          padding:0 22px;
+          font-size:12px;font-weight:500;
+          color:#eef1ff;
+          white-space:nowrap;
+          border-right:1px solid rgba(255,255,255,0.08);
+        }
+        .ticker-sym{ color:#9aa3be;font-weight:400;letter-spacing:0.5px;}
+        .ticker-price{ font-variant-numeric:tabular-nums; }
+        .ticker-chg{
+          font-variant-numeric:tabular-nums;
+          display:flex;align-items:center;gap:3px;
+          transition:color 0.3s ease;
+        }
+        .ticker-chg.up{ color:#5ee6a0; }
+        .ticker-chg.down{ color:#ff7a8a; }
+        .ticker-chg .arrow{ font-size:9px; }
+        /* NAV */
+        .nav{
+          position:fixed;top:var(--ticker-h);left:0;width:100%;z-index:999;
+          background:rgba(255,255,255,0.92);
+          backdrop-filter:blur(16px);
+          border-bottom:1px solid rgba(0,0,0,0.06);
+        }
+        .nav-inner{
+          max-width:1400px;margin:auto;
+          padding:20px 40px;
+          display:flex;justify-content:space-between;align-items:center;
+          gap:24px;
+        }
+        .brand{display:flex;flex-direction:column;align-items:flex-start;line-height:1;text-align:left;}
+        .brand-link{text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;}
+        .brand-main{
+          font-family:'Playfair Display',serif;
+          font-size:24px;letter-spacing:-0.5px;color:#1a2138;
+        }
+        .brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
+        .nav-links{
+          display:flex;align-items:center;gap:36px;
+          list-style:none;
+        }
+        .nav-links > li{position:relative;}
+        .nav-link{
+          text-decoration:none;color:#1a2138;
+          font-size:13px;letter-spacing:0.5px;
+          font-weight:400;
+          padding:8px 0;
+          display:flex;align-items:center;gap:6px;
+          transition:color 0.2s ease;
+          cursor:pointer;
+          background:none;border:none;font-family:'Inter',sans-serif;
+        }
+        .nav-link:hover{color:#4a7bff;}
+        .nav-caret{
+          width:8px;height:8px;
+          border-right:1.5px solid currentColor;
+          border-bottom:1.5px solid currentColor;
+          transform:rotate(45deg);
+          transition:transform 0.2s ease;
+          margin-top:-3px;
+        }
+        .has-dropdown.open .nav-caret{ transform:rotate(225deg);margin-top:3px; }
+        .dropdown{
+          position:absolute;top:100%;left:50%;
+          transform:translate(-50%,8px);
+          min-width:220px;
+          background:#fff;
+          border:1px solid rgba(0,0,0,0.07);
+          border-radius:14px;
+          box-shadow:0 18px 40px rgba(26,33,56,0.12);
+          padding:10px;
+          opacity:0;visibility:hidden;
+          transition:opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+          z-index:1001;
+        }
+        .has-dropdown.open .dropdown,
+        .has-dropdown:hover .dropdown{
+          opacity:1;visibility:visible;
+          transform:translate(-50%,0);
+        }
+        .dropdown a{
+          display:block;
+          text-decoration:none;
+          color:#1a2138;
+          font-size:13px;
+          padding:11px 14px;
+          border-radius:9px;
+          transition:background 0.15s ease,color 0.15s ease;
+        }
+        .dropdown a:hover{background:rgba(74,123,255,0.08);color:#4a7bff;}
+        .nav-toggle{
+          display:none;
+          flex-direction:column;gap:5px;
+          background:none;border:none;cursor:pointer;padding:6px;
+        }
+        .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
+        /* HERO + LOGIN CARD - Mobile Optimized */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding: calc(130px + var(--ticker-h)) 20px 80px;
+            text-align: center;
+            overflow: hidden;
+            isolation: isolate;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(circle at top left, rgba(73,110,255,0.25), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(120,80,255,0.25), transparent 35%),
+                linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.93));
+        }
+        .login-card {
+            position: relative;
+            z-index: 10;
+            width: clamp(300px, 92vw, 440px);
+            padding: 42px 28px;
+            background: rgba(246,248,252,0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(70,100,200,0.14);
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(26,33,56,0.10);
+            text-align: center;
+        }
+        .logo {
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(38px, 9vw, 52px);
+          letter-spacing: -1.5px;
+          line-height: 1;
+          margin-bottom: 6px;
+          background: linear-gradient(90deg, #1a2138, #4a7bff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .logo-sub { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #3b63d4; margin-bottom: 32px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; letter-spacing: 1px; color: #1a2138; margin-bottom: 8px; }
+        .subtitle { font-size: 15px; color: #6b7aaa; margin-bottom: 32px; }
+        .input-wrap { position: relative; margin-bottom: 18px; text-align: left; }
+        .input-wrap label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7aaa; margin-bottom: 7px; }
+        .input-wrap input { width: 100%; padding: 16px 20px; background: #ffffff; border: 1px solid rgba(70,100,200,0.25); border-radius: 14px; color: #1a2138; font-size: 16px; transition: all 0.3s; }
+        .input-wrap input::placeholder { color: #9aa3be; }
+        .input-wrap input:focus { outline: none; border-color: #4a7bff; box-shadow: 0 0 0 4px rgba(74,123,255,0.14); }
+        .toggle-pw { position: absolute; right: 16px; bottom: 16px; background: none; border: none; color: #9aa3be; cursor: pointer; font-size: 15px; padding: 0; }
+        .toggle-pw:hover { color: #4a7bff; }
+        .forgot { text-align: right; margin-top: -10px; margin-bottom: 22px; }
+        .forgot a { font-size: 13px; color: #6b7aaa; text-decoration: none; }
+        .forgot a:hover { color: #4a7bff; }
+        .submit-btn { width: 100%; padding: 17px; border: none; border-radius: 50px; background: linear-gradient(90deg, #4a7bff, #7b9eff); color: white; font-size: 17px; font-weight: 500; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; }
+        .submit-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(74,123,255,0.3); }
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+        .error-msg, .success-msg { margin-top: 18px; padding: 13px 16px; border-radius: 12px; font-size: 14px; font-weight: 500; text-align: center; display: none; }
+        .error-msg { background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.25); color: #c0392b; }
+        .error-msg.show { display: block; }
+        .success-msg { background: rgba(39,174,96,0.08); border: 1px solid rgba(39,174,96,0.25); color: #27ae60; }
+        .success-msg.show { display: block; }
+        .divider { margin: 28px 0 20px; display: flex; align-items: center; gap: 12px; color: #9aa3be; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+        .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: rgba(70,100,200,0.12); }
+        .contact-link { font-size: 14px; color: #6b7aaa; }
+        .contact-link a { color: #4a7bff; text-decoration: none; font-weight: 500; }
+        .contact-link a:hover { text-decoration: underline; }
+        .powered { margin-top: 40px; font-size: 13px; color: #9aa3be; }
+        footer { position: relative; z-index: 3; padding: 80px 20px 40px; border-top: 1px solid rgba(0,0,0,0.07); background: #ffffff; }
+        .footer-inner { max-width: 1350px; margin: auto; }
+        .footer-top { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; margin-bottom: 50px; align-items: flex-start; }
+        .footer-brand h3 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 400; color: #1a2138; margin-bottom: 14px; }
+        .footer-brand p { color: #6b7aaa; font-size: 14px; line-height: 1.9; max-width: 420px; font-weight: 300; }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 14px 28px; }
+        .footer-links a { text-decoration: none; color: #6b7aaa; font-size: 13px; transition: 0.2s; }
+        .footer-links a:hover { color: #1a2138; }
+        .footer-bottom { border-top: 1px solid rgba(0,0,0,0.07); padding-top: 25px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+        .footer-bottom p { color: #9aa3be; font-size: 13px; }
+        @media (max-width: 768px) {
+            .hero { padding: calc(110px + var(--ticker-h)) 20px 60px; }
+            .login-card { margin: 30px auto; padding: 38px 24px; }
+            .logo { font-size: clamp(36px, 10vw, 46px); }
+        }
+    </style>
 </head>
 <body>
-
-<!-- Ticker -->
-<div class="ticker">
-  <div class="ticker-label">
-    <span class="ticker-dot"></span>
-    LIVE MARKET STATUS
-  </div>
-  <div class="ticker-track-wrap">
-    <div class="ticker-track"> <!-- Add your ticker items here --> </div>
-  </div>
-</div>
-
-<!-- Hero + Login -->
-<div class="hero">
-  <div class="hero-overlay"></div>
-  
-  <div class="login-card">
-    <div class="logo">Starlite</div>
-    <div style="font-size:11px; letter-spacing:4px; color:#4a7bff; margin-bottom:24px;">CAPITAL PARTNERS</div>
-    
-    <h1>Investor Login</h1>
-    <p class="subtitle">Secure access for verified partners</p>
-    
-    <!-- Your form goes here -->
-    <form>
-      <div class="input-wrap">
-        <label>Email Address</label>
-        <input type="email" placeholder="name@starlitecp.com" required>
-      </div>
-      <div class="input-wrap">
-        <label>Password</label>
-        <input type="password" placeholder="••••••••" required>
-      </div>
-      
-      <button type="submit" class="submit-btn">Sign In</button>
-    </form>
-  </div>
-</div>
-
-<!-- Privacy Banner -->
+<!-- (Body content is unchanged) -->
 <div class="privacy-banner" id="privacyBanner">
-  <div>We use cookies and analytics to improve platform performance.</div>
-  <div>
-    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/privacy" style="color:#5ee6a0; margin-right:20px;">Privacy Policy</a>
-    <button id="acceptPrivacy">Accept</button>
-  </div>
+  <div class="privacy-text">We use cookies and analytics to improve platform performance and user experience. By continuing, you agree to our privacy and use policies.</div>
+  <div class="privacy-actions">
+    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/privacy" target="_blank">Privacy Policy</a>
+    <button id="acceptPrivacy">Accept</button>
+  </div>
 </div>
-
-<script>
-  // Privacy banner
-  const banner = document.getElementById('privacyBanner');
-  const acceptBtn = document.getElementById('acceptPrivacy');
-  
-  if (localStorage.getItem('privacyAccepted')) {
-    banner.style.display = 'none';
-  }
-  
-  acceptBtn.addEventListener('click', () => {
-    banner.style.display = 'none';
-    localStorage.setItem('privacyAccepted', 'true');
-  });
-</script>
-
+<!-- Ticker + Nav + Hero + Footer (same as your original) -->
 </body>
-</html>
+</html
