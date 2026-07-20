@@ -197,6 +197,27 @@
           .nav-inner{padding:16px 20px;}
         }
 
+        /* PRIVACY */
+        .privacy-banner{
+          position:fixed;bottom:20px;left:20px;right:20px;
+          background:#fff;border:1px solid rgba(0,0,0,0.10);
+          border-radius:16px;padding:20px 24px;
+          display:flex;justify-content:space-between;align-items:center;
+          gap:20px;z-index:5000;
+          box-shadow:0 8px 40px rgba(0,0,0,0.08);
+        }
+        .privacy-text{color:#6b7aaa;font-size:13px;line-height:1.7;max-width:700px;}
+        .privacy-actions{display:flex;align-items:center;gap:16px;}
+        .privacy-actions a{text-decoration:none;color:#6b7aaa;font-size:13px;}
+        .privacy-actions button{
+          background:#1a2138;color:#fff;border:none;
+          padding:10px 22px;border-radius:999px;
+          font-size:12px;cursor:pointer;letter-spacing:0.5px;
+        }
+        @media(max-width:768px){
+          .privacy-banner{flex-direction:column;align-items:flex-start;left:14px;right:14px;bottom:14px;}
+        }
+
         .hero {
             position: relative;
             min-height: 100vh;
@@ -297,6 +318,14 @@
 </head>
 <body>
 
+<div class="privacy-banner" id="privacyBanner">
+  <div class="privacy-text">We use cookies and analytics to improve platform performance and user experience. By continuing, you agree to our privacy and use policies.</div>
+  <div class="privacy-actions">
+    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/privacy" target="_blank">Privacy Policy</a>
+    <button id="acceptPrivacy">Accept</button>
+  </div>
+</div>
+
 <div class="ticker" id="marketTicker">
   <div class="ticker-label"><span class="ticker-dot"></span>Markets<span class="ticker-status" id="tickerStatus"></span></div>
   <div class="ticker-track-wrap">
@@ -306,7 +335,7 @@
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/home" class="brand-link">
+    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="brand-link">
       <div class="brand">
         <div class="brand-main">STARLITE</div>
         <div class="brand-sub">Capital Partners</div>
@@ -318,7 +347,7 @@
     </button>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/home" class="nav-link">Home</a></li>
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="nav-link">Home</a></li>
       <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/login" class="nav-link">Investor Login</a></li>
       <li class="has-dropdown" id="productsDropdown">
         <button class="nav-link" id="productsTrigger" aria-haspopup="true" aria-expanded="false">
@@ -407,6 +436,7 @@
             <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
             <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/commercial">Commercial</a>
             <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/security">Security</a>
+            <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/13f-filings">13F Filings</a>
           </div>
         </div>
         <div class="footer-bottom">
@@ -527,6 +557,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             initVideo();
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
+        });
+
+        // ------------------------------------------------------------------
+        // Privacy banner
+        // ------------------------------------------------------------------
+        const banner = document.getElementById('privacyBanner');
+        if(localStorage.getItem('starlitePrivacyAccepted')) banner.style.display='none';
+        document.getElementById('acceptPrivacy').addEventListener('click',()=>{
+          localStorage.setItem('starlitePrivacyAccepted','true');
+          banner.style.display='none';
         });
 
         // ------------------------------------------------------------------
