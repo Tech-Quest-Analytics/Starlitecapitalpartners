@@ -1,391 +1,380 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Starlite Capital Partners</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hidden;}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
+    <link rel="shortcut icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
 
-/* MARKET TICKER */
-:root{ --ticker-h: 38px; }
-.ticker{
-  position:fixed;top:0;left:0;width:100%;z-index:1000;
-  height:var(--ticker-h);
-  background:#1a2138;
-  overflow:hidden;
-  display:flex;align-items:center;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-}
-.ticker-label{
-  flex:none;
-  display:flex;align-items:center;gap:6px;
-  height:100%;
-  padding:0 16px;
-  background:linear-gradient(90deg,#0f1428,#1a2138);
-  color:#eef1ff;
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  z-index:2;
-  box-shadow:14px 0 18px -10px #1a2138;
-}
-.ticker-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:#5ee6a0;
-  box-shadow:0 0 0 0 rgba(94,230,160,0.6);
-  animation:ticker-pulse 1.8s ease-out infinite;
-}
-.ticker-status{
-  color:#6b7aaa;
-  font-size:9px;letter-spacing:1px;
-  text-transform:none;
-  margin-left:6px;
-}
-@keyframes ticker-pulse{
-  0%{box-shadow:0 0 0 0 rgba(94,230,160,0.55);}
-  70%{box-shadow:0 0 0 6px rgba(94,230,160,0);}
-  100%{box-shadow:0 0 0 0 rgba(94,230,160,0);}
-}
-.ticker-track-wrap{
-  flex:1;overflow:hidden;height:100%;position:relative;
-}
-.ticker-track{
-  display:flex;align-items:center;
-  width:max-content;
-  animation:ticker-scroll 90s linear infinite;
-}
-.ticker-track:hover{ animation-play-state:paused; }
-@keyframes ticker-scroll{
-  from{ transform:translateX(0); }
-  to{ transform:translateX(-50%); }
-}
-.ticker-item{
-  display:flex;align-items:center;gap:8px;
-  padding:0 22px;
-  font-size:12px;font-weight:500;
-  color:#eef1ff;
-  white-space:nowrap;
-  border-right:1px solid rgba(255,255,255,0.08);
-}
-.ticker-sym{ color:#9aa3be;font-weight:400;letter-spacing:0.5px;}
-.ticker-price{ font-variant-numeric:tabular-nums; }
-.ticker-chg{
-  font-variant-numeric:tabular-nums;
-  display:flex;align-items:center;gap:3px;
-  transition:color 0.3s ease;
-}
-.ticker-chg.up{ color:#5ee6a0; }
-.ticker-chg.down{ color:#ff7a8a; }
-.ticker-chg .arrow{ font-size:9px; }
-@media(prefers-reduced-motion: reduce){
-  .ticker-track{ animation:none; }
-}
-@media(max-width:768px){
-  .ticker-label{ padding:0 10px;font-size:9px;letter-spacing:1.5px; }
-  .ticker-item{ padding:0 16px;font-size:11px; }
-}
-
-/* NAV */
-.nav{
-  position:fixed;top:var(--ticker-h);left:0;width:100%;z-index:999;
-  background:rgba(255,255,255,0.92);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(0,0,0,0.06);
-}
-.nav-inner{
-  max-width:1400px;margin:auto;
-  padding:20px 40px;
-  display:flex;justify-content:space-between;align-items:center;
-  gap:24px;
-}
-.brand{display:flex;flex-direction:column;align-items:flex-start;line-height:1;text-align:left;}
-.brand-link{text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;}
-.brand-main{
-  font-family:'Playfair Display',serif;
-  font-size:24px;letter-spacing:-0.5px;color:#1a2138;
-}
-.brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
-
-.nav-links{
-  display:flex;align-items:center;gap:36px;
-  list-style:none;
-}
-.nav-links > li{position:relative;}
-.nav-link{
-  text-decoration:none;color:#1a2138;
-  font-size:13px;letter-spacing:0.5px;
-  font-weight:400;
-  padding:8px 0;
-  display:flex;align-items:center;gap:6px;
-  transition:color 0.2s ease;
-  cursor:pointer;
-  background:none;border:none;font-family:'Inter',sans-serif;
-}
-.nav-link:hover{color:#4a7bff;}
-.nav-caret{
-  width:8px;height:8px;
-  border-right:1.5px solid currentColor;
-  border-bottom:1.5px solid currentColor;
-  transform:rotate(45deg);
-  transition:transform 0.2s ease;
-  margin-top:-3px;
-}
-.has-dropdown.open .nav-caret{ transform:rotate(225deg);margin-top:3px; }
-
-.dropdown{
-  position:absolute;top:100%;left:50%;
-  transform:translate(-50%,8px);
-  min-width:220px;
-  background:#fff;
-  border:1px solid rgba(0,0,0,0.07);
-  border-radius:14px;
-  box-shadow:0 18px 40px rgba(26,33,56,0.12);
-  padding:10px;
-  opacity:0;visibility:hidden;
-  transition:opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
-  z-index:1001;
-}
-.has-dropdown.open .dropdown,
-.has-dropdown:hover .dropdown{
-  opacity:1;visibility:visible;
-  transform:translate(-50%,0);
-}
-.dropdown a{
-  display:block;
-  text-decoration:none;
-  color:#1a2138;
-  font-size:13px;
-  padding:11px 14px;
-  border-radius:9px;
-  transition:background 0.15s ease,color 0.15s ease;
-}
-.dropdown a:hover{background:rgba(74,123,255,0.08);color:#4a7bff;}
-
-/* mobile nav toggle */
-.nav-toggle{
-  display:none;
-  flex-direction:column;gap:5px;
-  background:none;border:none;cursor:pointer;padding:6px;
-}
-.nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
-
-/* HERO */
-.hero{
-  position:relative;
-  min-height:100vh;
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;
-  padding:calc(160px + var(--ticker-h)) 40px 120px;
-  overflow:hidden;
-  isolation:isolate;
-}
-.hero-video{
-  position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
-  object-fit:cover;
-  z-index:-2;
-  will-change:filter, transform;
-  transform-origin:center center;
-  transition:filter 0.05s linear;
-}
-.hero-overlay{
-  position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
-  z-index:-1;
-  background:
-  radial-gradient(circle at center,rgba(26,33,56,0.10) 0%,transparent 65%),
-  linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.62));
-  will-change:opacity;
-  transition:opacity 0.05s linear;
-}
-.hero-content{max-width:900px;width:100%;display:flex;flex-direction:column;align-items:center;
-  will-change:opacity, transform;
-  padding:44px 48px;
-  border-radius:32px;
-  background:rgba(255,255,255,0.5);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  box-shadow:0 20px 60px rgba(26,33,56,0.06);
-}
-
-.hero-logo-stage{
-  position:relative;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  width:100%;
-  margin-bottom:20px;
-  padding:14px 46px;
-}
-.hero-logo{
-  position:relative;
-  z-index:2;
-  font-family:'Playfair Display',serif;
-  font-size:clamp(68px,12vw,150px);
-  line-height:0.9;
-  letter-spacing:-4px;
-  background:linear-gradient(90deg,#1a2138,#4a7bff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  display:inline-block;
-}
-
-.star{
-  position:absolute;
-  z-index:1;
-  background:radial-gradient(circle,#ffffff 0%,#bcd2ff 45%,rgba(188,210,255,0) 75%);
-  clip-path:polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%);
-  opacity:0;
-  animation:twinkle ease-in-out infinite;
-  pointer-events:none;
-}
-@keyframes twinkle{
-  0%,100%{opacity:0;transform:scale(0.3) rotate(0deg);}
-  50%{opacity:1;transform:scale(1) rotate(20deg);}
-}
-@media (prefers-reduced-motion: reduce){
-  .star{animation:none;opacity:0.5;transform:scale(0.7);}
-}
-.hero-sub{
-  font-size:10px;
-  letter-spacing:5px;
-  text-transform:uppercase;
-  color:#9aa3be;
-  margin-bottom:48px;
-}
-
-.hero p{
-  font-size:18px;line-height:1.9;color:#6b7aaa;font-weight:300;
-  max-width:680px;margin:0 auto 50px;
-}
-.hero-buttons{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
-.btn{
-  padding:14px 30px;border-radius:999px;
-  text-decoration:none;font-size:13px;
-  letter-spacing:0.5px;transition:0.25s ease;
-}
-.btn-primary{background:#1a2138;color:#fff;}
-.btn-primary:hover{background:#2d3a5c;}
-.btn-secondary{border:1px solid rgba(26,33,56,0.18);color:#1a2138;}
-.btn-secondary:hover{background:rgba(26,33,56,0.04);}
-
-/* DIVIDER */
-.divider{
-  width:100%;border:none;
-  border-top:1px solid rgba(0,0,0,0.07);
-}
-
-/* STATS */
-.stats{
-  padding:90px 40px;
-  display:flex;justify-content:center;gap:120px;flex-wrap:wrap;
-}
-.stat h3{
-  font-family:'Playfair Display',serif;
-  font-size:52px;font-weight:400;
-  color:#1a2138;margin-bottom:8px;
-  letter-spacing:-2px;
-  font-variant-numeric:tabular-nums;
-}
-.stat p{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:#9aa3be;}
-
-/* FOOTER */
-footer{
-  padding:90px 40px 50px;
-  border-top:1px solid rgba(0,0,0,0.07);
-}
-.footer-inner{max-width:1350px;margin:auto;}
-.footer-top{
-  display:flex;justify-content:space-between;
-  gap:60px;flex-wrap:wrap;margin-bottom:60px;
-  align-items:flex-start;
-}
-.footer-brand h3{
-  font-family:'Playfair Display',serif;
-  font-size:36px;font-weight:400;color:#1a2138;
-  margin-bottom:14px;
-}
-.footer-brand p{color:#6b7aaa;font-size:14px;line-height:1.9;max-width:420px;font-weight:300;}
-.footer-links{display:flex;flex-wrap:wrap;gap:14px 32px;max-width:600px;align-content:flex-start;}
-.footer-links a{text-decoration:none;color:#6b7aaa;font-size:13px;transition:0.2s;}
-.footer-links a:hover{color:#1a2138;}
-.footer-bottom{
-  border-top:1px solid rgba(0,0,0,0.07);
-  padding-top:30px;
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
-}
-.footer-bottom p{color:#9aa3be;font-size:13px;}
-
-/* PRIVACY */
-.privacy-banner{
-  position:fixed;bottom:20px;left:20px;right:20px;
-  background:#fff;border:1px solid rgba(0,0,0,0.10);
-  border-radius:16px;padding:20px 24px;
-  display:flex;justify-content:space-between;align-items:center;
-  gap:20px;z-index:5000;
-  box-shadow:0 8px 40px rgba(0,0,0,0.08);
-}
-.privacy-text{color:#6b7aaa;font-size:13px;line-height:1.7;max-width:700px;}
-.privacy-actions{display:flex;align-items:center;gap:16px;}
-.privacy-actions a{text-decoration:none;color:#6b7aaa;font-size:13px;}
-.privacy-actions button{
-  background:#1a2138;color:#fff;border:none;
-  padding:10px 22px;border-radius:999px;
-  font-size:12px;cursor:pointer;letter-spacing:0.5px;
-}
-
-@media(max-width:900px){
-  .nav-links{
-    position:fixed;top:calc(var(--ticker-h) + 68px);left:0;right:0;
-    flex-direction:column;align-items:stretch;gap:0;
-    background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);
-    max-height:0;overflow:hidden;
-    transition:max-height 0.25s ease;
-  }
-  .nav-links.open{ max-height:520px; }
-  .nav-links > li{width:100%;}
-  .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
-  .dropdown{
-    position:static;transform:none;box-shadow:none;border:none;
-    border-radius:0;padding:0 0 0 12px;
-    max-height:0;overflow:hidden;opacity:1;visibility:visible;
-    transition:max-height 0.2s ease;
-  }
-  .has-dropdown:hover .dropdown{ max-height:0; } /* disable hover-open on touch widths */
-  .has-dropdown.open .dropdown{ max-height:320px; }
-  .nav-toggle{ display:flex; }
-}
-
-@media(max-width:768px){
-  .nav-inner{padding:16px 20px;}
-  .hero{padding:calc(140px + var(--ticker-h)) 24px 90px;}
-  .hero-content{padding:28px 24px;border-radius:24px;}
-  .hero-logo-stage{padding:10px 20px;}
-  .hero-sub{margin-bottom:32px;}
-  .hero p{
-    font-size:15px;
-    line-height:1.75;
-    max-width:100%;
-    padding:0 4px;
-    margin-bottom:36px;
-  }
-  .stats{gap:60px;padding:70px 24px;}
-  .footer-top{flex-direction:column;}
-  footer{padding:70px 24px 40px;}
-  .privacy-banner{flex-direction:column;align-items:flex-start;left:14px;right:14px;bottom:14px;}
-}
-
-@media(max-width:420px){
-  .hero p{font-size:14px;}
-}
-</style>
+    <title>Starlite Capital Partners</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hidden;}
+        /* MARKET TICKER */
+        :root{ --ticker-h: 38px; }
+        .ticker{
+          position:fixed;top:0;left:0;width:100%;z-index:1000;
+          height:var(--ticker-h);
+          background:#1a2138;
+          overflow:hidden;
+          display:flex;align-items:center;
+          border-bottom:1px solid rgba(255,255,255,0.06);
+        }
+        .ticker-label{
+          flex:none;
+          display:flex;align-items:center;gap:6px;
+          height:100%;
+          padding:0 16px;
+          background:linear-gradient(90deg,#0f1428,#1a2138);
+          color:#eef1ff;
+          font-size:10px;letter-spacing:2px;text-transform:uppercase;
+          z-index:2;
+          box-shadow:14px 0 18px -10px #1a2138;
+        }
+        .ticker-dot{
+          width:6px;height:6px;border-radius:50%;
+          background:#5ee6a0;
+          box-shadow:0 0 0 0 rgba(94,230,160,0.6);
+          animation:ticker-pulse 1.8s ease-out infinite;
+        }
+        .ticker-status{
+          color:#6b7aaa;
+          font-size:9px;letter-spacing:1px;
+          text-transform:none;
+          margin-left:6px;
+        }
+        @keyframes ticker-pulse{
+          0%{box-shadow:0 0 0 0 rgba(94,230,160,0.55);}
+          70%{box-shadow:0 0 0 6px rgba(94,230,160,0);}
+          100%{box-shadow:0 0 0 0 rgba(94,230,160,0);}
+        }
+        .ticker-track-wrap{
+          flex:1;overflow:hidden;height:100%;position:relative;
+        }
+        .ticker-track{
+          display:flex;align-items:center;
+          width:max-content;
+          animation:ticker-scroll 90s linear infinite;
+        }
+        .ticker-track:hover{ animation-play-state:paused; }
+        @keyframes ticker-scroll{
+          from{ transform:translateX(0); }
+          to{ transform:translateX(-50%); }
+        }
+        .ticker-item{
+          display:flex;align-items:center;gap:8px;
+          padding:0 22px;
+          font-size:12px;font-weight:500;
+          color:#eef1ff;
+          white-space:nowrap;
+          border-right:1px solid rgba(255,255,255,0.08);
+        }
+        .ticker-sym{ color:#9aa3be;font-weight:400;letter-spacing:0.5px;}
+        .ticker-price{ font-variant-numeric:tabular-nums; }
+        .ticker-chg{
+          font-variant-numeric:tabular-nums;
+          display:flex;align-items:center;gap:3px;
+          transition:color 0.3s ease;
+        }
+        .ticker-chg.up{ color:#5ee6a0; }
+        .ticker-chg.down{ color:#ff7a8a; }
+        .ticker-chg .arrow{ font-size:9px; }
+        @media(prefers-reduced-motion: reduce){
+          .ticker-track{ animation:none; }
+        }
+        @media(max-width:768px){
+          .ticker-label{ padding:0 10px;font-size:9px;letter-spacing:1.5px; }
+          .ticker-item{ padding:0 16px;font-size:11px; }
+        }
+        /* NAV */
+        .nav{
+          position:fixed;top:var(--ticker-h);left:0;width:100%;z-index:999;
+          background:rgba(255,255,255,0.92);
+          backdrop-filter:blur(16px);
+          border-bottom:1px solid rgba(0,0,0,0.06);
+        }
+        .nav-inner{
+          max-width:1400px;margin:auto;
+          padding:20px 40px;
+          display:flex;justify-content:space-between;align-items:center;
+          gap:24px;
+        }
+        .brand{display:flex;flex-direction:column;align-items:flex-start;line-height:1;text-align:left;}
+        .brand-link{text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;}
+        .brand-main{
+          font-family:'Playfair Display',serif;
+          font-size:24px;letter-spacing:-0.5px;color:#1a2138;
+        }
+        .brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
+        .nav-links{
+          display:flex;align-items:center;gap:36px;
+          list-style:none;
+        }
+        .nav-links > li{position:relative;}
+        .nav-link{
+          text-decoration:none;color:#1a2138;
+          font-size:13px;letter-spacing:0.5px;
+          font-weight:400;
+          padding:8px 0;
+          display:flex;align-items:center;gap:6px;
+          transition:color 0.2s ease;
+          cursor:pointer;
+          background:none;border:none;font-family:'Inter',sans-serif;
+        }
+        .nav-link:hover{color:#4a7bff;}
+        .nav-caret{
+          width:8px;height:8px;
+          border-right:1.5px solid currentColor;
+          border-bottom:1.5px solid currentColor;
+          transform:rotate(45deg);
+          transition:transform 0.2s ease;
+          margin-top:-3px;
+        }
+        .has-dropdown.open .nav-caret{ transform:rotate(225deg);margin-top:3px; }
+        .dropdown{
+          position:absolute;top:100%;left:50%;
+          transform:translate(-50%,8px);
+          min-width:220px;
+          background:#fff;
+          border:1px solid rgba(0,0,0,0.07);
+          border-radius:14px;
+          box-shadow:0 18px 40px rgba(26,33,56,0.12);
+          padding:10px;
+          opacity:0;visibility:hidden;
+          transition:opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+          z-index:1001;
+        }
+        .has-dropdown.open .dropdown,
+        .has-dropdown:hover .dropdown{
+          opacity:1;visibility:visible;
+          transform:translate(-50%,0);
+        }
+        .dropdown a{
+          display:block;
+          text-decoration:none;
+          color:#1a2138;
+          font-size:13px;
+          padding:11px 14px;
+          border-radius:9px;
+          transition:background 0.15s ease,color 0.15s ease;
+        }
+        .dropdown a:hover{background:rgba(74,123,255,0.08);color:#4a7bff;}
+        /* mobile nav toggle */
+        .nav-toggle{
+          display:none;
+          flex-direction:column;gap:5px;
+          background:none;border:none;cursor:pointer;padding:6px;
+        }
+        .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
+        /* HERO */
+        .hero{
+          position:relative;
+          min-height:100vh;
+          display:flex;align-items:center;justify-content:center;
+          text-align:center;
+          padding:calc(160px + var(--ticker-h)) 40px 120px;
+          overflow:hidden;
+          isolation:isolate;
+        }
+        .hero-video{
+          position:absolute;
+          top:0;left:0;
+          width:100%;height:100%;
+          object-fit:cover;
+          z-index:-2;
+          will-change:filter, transform;
+          transform-origin:center center;
+          transition:filter 0.05s linear;
+        }
+        .hero-overlay{
+          position:absolute;
+          top:0;left:0;
+          width:100%;height:100%;
+          z-index:-1;
+          background:
+          radial-gradient(circle at center,rgba(26,33,56,0.10) 0%,transparent 65%),
+          linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.62));
+          will-change:opacity;
+          transition:opacity 0.05s linear;
+        }
+        .hero-content{max-width:900px;width:100%;display:flex;flex-direction:column;align-items:center;
+          will-change:opacity, transform;
+          padding:44px 48px;
+          border-radius:32px;
+          background:rgba(255,255,255,0.5);
+          backdrop-filter:blur(14px);
+          -webkit-backdrop-filter:blur(14px);
+          box-shadow:0 20px 60px rgba(26,33,56,0.06);
+        }
+        .hero-logo-stage{
+          position:relative;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          width:100%;
+          margin-bottom:20px;
+          padding:14px 46px;
+        }
+        .hero-logo{
+          position:relative;
+          z-index:2;
+          font-family:'Playfair Display',serif;
+          font-size:clamp(68px,12vw,150px);
+          line-height:0.9;
+          letter-spacing:-4px;
+          background:linear-gradient(90deg,#1a2138,#4a7bff);
+          -webkit-background-clip:text;
+          -webkit-text-fill-color:transparent;
+          display:inline-block;
+        }
+        .star{
+          position:absolute;
+          z-index:1;
+          background:radial-gradient(circle,#ffffff 0%,#bcd2ff 45%,rgba(188,210,255,0) 75%);
+          clip-path:polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%);
+          opacity:0;
+          animation:twinkle ease-in-out infinite;
+          pointer-events:none;
+        }
+        @keyframes twinkle{
+          0%,100%{opacity:0;transform:scale(0.3) rotate(0deg);}
+          50%{opacity:1;transform:scale(1) rotate(20deg);}
+        }
+        @media (prefers-reduced-motion: reduce){
+          .star{animation:none;opacity:0.5;transform:scale(0.7);}
+        }
+        .hero-sub{
+          font-size:10px;
+          letter-spacing:5px;
+          text-transform:uppercase;
+          color:#9aa3be;
+          margin-bottom:48px;
+        }
+        .hero p{
+          font-size:18px;line-height:1.9;color:#6b7aaa;font-weight:300;
+          max-width:680px;margin:0 auto 50px;
+        }
+        .hero-buttons{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+        .btn{
+          padding:14px 30px;border-radius:999px;
+          text-decoration:none;font-size:13px;
+          letter-spacing:0.5px;transition:0.25s ease;
+        }
+        .btn-primary{background:#1a2138;color:#fff;}
+        .btn-primary:hover{background:#2d3a5c;}
+        .btn-secondary{border:1px solid rgba(26,33,56,0.18);color:#1a2138;}
+        .btn-secondary:hover{background:rgba(26,33,56,0.04);}
+        /* DIVIDER */
+        .divider{
+          width:100%;border:none;
+          border-top:1px solid rgba(0,0,0,0.07);
+        }
+        /* STATS */
+        .stats{
+          padding:90px 40px;
+          display:flex;justify-content:center;gap:120px;flex-wrap:wrap;
+        }
+        .stat h3{
+          font-family:'Playfair Display',serif;
+          font-size:52px;font-weight:400;
+          color:#1a2138;margin-bottom:8px;
+          letter-spacing:-2px;
+          font-variant-numeric:tabular-nums;
+        }
+        .stat p{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:#9aa3be;}
+        /* FOOTER */
+        footer{
+          padding:90px 40px 50px;
+          border-top:1px solid rgba(0,0,0,0.07);
+        }
+        .footer-inner{max-width:1350px;margin:auto;}
+        .footer-top{
+          display:flex;justify-content:space-between;
+          gap:60px;flex-wrap:wrap;margin-bottom:60px;
+          align-items:flex-start;
+        }
+        .footer-brand h3{
+          font-family:'Playfair Display',serif;
+          font-size:36px;font-weight:400;color:#1a2138;
+          margin-bottom:14px;
+        }
+        .footer-brand p{color:#6b7aaa;font-size:14px;line-height:1.9;max-width:420px;font-weight:300;}
+        .footer-links{display:flex;flex-wrap:wrap;gap:14px 32px;max-width:600px;align-content:flex-start;}
+        .footer-links a{text-decoration:none;color:#6b7aaa;font-size:13px;transition:0.2s;}
+        .footer-links a:hover{color:#1a2138;}
+        .footer-bottom{
+          border-top:1px solid rgba(0,0,0,0.07);
+          padding-top:30px;
+          display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+        }
+        .footer-bottom p{color:#9aa3be;font-size:13px;}
+        /* PRIVACY */
+        .privacy-banner{
+          position:fixed;bottom:20px;left:20px;right:20px;
+          background:#fff;border:1px solid rgba(0,0,0,0.10);
+          border-radius:16px;padding:20px 24px;
+          display:flex;justify-content:space-between;align-items:center;
+          gap:20px;z-index:5000;
+          box-shadow:0 8px 40px rgba(0,0,0,0.08);
+        }
+        .privacy-text{color:#6b7aaa;font-size:13px;line-height:1.7;max-width:700px;}
+        .privacy-actions{display:flex;align-items:center;gap:16px;}
+        .privacy-actions a{text-decoration:none;color:#6b7aaa;font-size:13px;}
+        .privacy-actions button{
+          background:#1a2138;color:#fff;border:none;
+          padding:10px 22px;border-radius:999px;
+          font-size:12px;cursor:pointer;letter-spacing:0.5px;
+        }
+        @media(max-width:900px){
+          .nav-links{
+            position:fixed;top:calc(var(--ticker-h) + 68px);left:0;right:0;
+            flex-direction:column;align-items:stretch;gap:0;
+            background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);
+            max-height:0;overflow:hidden;
+            transition:max-height 0.25s ease;
+          }
+          .nav-links.open{ max-height:520px; }
+          .nav-links > li{width:100%;}
+          .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
+          .dropdown{
+            position:static;transform:none;box-shadow:none;border:none;
+            border-radius:0;padding:0 0 0 12px;
+            max-height:0;overflow:hidden;opacity:1;visibility:visible;
+            transition:max-height 0.2s ease;
+          }
+          .has-dropdown:hover .dropdown{ max-height:0; }
+          .has-dropdown.open .dropdown{ max-height:320px; }
+          .nav-toggle{ display:flex; }
+        }
+        @media(max-width:768px){
+          .nav-inner{padding:16px 20px;}
+          .hero{padding:calc(140px + var(--ticker-h)) 24px 90px;}
+          .hero-content{padding:28px 24px;border-radius:24px;}
+          .hero-logo-stage{padding:10px 20px;}
+          .hero-sub{margin-bottom:32px;}
+          .hero p{
+            font-size:15px;
+            line-height:1.75;
+            max-width:100%;
+            padding:0 4px;
+            margin-bottom:36px;
+          }
+          .stats{gap:60px;padding:70px 24px;}
+          .footer-top{flex-direction:column;}
+          footer{padding:70px 24px 40px;}
+          .privacy-banner{flex-direction:column;align-items:flex-start;left:14px;right:14px;bottom:14px;}
+        }
+        @media(max-width:420px){
+          .hero p{font-size:14px;}
+        }
+    </style>
 </head>
 <body>
-
 <div class="privacy-banner" id="privacyBanner">
   <div class="privacy-text">We use cookies and analytics to improve platform performance and user experience. By continuing, you agree to our privacy and use policies.</div>
   <div class="privacy-actions">
@@ -393,14 +382,12 @@ footer{
     <button id="acceptPrivacy">Accept</button>
   </div>
 </div>
-
 <div class="ticker" id="marketTicker">
   <div class="ticker-label"><span class="ticker-dot"></span>Markets<span class="ticker-status" id="tickerStatus"></span></div>
   <div class="ticker-track-wrap">
     <div class="ticker-track" id="tickerTrack"></div>
   </div>
 </div>
-
 <nav class="nav">
   <div class="nav-inner">
     <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="brand-link">
@@ -409,11 +396,9 @@ footer{
         <div class="brand-sub">Capital Partners</div>
       </div>
     </a>
-
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-
     <ul class="nav-links" id="navLinks">
       <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="nav-link">Home</a></li>
       <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/login" class="nav-link">Investor Login</a></li>
@@ -433,13 +418,11 @@ footer{
     </ul>
   </div>
 </nav>
-
 <section class="hero" id="heroSection">
   <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto">
     <source src="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1737729804704x942047302499646700/3125427-uhd_3840_2160_25fps.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay" id="heroOverlay"></div>
-
   <div class="hero-content" id="heroContent">
     <div class="hero-logo-stage">
       <div class="hero-logo">STARLITE</div>
@@ -463,9 +446,7 @@ footer{
     </div>
   </div>
 </section>
-
 <hr class="divider">
-
 <div class="stats" id="statsSection">
   <div class="stat">
     <h3 class="stat-number" data-target="50" data-prefix="$" data-suffix="B+">$0B+</h3>
@@ -480,7 +461,6 @@ footer{
     <p>World-Class Strategies</p>
   </div>
 </div>
-
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -508,7 +488,6 @@ footer{
     </div>
   </div>
 </footer>
-
 <script>
 const banner = document.getElementById('privacyBanner');
 if(localStorage.getItem('starlitePrivacyAccepted')) banner.style.display='none';
@@ -516,7 +495,6 @@ document.getElementById('acceptPrivacy').addEventListener('click',()=>{
   localStorage.setItem('starlitePrivacyAccepted','true');
   banner.style.display='none';
 });
-
 // Ensure the hero video actually starts even if the browser blocks the
 // autoplay attribute in some contexts (e.g. sandboxed previews).
 const heroVideo = document.getElementById('heroVideo');
@@ -526,7 +504,6 @@ if(heroVideo){
   tryPlay();
   document.addEventListener('click', tryPlay, { once:true });
 }
-
 // Count-up animation for the stat numbers, triggered once the stats
 // section scrolls into view.
 function animateCount(el){
@@ -535,11 +512,9 @@ function animateCount(el){
   const suffix = el.dataset.suffix || '';
   const duration = 1800; // ms
   const startTime = performance.now();
-
   function easeOutExpo(t){
     return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
   }
-
   function tick(now){
     const elapsed = now - startTime;
     const progress = Math.min(elapsed / duration, 1);
@@ -554,10 +529,8 @@ function animateCount(el){
   }
   requestAnimationFrame(tick);
 }
-
 const statNumbers = document.querySelectorAll('.stat-number');
 const statsSection = document.getElementById('statsSection');
-
 if('IntersectionObserver' in window && statsSection){
   const observer = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
@@ -571,56 +544,42 @@ if('IntersectionObserver' in window && statsSection){
 } else {
   statNumbers.forEach(animateCount);
 }
-
 // ------------------------------------------------------------------
 // Scroll-linked hero blur effect
 // ------------------------------------------------------------------
 const heroSection = document.getElementById('heroSection');
 const heroOverlay = document.getElementById('heroOverlay');
 const heroContent = document.getElementById('heroContent');
-
 const MAX_BLUR_PX = 22;
 const MAX_SCALE = 1.18;
-
 let ticking = false;
-
 function updateHeroScrollEffect(){
   if(!heroSection || !heroVideo) { ticking = false; return; }
-
   const rect = heroSection.getBoundingClientRect();
   const heroHeight = rect.height || 1;
-
   const progress = Math.min(Math.max(-rect.top / heroHeight, 0), 1);
-
   const blur = progress * MAX_BLUR_PX;
   const scale = 1 + progress * (MAX_SCALE - 1);
-
   heroVideo.style.filter = `blur(${blur.toFixed(2)}px)`;
   heroVideo.style.transform = `scale(${scale.toFixed(3)})`;
-
   if(heroOverlay){
     heroOverlay.style.opacity = String(0.35 + progress * 0.65);
   }
-
   if(heroContent){
     heroContent.style.opacity = String(1 - progress * 0.9);
     heroContent.style.transform = `translateY(${(progress * -40).toFixed(1)}px)`;
   }
-
   ticking = false;
 }
-
 function onScroll(){
   if(!ticking){
     requestAnimationFrame(updateHeroScrollEffect);
     ticking = true;
   }
 }
-
 window.addEventListener('scroll', onScroll, { passive:true });
 window.addEventListener('resize', onScroll);
 updateHeroScrollEffect();
-
 // ------------------------------------------------------------------
 // Nav: mobile toggle + Products dropdown (click-based, works for
 // both touch and desktop; desktop also gets a CSS hover-open).
@@ -631,7 +590,6 @@ navToggle.addEventListener('click', ()=>{
   const isOpen = navLinks.classList.toggle('open');
   navToggle.setAttribute('aria-expanded', String(isOpen));
 });
-
 const productsDropdown = document.getElementById('productsDropdown');
 const productsTrigger = document.getElementById('productsTrigger');
 productsTrigger.addEventListener('click', (e)=>{
@@ -639,61 +597,31 @@ productsTrigger.addEventListener('click', (e)=>{
   const isOpen = productsDropdown.classList.toggle('open');
   productsTrigger.setAttribute('aria-expanded', String(isOpen));
 });
-
 document.addEventListener('click', (e)=>{
   if(!productsDropdown.contains(e.target)){
     productsDropdown.classList.remove('open');
     productsTrigger.setAttribute('aria-expanded','false');
   }
 });
-
 // ------------------------------------------------------------------
-// Market ticker — pulls real quotes directly from Twelve Data
-// (api.twelvedata.com), which sends proper CORS headers so this works
-// straight from the browser, no proxy hop needed.
-//
-// IMPORTANT — two honest caveats about this setup:
-//
-// 1) This API key is sitting in plain text in this HTML file, which
-//    means anyone who views page source can read and reuse it against
-//    your quota. That's unavoidable for a pure client-side page. If
-//    this ticker gets real traffic, consider moving the fetch behind
-//    a small server endpoint you control so the key never ships to
-//    the browser.
-//
-// 2) The free plan is capped at 8 API credits/minute and 800/day,
-//    shared across EVERY visitor's browser (each page load fetches
-//    independently). This ticker uses 7 symbols in a single batched
-//    request every 90 seconds to stay under the per-minute cap, but
-//    on a busy day 800 credits/day can still run out — after which
-//    quotes freeze at their last known value until the daily quota
-//    resets at 00:00 UTC. A paid plan or a shared server-side cache
-//    removes this ceiling.
-//
-// Index-level tickers (^GSPC etc.) aren't reliably available on the
-// free plan, so this tracks liquid ETF proxies instead and labels
-// them honestly (e.g. "S&P 500 (SPY)") rather than presenting an ETF
-// price as if it were the raw index value.
+// Market ticker
 // ------------------------------------------------------------------
 const TWELVE_DATA_API_KEY = 'c1eaf40e17c346f0ae8d2dde93f5deec';
-
 const tickerData = [
   { sym:'S&P 500 (SPY)', td:'SPY', price:0, chg:0 },
-  { sym:'DOW (DIA)',     td:'DIA', price:0, chg:0 },
+  { sym:'DOW (DIA)', td:'DIA', price:0, chg:0 },
   { sym:'NASDAQ-100 (QQQ)', td:'QQQ', price:0, chg:0 },
-  { sym:'AAPL',    td:'AAPL', price:0, chg:0 },
-  { sym:'MSFT',    td:'MSFT', price:0, chg:0 },
-  { sym:'NVDA',    td:'NVDA', price:0, chg:0 },
+  { sym:'AAPL', td:'AAPL', price:0, chg:0 },
+  { sym:'MSFT', td:'MSFT', price:0, chg:0 },
+  { sym:'NVDA', td:'NVDA', price:0, chg:0 },
   { sym:'BTC/USD', td:'BTC/USD', price:0, chg:0 }
 ];
-
 function formatPrice(item){
   const p = item.price;
   if(!p) return '—';
   if(p >= 1000) return p.toLocaleString('en-US', { maximumFractionDigits:0 });
   return p.toFixed(2);
 }
-
 function tickerItemHTML(item, idx){
   const up = item.chg >= 0;
   return `<div class="ticker-item" data-idx="${idx}">
@@ -704,14 +632,12 @@ function tickerItemHTML(item, idx){
     </span>
   </div>`;
 }
-
 function renderTicker(){
   const track = document.getElementById('tickerTrack');
   if(!track) return;
   const itemsHTML = tickerData.map(tickerItemHTML).join('');
   track.innerHTML = itemsHTML + itemsHTML;
 }
-
 function updateTickerDOM(){
   document.querySelectorAll('#tickerTrack .ticker-item').forEach(el=>{
     const idx = Number(el.dataset.idx);
@@ -724,27 +650,21 @@ function updateTickerDOM(){
     chgEl.innerHTML = `<span class="arrow">${up ? '▲' : '▼'}</span>${Math.abs(item.chg).toFixed(2)}%`;
   });
 }
-
 function setTickerStatus(text){
   const status = document.getElementById('tickerStatus');
   if(status) status.textContent = '· ' + text;
 }
-
 let lastGoodFetch = null;
-
 async function refreshQuotes(){
   setTickerStatus('Updating…');
   const symbols = tickerData.map(i => i.td).join(',');
   const url = 'https://api.twelvedata.com/quote?symbol=' + encodeURIComponent(symbols) + '&apikey=' + TWELVE_DATA_API_KEY;
-
   try{
     const res = await fetch(url, { cache:'no-store' });
     const data = await res.json();
-
     if(data && data.status === 'error'){
       throw new Error(data.message || 'API error');
     }
-
     let anySucceeded = false;
     tickerData.forEach(item=>{
       const quote = tickerData.length === 1 ? data : data[item.td];
@@ -756,9 +676,7 @@ async function refreshQuotes(){
       item.chg = Number.isNaN(pct) ? item.chg : pct;
       anySucceeded = true;
     });
-
     updateTickerDOM();
-
     if(anySucceeded){
       lastGoodFetch = new Date();
       setTickerStatus('Live · ' + lastGoodFetch.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }));
@@ -769,7 +687,6 @@ async function refreshQuotes(){
     setTickerStatus(lastGoodFetch ? 'Last update ' + lastGoodFetch.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : 'Feed unavailable');
   }
 }
-
 renderTicker();
 refreshQuotes();
 setInterval(refreshQuotes, 90000);
