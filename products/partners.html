@@ -128,8 +128,32 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
   transition:color 0.2s ease;
   cursor:pointer;
   background:none;border:none;font-family:'Inter',sans-serif;
+  /* reset native <button> chrome so "Products" matches the <a> tags
+     next to it — without this, Chrome/Safari draw a rounded
+     gray/white focus-highlight pill behind the button on click/hover
+     that the anchor-based nav items never get. */
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  outline:none;
+  box-shadow:none;
+  border-radius:0;
 }
 .nav-link:hover{color:#4a7bff;}
+.nav-link:focus,
+.nav-link:focus-visible,
+.nav-link:active{
+  background:none;
+  outline:none;
+  box-shadow:none;
+}
+/* keep a visible, accessible focus indicator for keyboard users,
+   just as an underline instead of a filled pill */
+.nav-link:focus-visible{
+  color:#4a7bff;
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
 .nav-caret{
   width:8px;height:8px;
   border-right:1.5px solid currentColor;
@@ -174,7 +198,10 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
   display:none;
   flex-direction:column;gap:5px;
   background:none;border:none;cursor:pointer;padding:6px;
+  appearance:none;-webkit-appearance:none;outline:none;
 }
+.nav-toggle:focus,
+.nav-toggle:active{ background:none;outline:none;box-shadow:none; }
 .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
 
 @media(max-width:900px){
@@ -265,17 +292,17 @@ h2{
 }
 p{font-size:17px;color:#6b7aaa;margin-bottom:24px;line-height:1.9;font-weight:300;}
 p strong{color:#1a2138;font-weight:500;}
-ul{list-style:none;margin:32px 0;}
-li{
+.container ul{list-style:none;margin:32px 0;}
+.container li{
   font-size:17px;padding-left:24px;
   margin-bottom:20px;position:relative;
   color:#6b7aaa;line-height:1.9;font-weight:300;
 }
-li::before{
+.container li::before{
   content:"—";position:absolute;left:0;
   color:#c0c8e8;font-size:14px;top:5px;
 }
-li strong{color:#1a2138;font-weight:500;}
+.container li strong{color:#1a2138;font-weight:500;}
 
 hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
 
@@ -521,6 +548,9 @@ productsTrigger.addEventListener('click', (e)=>{
   e.preventDefault();
   const isOpen = productsDropdown.classList.toggle('open');
   productsTrigger.setAttribute('aria-expanded', String(isOpen));
+  // don't leave the button focused after a mouse click — that's what
+  // was causing the lingering highlight pill in Chrome/macOS
+  productsTrigger.blur();
 });
 
 document.addEventListener('click', (e)=>{
