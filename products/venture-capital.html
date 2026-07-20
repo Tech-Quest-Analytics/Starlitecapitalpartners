@@ -171,14 +171,24 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
 }
 .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
 @media(max-width:900px){
+  /* NOTE: .nav-links used to be position:fixed here. But its parent
+     .nav has backdrop-filter, which per spec makes .nav establishes
+     the containing block for fixed-position descendants — so the
+     "fixed" menu was actually positioning itself relative to the
+     ~70px-tall .nav bar, not the viewport. That mismatch is what
+     threw the panel out of place and caused the white-out on tap.
+     Using position:absolute + top:100% anchors it correctly right
+     below the nav bar, since .nav is already viewport-fixed. */
   .nav-links{
-    position:fixed;top:calc(var(--ticker-h) + 68px);left:0;right:0;
+    position:absolute;top:100%;left:0;right:0;
     flex-direction:column;align-items:stretch;gap:0;
     background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);
     max-height:0;overflow:hidden;
     transition:max-height 0.25s ease;
+    z-index:998;
+    box-shadow:0 18px 40px rgba(26,33,56,0.12);
   }
-  .nav-links.open{ max-height:520px; }
+  .nav-links.open{ max-height:520px;overflow-y:auto; }
   .nav-links > li{width:100%;}
   .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
   .dropdown{
@@ -429,7 +439,6 @@ productsTrigger.addEventListener('click', (e) => {
   e.stopPropagation();
   const willOpen = !productsDropdown.classList.contains('open');
   toggleDropdown(willOpen);
-  productsTrigger.blur();
 });
 
 // Close when clicking outside
