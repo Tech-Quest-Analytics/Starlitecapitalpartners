@@ -191,14 +191,18 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
   .nav-links.open{ max-height:520px;overflow-y:auto; }
   .nav-links > li{width:100%;}
   .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
+  /* FIX: previously this animated with max-height/overflow:hidden while
+     nested inside .nav-links, which is ALSO animating max-height/overflow:
+     hidden at the same time. Two nested elements animating that pair
+     together is a known mobile WebKit paint bug — the outer box opens
+     visually but the inner dropdown's content silently fails to render.
+     A plain display:none/block toggle sidesteps it entirely. */
   .dropdown{
     position:static;transform:none;box-shadow:none;border:none;
-    border-radius:0;padding:0 0 0 12px;
-    max-height:0;overflow:hidden;opacity:1;visibility:visible;
-    transition:max-height 0.2s ease;
+    border-radius:0;padding:0;
+    display:none;opacity:1;visibility:visible;
   }
-  .has-dropdown:hover .dropdown{ max-height:0; }
-  .has-dropdown.open .dropdown{ max-height:320px; }
+  .has-dropdown.open .dropdown{ display:block;padding:0 0 0 12px; }
   .nav-toggle{ display:flex; }
 }
 /* PRIVACY BANNER */
