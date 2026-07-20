@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Starlite Capital Partners — Digital Data Exchange</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Inter',system-ui,sans-serif;font-size:14px;background:#f4f6fa;color:#1a2035}
+.app{display:flex;flex-direction:column;height:100vh;background:#f4f6fa}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:#0a0e1f;border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0}
+.topbar-logo{display:flex;align-items:center;gap:12px}
+.topbar-logo-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;color:#e8edff;letter-spacing:0.5px}
+.topbar-logo-divider{width:1px;height:20px;background:rgba(255,255,255,0.15)}
+.topbar-logo-sub{font-size:12px;color:#94a3c0;letter-spacing:1px;text-transform:uppercase}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-nav a{color:#94a3c0;font-size:13px;text-decoration:none;padding:6px 12px;border-radius:6px;transition:all 0.2s}
+.topbar-nav a:hover{color:#e8edff;background:rgba(255,255,255,0.06)}
+.topbar-user{display:flex;align-items:center;gap:8px;font-size:13px;color:#94a3c0;cursor:pointer;padding:5px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);position:relative}
+.user-menu-wrap{position:relative}
+.user-menu{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid #e2e8f0;border-radius:8px;box-shadow:0 12px 32px rgba(10,14,31,0.18);min-width:180px;z-index:1100;opacity:0;pointer-events:none;transform:translateY(-6px);transition:all 0.15s}
+.user-menu.open{opacity:1;pointer-events:all;transform:translateY(0)}
+.user-menu-item{display:flex;align-items:center;gap:9px;padding:10px 14px;font-size:13px;color:#475569;cursor:pointer;transition:background 0.12s}
+.user-menu-item:hover{background:#f8fafc;color:#1e293b}
+.user-menu-item svg{width:15px;height:15px;opacity:0.7;flex-shrink:0}
+.user-menu-item.logout{color:#b91c1c}
+.user-menu-item.logout:hover{background:#fee2e2;color:#991b1b}
+.user-menu-divider{height:1px;background:#f1f5f9;margin:4px 0}
+.avatar{width:26px;height:26px;border-radius:50%;background:#1e3a6e;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#82aaff}
+.btn-upload{padding:7px 14px;font-size:12px;border:none;border-radius:20px;background:linear-gradient(90deg,#3b6bef,#6b8fff);color:#fff;cursor:pointer;font-weight:500}
+.body{display:flex;flex:1;overflow:hidden}
+.sidebar{width:210px;background:#fff;border-right:1px solid #e2e8f0;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar-section{padding:16px 0 8px}
+.sidebar-label{font-size:10px;font-weight:500;color:#94a3b8;padding:0 16px 8px;text-transform:uppercase;letter-spacing:1px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 16px;cursor:pointer;color:#64748b;font-size:13px;transition:all 0.15s;border-left:2px solid transparent}
+.nav-item:hover{background:#f8fafc;color:#1e293b}
+.nav-item.active{background:#eff6ff;color:#1d4ed8;border-left:2px solid #3b6bef;font-weight:500}
+.nav-item svg{width:15px;height:15px;flex-shrink:0;opacity:0.75}
+.sidebar-divider{height:1px;background:#f1f5f9;margin:4px 0}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.toolbar{display:flex;align-items:center;gap:10px;padding:10px 20px;background:#fff;border-bottom:1px solid #e2e8f0;flex-shrink:0}
+.breadcrumb{font-size:13px;color:#94a3b8;flex:1}
+.breadcrumb span{color:#1e293b;font-weight:500}
+.btn-sm{padding:6px 13px;font-size:12px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;color:#475569;cursor:pointer;display:flex;align-items:center;gap:5px}
+.filter-bar{display:flex;align-items:center;gap:10px;padding:10px 20px;background:#f8fafc;border-bottom:1px solid #e2e8f0;flex-shrink:0;flex-wrap:wrap}
+.filter-bar label{font-size:12px;color:#64748b;font-weight:500}
+.filter-bar select,.filter-bar input[type=text]{font-size:12px;padding:5px 10px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;color:#1e293b;cursor:pointer;outline:none}
+.filter-bar input[type=text]{width:180px}
+.doc-count{font-size:12px;color:#94a3b8;margin-left:auto}
+.content{flex:1;overflow-y:auto}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+thead th{padding:10px 16px;text-align:left;font-size:11px;font-weight:600;color:#64748b;background:#f8fafc;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:2;cursor:pointer;user-select:none;text-transform:uppercase;letter-spacing:0.5px}
+th:nth-child(1){width:40px}th:nth-child(2){width:34%}th:nth-child(3){width:20%}th:nth-child(4){width:20%}th:nth-child(5){width:14%}th:nth-child(6){width:70px}
+tbody tr{border-bottom:1px solid #f1f5f9;cursor:pointer;transition:background 0.1s}
+tbody tr:hover{background:#f8fafc}
+tbody tr.selected{background:#eff6ff}
+td{padding:10px 16px;font-size:13px;color:#1e293b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-cell{display:flex;align-items:center;gap:8px}
+.file-icon{width:28px;height:28px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;letter-spacing:0.3px}
+.pdf-icon{background:#fee2e2;color:#b91c1c}.xlsx-icon{background:#dcfce7;color:#15803d}.doc-icon{background:#dbeafe;color:#1d4ed8}
+.filename{font-size:13px;color:#1e293b;font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:500;white-space:nowrap}
+.badge-blue{background:#dbeafe;color:#1d4ed8}.badge-teal{background:#d1fae5;color:#065f46}.badge-amber{background:#fef3c7;color:#92400e}.badge-coral{background:#fee2e2;color:#b91c1c}.badge-purple{background:#ede9fe;color:#5b21b6}.badge-gray{background:#f1f5f9;color:#475569}
+.fund-name{font-size:12px;color:#64748b}.date-cell{font-size:12px;color:#64748b}
+.action-btn{padding:4px 10px;font-size:12px;border:1px solid #e2e8f0;border-radius:5px;background:#fff;color:#475569;cursor:pointer}
+.action-btn:hover{background:#eff6ff;border-color:#3b6bef;color:#1d4ed8}
+.action-btn-group{display:flex;gap:4px}
+.action-btn.print-btn{background:#f8fafc;border-color:#cbd5e1}
+.action-btn.print-btn:hover{background:#eff6ff;border-color:#3b6bef;color:#1d4ed8}
+.captable-section{padding:24px 20px;border-bottom:1px solid #e2e8f0;background:#fff}
+.captable-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.captable-title{font-size:14px;font-weight:600;color:#1e293b;display:flex;align-items:center;gap:8px}
+.captable-meta{font-size:12px;color:#94a3b8}
+.captable-valuation{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:500;margin-bottom:8px}
+.captable-valuation-note{font-size:11px;color:#94a3b8;margin-bottom:16px;line-height:1.6}
+.captable-table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0}
+.captable-table thead th{padding:9px 14px;text-align:left;font-size:11px;font-weight:600;color:#64748b;background:#f8fafc;border-bottom:1px solid #e2e8f0;text-transform:uppercase;letter-spacing:0.5px}
+.captable-table tbody td{padding:11px 14px;font-size:13px;color:#1e293b;border-bottom:1px solid #f1f5f9}
+.captable-table tbody tr:hover{background:#f8fafc}
+.captable-table tbody tr.ct-total{background:#f8fafc;font-weight:600}
+.captable-table tbody tr.ct-total td{color:#0f172a;border-top:1px solid #e2e8f0;border-bottom:none}
+.ownership-bar-wrap{display:flex;align-items:center;gap:8px}
+.ownership-bar{height:6px;border-radius:3px;background:#3b6bef;display:inline-block}
+.ownership-pct{font-size:12px;color:#475569;white-space:nowrap}
+.captable-notes{margin-top:14px;font-size:12px;color:#94a3b8;line-height:1.7;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px}
+.captable-notes strong{color:#64748b}
+.section-divider{height:1px;background:#e2e8f0;margin:0}
+.statusbar{display:flex;align-items:center;gap:16px;padding:7px 20px;background:#fff;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8;flex-shrink:0}
+.statusbar a{color:#64748b;text-decoration:none}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:4px}
+.modal-overlay{position:fixed;inset:0;background:rgba(10,14,31,0.55);backdrop-filter:blur(3px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:14px;width:820px;max-width:95vw;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,0.22);transform:translateY(16px);transition:transform 0.25s}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;padding:22px 26px 16px;border-bottom:1px solid #e2e8f0;flex-shrink:0}
+.modal-title{font-family:'Playfair Display',serif;font-size:17px;color:#0a0e1f;font-weight:400}
+.modal-subtitle{font-size:12px;color:#94a3b8;margin-top:3px}
+.modal-close{width:30px;height:30px;border-radius:6px;border:1px solid #e2e8f0;background:#f8fafc;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:18px;transition:all 0.15s}
+.modal-close:hover{background:#fee2e2;border-color:#fca5a5;color:#b91c1c}
+.modal-tabs{display:flex;gap:2px;padding:12px 26px 0;border-bottom:1px solid #e2e8f0;background:#f8fafc;flex-shrink:0}
+.modal-tab{padding:8px 16px;font-size:12px;font-weight:500;color:#64748b;cursor:pointer;border-radius:6px 6px 0 0;border:1px solid transparent;border-bottom:none;transition:all 0.15s;margin-bottom:-1px}
+.modal-tab.active{background:#fff;color:#1d4ed8;border-color:#e2e8f0;border-bottom-color:#fff}
+.modal-body{overflow-y:auto;padding:24px 26px;flex:1}
+.year-toggle{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.year-toggle span{font-size:12px;color:#64748b;font-weight:500}
+.ytog-btn{padding:5px 14px;font-size:12px;border:1px solid #e2e8f0;border-radius:20px;background:#f8fafc;color:#475569;cursor:pointer}
+.ytog-btn.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+.fs-section{margin-bottom:28px}
+.fs-section-title{font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.fs-section-title::after{content:'';flex:1;height:1px;background:#e2e8f0}
+.fs-table{width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden}
+.fs-table thead th{padding:8px 14px;text-align:left;font-size:11px;font-weight:600;color:#64748b;background:#f8fafc;text-transform:uppercase;letter-spacing:0.5px}
+.fs-table thead th:last-child{text-align:right}
+.fs-table tbody td{padding:9px 14px;font-size:13px;color:#1e293b;border-top:1px solid #f1f5f9}
+.fs-table tbody td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.fs-table tbody tr.total-row td{font-weight:600;background:#f8fafc;border-top:2px solid #e2e8f0;color:#0f172a}
+.fs-table tbody tr.subtotal-row td{font-weight:500;color:#1d4ed8}
+.fs-table tbody tr.highlight-row td{background:#eff6ff}
+.neg{color:#b91c1c}.pos{color:#065f46}
+.kpi-row{display:flex;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+.kpi-card{flex:1;min-width:130px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px}
+.kpi-label{font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px}
+.kpi-value{font-size:20px;font-weight:600;color:#0f172a;font-variant-numeric:tabular-nums}
+.kpi-value.neg{color:#b91c1c}.kpi-value.pos{color:#065f46}
+.kpi-sub{font-size:11px;color:#94a3b8;margin-top:2px}
+.doc-modal{background:#fff;border-radius:14px;width:760px;max-width:95vw;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,0.22);transform:translateY(16px);transition:transform 0.25s}
+.modal-overlay.open .doc-modal{transform:translateY(0)}
+.doc-body{overflow-y:auto;padding:28px 34px;flex:1;font-size:13px;line-height:1.75;color:#1e293b}
+.doc-body h1{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:4px;color:#0a0e1f}
+.doc-body h2{font-size:13px;font-weight:600;margin:22px 0 8px;color:#1d4ed8;text-transform:uppercase;letter-spacing:0.4px}
+.doc-body p{margin-bottom:10px}
+.doc-body .doc-meta{font-size:12px;color:#94a3b8;margin-bottom:18px}
+.doc-body .sig-line{margin-top:26px;border-top:1px solid #e2e8f0;padding-top:14px;font-size:13px;color:#475569}
+.modal-header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-print{display:flex;align-items:center;gap:6px;padding:7px 13px;font-size:12px;font-weight:500;border:1px solid #e2e8f0;border-radius:6px;background:#fff;color:#475569;cursor:pointer}
+.btn-print:hover{background:#eff6ff;border-color:#3b6bef;color:#1d4ed8}
+.btn-newwindow{display:flex;align-items:center;gap:6px;padding:7px 13px;font-size:12px;font-weight:500;border:1px solid #3b6bef;border-radius:6px;background:#eff6ff;color:#1d4ed8;cursor:pointer}
+.btn-newwindow:hover{background:#dbeafe}
+.ein-cell{font-size:12px;color:#64748b;font-variant-numeric:tabular-nums;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="topbar-logo">
+      <span class="topbar-logo-name">Starlite Capital Partners</span>
+      <div class="topbar-logo-divider"></div>
+      <span class="topbar-logo-sub">Digital Data Exchange</span>
+    </div>
+    <div class="topbar-right">
+      <nav class="topbar-nav"><a href="#">My Data Exchange</a><a href="#">FAQ</a><a href="#">Support</a></nav>
+      <button class="btn-upload">&#8593; Upload Document</button>
+      <div class="user-menu-wrap">
+        <div class="topbar-user" onclick="toggleUserMenu(event)"><div class="avatar">GF</div>Gregory Fenelon &#9662;</div>
+        <div class="user-menu" id="user-menu">
+          <div class="user-menu-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</div>
+          <div class="user-menu-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9"/></svg>Settings</div>
+          <div class="user-menu-divider"></div>
+          <div class="user-menu-item logout" onclick="logout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log Out</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Navigation</div>
+        <div class="nav-item active" onclick="setNav(this,'Find Files')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Find Files</div>
+        <div class="nav-item" onclick="setNav(this,'Home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</div>
+        <div class="nav-item" onclick="setNav(this,'Data Rooms')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Data Rooms</div>
+        <div class="nav-item" onclick="setNav(this,'Meetings')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Meetings</div>
+        <div class="nav-item" onclick="setNav(this,'Cap Table')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg>Cap Table</div>
+        <div class="nav-item" onclick="setNav(this,'Dx Console')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>Dx Console</div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Document Type</div>
+        <div class="nav-item" onclick="filterSidebar(this,'All')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>All Documents</div>
+        <div class="nav-item" onclick="filterSidebar(this,'Balance Sheet')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Balance Sheet</div>
+        <div class="nav-item" onclick="filterSidebar(this,'Capital Call')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Capital Call</div>
+        <div class="nav-item" onclick="filterSidebar(this,'Distribution Notice')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Distribution Notice</div>
+        <div class="nav-item" onclick="filterSidebar(this,'Dynamic Reporting')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Dynamic Reporting</div>
+        <div class="nav-item" onclick="filterSidebar(this,'Income Statement')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>Income Statement</div>
+        <div class="nav-item" onclick="filterSidebar(this,'Investment Summary')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Investment Summaries</div>
+        <div class="nav-item" onclick="filterSidebar(this,'Legal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Legal Documents</div>
+        <div class="nav-item" onclick="filterSidebar(this,'Quarterly Report')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Quarterly Reports</div>
+        <div class="nav-item" onclick="filterSidebar(this,'Cash Flow')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Statement of Cash Flows</div>
+        <div class="nav-item" onclick="filterSidebar(this,'Tax')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Tax Statement</div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="toolbar">
+        <div class="breadcrumb">Home &rsaquo; <span id="breadcrumb-label">Find Files</span></div>
+        <div style="font-size:12px;color:#94a3b8">Recent Documents</div>
+        <button class="btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/></svg>Columns</button>
+        <button class="btn-sm" onclick="exportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
+      </div>
+      <div class="filter-bar">
+        <label>Fund</label>
+        <select id="fund-filter" onchange="applyFilters()"><option value="All">All Funds</option><option>SCP Fund I</option><option>SCP Fund II</option><option>SCP Capital Partners</option><option>SCP Asset Management</option></select>
+        <label>Year</label>
+        <select id="year-filter" onchange="applyFilters()"><option value="All">All Years</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option></select>
+        <label>Type</label>
+        <select id="type-filter" onchange="applyFilters()"><option value="All">All Types</option><option>Balance Sheet</option><option>Capital Call</option><option>Distribution Notice</option><option>Dynamic Reporting</option><option>Income Statement</option><option>Investment Summary</option><option>Legal</option><option>Quarterly Report</option><option>Cash Flow</option><option>Tax</option></select>
+        <input type="text" id="search-input" placeholder="Search documents&hellip;" oninput="applyFilters()">
+        <span class="doc-count" id="doc-count">Displaying 0 items</span>
+      </div>
+      <div class="content">
+        <div class="captable-section">
+          <div class="captable-header">
+            <div class="captable-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+              Starlite Capital Inc. &mdash; Capitalization Table
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span class="captable-meta">As of December 31, 2025 &nbsp;&middot;&nbsp; Date of Formation: October 14, 2024</span>
+              <button class="btn-print" onclick="openCapTableWindow()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+              <button class="btn-newwindow" onclick="openCapTableWindow()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open in New Window</button>
+            </div>
+          </div>
+          <div class="captable-valuation">Wintellex IP &amp; Global PaySystems IP Book Value: $24.5 Billion (IP Basis &ndash; December 2025)</div>
+          <div class="captable-valuation-note">Note: valuation determined via third-party comparable company analysis, benchmarked against the Worldpay and Global Payments acquisitions, applied to Wintellex IP and Global PaySystems IP assets owned by the Company. See Investment Summary for additional detail.</div>
+          <table class="captable-table">
+            <thead>
+              <tr><th style="width:28%">Shareholder</th><th style="width:12%">EIN</th><th style="width:16%">Role</th><th style="width:10%">Class</th><th style="width:13%">Shares</th><th style="width:9%">Ownership</th><th style="width:12%">Implied Value</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>The Gregory Fenelon Revocable Living Trust</strong></td>
+                <td class="ein-cell">42-6894149</td>
+                <td><span class="badge badge-teal">Founder &amp; Managing Member</span></td>
+                <td><span class="badge badge-blue">Common</span></td>
+                <td>15,000,000,000</td>
+                <td><div class="ownership-bar-wrap"><div class="ownership-bar" style="width:80px"></div><span class="ownership-pct"><strong>100.00%</strong></span></div></td>
+                <td><strong>$24.5B</strong></td>
+              </tr>
+              <tr class="ct-total">
+                <td><strong>Total</strong></td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td>
+                <td><strong>15,000,000,000</strong></td><td><strong>100.00%</strong></td><td><strong>$24.5 Billion</strong></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="captable-notes">
+            <strong>Notes:</strong> The Company was formed on <strong>October 14, 2024</strong>. The Gregory Fenelon Revocable Living Trust (EIN 42-6894149) holds all 15,000,000,000 issued and outstanding shares (Common), representing 100% voting and economic ownership of the Company. There are no other shareholders, preferred share classes, employee option pool allocations, or external institutional equity holders. The $24.5B figure reflects a third-party valuation determined via comparable company analysis, benchmarked against the Worldpay and Global Payments acquisitions, applied to Wintellex IP and Global PaySystems IP assets owned by the Company.
+          </div>
+        </div>
+        <div class="section-divider"></div>
+        <table>
+          <thead>
+            <tr><th></th><th onclick="sortBy('name')">Document Name</th><th onclick="sortBy('type')">Categories</th><th onclick="sortBy('fund')">Fund</th><th onclick="sortBy('date')">Effective Date</th><th>Action</th></tr>
+          </thead>
+          <tbody id="doc-table"></tbody>
+        </table>
+      </div>
+      <div class="statusbar">
+        <span><span class="status-dot"></span>Secure connection</span>
+        <span>Last updated: June 14, 2026</span>
+        <span>Displaying <strong id="status-count">0</strong> documents</span>
+        <span style="margin-left:auto"><a href="#">FAQ</a> &middot; <a href="#">Contact Technical Support</a> &middot; <a href="#">Privacy Policy</a> &middot; <a href="#">Cookie Info</a></span>
+        <span>&copy; 2026 Starlite Capital Partners. All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINANCIAL STATEMENTS MODAL -->
+<div class="modal-overlay" id="fs-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title-block">
+        <div class="modal-title">Starlite Capital Inc. / Wintellex Technologies</div>
+        <div class="modal-subtitle" id="modal-doc-name">Consolidated Financial Statements</div>
+      </div>
+      <div class="modal-header-actions">
+        <button class="btn-newwindow" onclick="openFSWindow()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open in New Window</button>
+        <button class="btn-print" onclick="printFormalBalanceSheet()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+        <button class="modal-close" onclick="closeModalDirect()">&#10005;</button>
+      </div>
+    </div>
+    <div class="modal-tabs">
+      <div class="modal-tab active" onclick="switchTab(this,'pl')">P&amp;L</div>
+      <div class="modal-tab" onclick="switchTab(this,'bs')">Balance Sheet</div>
+      <div class="modal-tab" onclick="switchTab(this,'cf')">Cash Flows</div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- TEXT / LEGAL DOCUMENT MODAL -->
+<div class="modal-overlay" id="doc-modal" onclick="closeDocModal(event)">
+  <div class="doc-modal">
+    <div class="modal-header">
+      <div class="modal-title-block">
+        <div class="modal-title" id="doc-modal-title">Document</div>
+        <div class="modal-subtitle" id="doc-modal-subtitle"></div>
+      </div>
+      <div class="modal-header-actions">
+        <button class="btn-newwindow" onclick="openDocWindow()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open in New Window</button>
+        <button class="btn-print" onclick="openDocWindow()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+        <button class="modal-close" onclick="closeDocModalDirect()">&#10005;</button>
+      </div>
+    </div>
+    <div class="doc-body" id="doc-modal-body"></div>
+  </div>
+</div>
+
+<script>
+const PRINT_STYLES=`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;700&display=swap');*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;font-size:13px;line-height:1.6;color:#1a2035;padding:32px 40px;background:#fff}h1{font-family:'Playfair Display',serif;font-size:22px;color:#0a0e1f;margin-bottom:6px}h2{font-size:12px;font-weight:600;color:#1d4ed8;text-transform:uppercase;letter-spacing:0.5px;margin:20px 0 8px}.doc-meta{font-size:12px;color:#94a3b8;margin-bottom:16px}p{margin-bottom:10px}.sig-line{margin-top:24px;border-top:1px solid #e2e8f0;padding-top:14px;font-size:13px;color:#475569}table{width:100%;border-collapse:collapse;border:1px solid #e2e8f0;margin-bottom:20px}thead th{padding:8px 12px;text-align:left;font-size:11px;font-weight:600;color:#64748b;background:#f8fafc;border-bottom:1px solid #e2e8f0;text-transform:uppercase;letter-spacing:0.4px}tbody td{padding:9px 12px;font-size:12px;color:#1e293b;border-top:1px solid #f1f5f9}tbody td:last-child{text-align:right}tr.total-row td{font-weight:600;background:#f8fafc;border-top:2px solid #e2e8f0}tr.subtotal-row td{font-weight:500;color:#1d4ed8}tr.highlight-row td{background:#eff6ff}.neg{color:#b91c1c}.pos{color:#065f46}.kpi-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}.kpi-card{flex:1;min-width:110px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px}.kpi-label{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px}.kpi-value{font-size:18px;font-weight:600;color:#0f172a}.kpi-value.neg{color:#b91c1c}.kpi-value.pos{color:#065f46}.kpi-sub{font-size:10px;color:#94a3b8;margin-top:2px}.fs-section{margin-bottom:24px}.fs-section-title{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.7px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #e2e8f0}.year-toggle{display:none}.print-header{border-bottom:2px solid #1a2138;padding-bottom:12px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end}.print-company{font-family:'Playfair Display',serif;font-size:20px;color:#0a0e1f}.print-sub{font-size:11px;color:#94a3b8;letter-spacing:1px;text-transform:uppercase}.print-date{font-size:11px;color:#94a3b8;text-align:right}@media print{@page{margin:14mm 12mm}body{padding:0}}`;
+
+const BANK_BS_STYLES=`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap');*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;font-size:10.5pt;line-height:1.5;color:#0a0e1f;background:#fff}.page{padding:28pt 42pt 28pt}.conf-bar{background:#0a2050;color:#fff;font-size:7pt;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center;padding:5pt 0;margin-bottom:20pt}.lh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px double #0a2050;padding-bottom:14pt;margin-bottom:18pt}.lh-name{font-family:'Playfair Display',serif;font-size:20pt;font-weight:700;color:#0a2050;line-height:1.1}.lh-dba{font-size:8.5pt;color:#64748b;letter-spacing:0.8px;text-transform:uppercase;margin-top:3pt}.lh-addr{font-size:8pt;color:#475569;margin-top:6pt;line-height:1.6}.lh-right{text-align:right}.lh-meta{font-size:8pt;color:#475569;line-height:1.8}.lh-stamp{display:inline-block;border:1.5px solid #0a2050;border-radius:3pt;padding:4pt 10pt;font-size:7.5pt;font-weight:700;color:#0a2050;letter-spacing:0.5px;text-transform:uppercase;margin-top:8pt}.doc-title-block{text-align:center;margin-bottom:18pt}.doc-title{font-family:'Playfair Display',serif;font-size:13pt;font-weight:700;color:#0a2050;text-transform:uppercase;letter-spacing:1px}.doc-subtitle{font-size:8.5pt;color:#475569;margin-top:4pt}.doc-asof{font-size:8.5pt;font-weight:600;color:#0a2050;margin-top:2pt}.bs-summary{display:flex;gap:12pt;margin-bottom:16pt}.bs-sum-card{flex:1;border:1pt solid #bfdbfe;border-radius:4pt;padding:8pt 11pt;background:#f0f4ff}.bs-sum-label{font-size:7.5pt;color:#475569;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2pt}.bs-sum-value{font-size:13pt;font-weight:700;color:#0a2050}.bs-sum-sub{font-size:7pt;color:#64748b;margin-top:1pt}.bs-columns{display:grid;grid-template-columns:1fr 1fr;gap:24pt;margin-bottom:14pt}.bs-col-title{font-size:8.5pt;font-weight:700;color:#0a2050;text-transform:uppercase;letter-spacing:1px;border-bottom:1.5px solid #0a2050;padding-bottom:4pt;margin-bottom:9pt}.bs-tbl{width:100%;border-collapse:collapse}.bs-tbl td{padding:3pt 0;font-size:9pt;vertical-align:top}.bs-tbl td.amt{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:6pt}.bs-tbl tr.section-head td{font-weight:600;color:#0a2050;font-size:8.5pt;text-transform:uppercase;letter-spacing:0.4px;padding-top:9pt;padding-bottom:2pt}.bs-tbl tr.section-head:first-child td{padding-top:0}.bs-tbl tr.line-item td{color:#1e293b;padding-left:10pt}.bs-tbl tr.indent2 td{padding-left:20pt}.bs-tbl tr.subtotal td{font-weight:600;border-top:1px solid #94a3b8;padding-top:3pt}.bs-tbl tr.grand-total td{font-weight:700;font-size:9.5pt;color:#0a2050;border-top:2px solid #0a2050;border-bottom:3px double #0a2050;padding:3pt 0;background:#f0f4ff}.bs-tbl tr.blank td{padding:3pt 0}.bs-equity-section{border-top:2px solid #0a2050;padding-top:10pt;margin-bottom:14pt}.bs-equity-title{font-size:8.5pt;font-weight:700;color:#0a2050;text-transform:uppercase;letter-spacing:1px;margin-bottom:9pt}.cert-block{border:1pt solid #e2e8f0;border-radius:4pt;padding:10pt 12pt;margin-bottom:14pt;background:#fafbff}.cert-title{font-size:8pt;font-weight:700;color:#0a2050;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5pt}.cert-text{font-size:8pt;color:#475569;line-height:1.65}.sig-section{display:grid;grid-template-columns:1fr 1fr;gap:28pt;margin-top:14pt}.sig-line-draw{border-bottom:1pt solid #0a2050;height:20pt;margin-bottom:3pt}.sig-name{font-size:8pt;font-weight:700;color:#0a2050}.sig-title{font-size:7.5pt;color:#475569}.sig-date-label{font-size:7pt;color:#94a3b8;margin-top:4pt}.notes-section{border-top:1pt solid #e2e8f0;padding-top:9pt;margin-top:4pt}.notes-title{font-size:8pt;font-weight:700;color:#0a2050;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5pt}.note-item{font-size:7.5pt;color:#475569;line-height:1.65;margin-bottom:4pt;display:flex;gap:7pt}.note-num{flex-shrink:0;font-weight:700;color:#0a2050}.doc-footer{border-top:1pt solid #e2e8f0;padding-top:7pt;margin-top:18pt;display:flex;justify-content:space-between}.doc-footer div{font-size:7pt;color:#94a3b8}.stmt-page{page-break-before:always}.stmt-title-block{text-align:center;margin-bottom:16pt}.stmt-title{font-family:'Playfair Display',serif;font-size:13pt;font-weight:700;color:#0a2050;text-transform:uppercase;letter-spacing:1px}.stmt-subtitle{font-size:8.5pt;color:#475569;margin-top:4pt}.stmt-asof{font-size:8.5pt;font-weight:600;color:#0a2050;margin-top:2pt}.stmt-tbl{width:100%;border-collapse:collapse;margin-bottom:16pt}.stmt-tbl td{padding:5pt 0;font-size:9.5pt;vertical-align:top;border-bottom:1pt solid #f1f5f9}.stmt-tbl td.amt{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:8pt}.stmt-tbl tr.subtotal-row td{font-weight:600;color:#0a2050;border-top:1px solid #94a3b8;border-bottom:none}.stmt-tbl tr.total-row td{font-weight:700;font-size:10pt;color:#0a2050;border-top:2px solid #0a2050;border-bottom:3px double #0a2050;background:#f0f4ff}.stmt-tbl tr.highlight-row td{background:#eff6ff;border-bottom:none}.stmt-tbl tr.plain-row td{border-bottom:none}@media print{@page{margin:10mm 12mm;size:letter portrait}body,html{padding:0}.page{padding:0}}`;
+
+function buildPrintWindow(title,bodyHTML){
+  const w=window.open('','_blank','width=900,height=700');
+  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+title+' \u2014 Starlite Capital Partners</title><style>'+PRINT_STYLES+'</style></head><body><div class="print-header"><div><div class="print-company">Starlite Capital Partners</div><div class="print-sub">Digital Data Exchange</div></div><div class="print-date">Printed: '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})+'</div></div>'+bodyHTML+'<script>window.onload=function(){window.print();}<\/script></body></html>');
+  w.document.close();return w;
+}
+
+function renderStatementPage(yr,kind){
+  const d=fsData[yr];
+  const rows=kind==='pl'?d.pl:d.cf;
+  const title=kind==='pl'?'Consolidated Statement of Operations':'Consolidated Statement of Cash Flows';
+  const rowsHtml=rows.map(r=>{
+    let cls='plain-row';
+    if(r.cls.includes('total-row'))cls='total-row';
+    else if(r.cls.includes('subtotal-row'))cls='subtotal-row';
+    else if(r.cls.includes('highlight-row'))cls='highlight-row';
+    const valCls=r.val.startsWith('(')?(' style="color:#b91c1c"'):(r.cls.includes('pos')?' style="color:#065f46"':'');
+    return '<tr class="'+cls+'"><td>'+r.label+'</td><td class="amt"'+valCls+'>'+r.val+'</td></tr>';
+  }).join('');
+  let ebitdaHtml='';
+  if(kind==='pl'){
+    const erows=d.ebitda.map(r=>{
+      let cls='plain-row';
+      if(r.cls.includes('total-row'))cls='total-row';
+      else if(r.cls.includes('highlight-row'))cls='highlight-row';
+      return '<tr class="'+cls+'"><td>'+r.label+'</td><td class="amt">'+r.val+'</td></tr>';
+    }).join('');
+    ebitdaHtml='<div class="bs-col-title" style="margin-top:18pt">Reconciliation to EBITDA</div><table class="stmt-tbl">'+erows+'</table>';
+  }
+  return '<div class="stmt-page"><div class="conf-bar">Confidential &mdash; For Banking &amp; Financial Institution Use Only</div><div class="lh"><div><div class="lh-name">Starlite Capital Inc.</div><div class="lh-dba">DBA Starlite Capital Partners</div><div class="lh-addr">1910 Pacific Ave, Suite 2000 &bull; Dallas, TX 75201</div></div><div class="lh-right"><div class="lh-meta"><strong>EIN:</strong> 33-1478204<br><strong>Incorporated:</strong> October 14, 2024<br><strong>State:</strong> Texas &bull; <strong>Entity:</strong> Corporation</div><div class="lh-stamp">Bank-Ready Statement</div></div></div><div class="stmt-title-block"><div class="stmt-title">'+title+'</div><div class="stmt-subtitle">'+d.period+'</div><div class="stmt-asof">In United States Dollars (millions)</div></div><table class="stmt-tbl">'+rowsHtml+'</table>'+ebitdaHtml+'</div>';
+}
+
+function printFormalBalanceSheet(){
+  const yr=activeYear;
+  // ── Updated figures from document 3 ──────────────────────────────────────
+  const is24=yr===2024;
+  const period=is24?'December 31, 2024':'December 31, 2025';
+  const periodLabel=is24?'Short Fiscal Year Ended December 31, 2024':'Fiscal Year Ended December 31, 2025';
+  // Totals
+  const totalAssets=is24?'$24,380,000,000':'$23,326,000,000';
+  const totalAssetsShort=is24?'$24.380B':'$23.326B';
+  const totalLiab=is24?'$100,000,000':'$400,000,000';
+  const totalLiabShort=is24?'$100M':'$400M';
+  const totalEquity=is24?'$24,280,000,000':'$22,926,000,000';
+  const totalEquityShort=is24?'$24.280B':'$22.926B';
+  const equityPct=is24?'99.6% of total assets':'98.3% of total assets';
+  const leverageNote=is24?'Minimal leverage (0.4% of assets)':'Modest leverage (1.7% of assets)';
+  // Assets
+  const cashAmt=is24?'$288,000,000':'$460,000,000';
+  const arAmt=is24?'$45,000,000':'$85,000,000';
+  const prepaidAmt=is24?'$12,000,000':'$28,000,000';
+  const currentAssets=is24?'$345,000,000':'$981,000,000';
+  const investAmt=is24?'$\u2014':'$408,000,000';
+  const investRow=is24?'':'<tr class="line-item"><td>Other Investments</td><td class="amt">$408,000,000</td></tr>';
+  const accAmort=is24?'$(465,000,000)':'$(2,155,000,000)';
+  const ipNet=is24?'$24,035,000,000':'$22,345,000,000';
+  const ipNetShort=is24?'$24.035B':'$22.345B';
+  // Liabilities
+  const apAmt=is24?'$35,000,000':'$65,000,000';
+  const stDebtAmt=is24?'$65,000,000':'$150,000,000';
+  const currentLiab=is24?'$100,000,000':'$215,000,000';
+  const ltDebtAmt=is24?'$\u2014':'$185,000,000';
+  const ltLiabTotal=is24?'$\u2014':'$185,000,000';
+  // Equity
+  const retEarnings=is24?'$(220,000,000)':'$(1,574,000,000)';
+  const ebitdaStr=is24?'$288,000,000 (70.6% margin)':'$460,000,000 (65.2% margin)';
+  const liabNote=is24?'consisting of $35M in accounts payable and accrued expenses and $65M in short-term debt / commercial paper':'consisting of $65M in accounts payable and accrued expenses, $150M in short-term debt / commercial paper, and $185M in long-term debt';
+  const liabPct=is24?'0.4%':'1.7%';
+  const printDate=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const w=window.open('','_blank','width=960,height=800');
+  w.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Financial Statements \u2014 Starlite Capital Inc. \u2014 '+period+'</title><style>'+BANK_BS_STYLES+'</style></head><body><div class="page">'+
+'<div class="conf-bar">Confidential &mdash; For Banking &amp; Financial Institution Use Only</div>'+
+'<div class="lh"><div><div class="lh-name">Starlite Capital Inc.</div><div class="lh-dba">DBA Starlite Capital Partners</div><div class="lh-addr">1910 Pacific Ave, Suite 2000 &bull; Dallas, TX 75201</div></div>'+
+'<div class="lh-right"><div class="lh-meta"><strong>EIN:</strong> 33-1478204<br><strong>Date of Incorporation:</strong> October 14, 2024<br><strong>State:</strong> Texas &bull; <strong>Entity:</strong> Corporation</div><div class="lh-stamp">Bank-Ready Statement</div></div></div>'+
+'<div class="doc-title-block"><div class="doc-title">Consolidated Balance Sheet</div><div class="doc-subtitle">'+periodLabel+'</div><div class="doc-asof">As of '+period+' &nbsp;&bull;&nbsp; In United States Dollars</div></div>'+
+'<div class="bs-summary">'+
+'<div class="bs-sum-card"><div class="bs-sum-label">Total Assets</div><div class="bs-sum-value">'+totalAssetsShort+'</div><div class="bs-sum-sub">As of '+period+'</div></div>'+
+'<div class="bs-sum-card"><div class="bs-sum-label">Total Liabilities</div><div class="bs-sum-value">'+totalLiabShort+'</div><div class="bs-sum-sub">'+leverageNote+'</div></div>'+
+'<div class="bs-sum-card"><div class="bs-sum-label">Stockholders\' Equity</div><div class="bs-sum-value">'+totalEquityShort+'</div><div class="bs-sum-sub">'+equityPct+'</div></div>'+
+'<div class="bs-sum-card"><div class="bs-sum-label">IP Carrying Value (net)</div><div class="bs-sum-value">'+ipNetShort+'</div><div class="bs-sum-sub">Net of accumulated amortization</div></div>'+
+'</div>'+
+'<div class="bs-columns">'+
+'<div><div class="bs-col-title">Assets</div><table class="bs-tbl">'+
+'<tr class="section-head"><td colspan="2">Current Assets</td></tr>'+
+'<tr class="line-item"><td>Cash and Cash Equivalents</td><td class="amt">'+cashAmt+'</td></tr>'+
+investRow+
+'<tr class="line-item"><td>Accounts Receivable, net</td><td class="amt">'+arAmt+'</td></tr>'+
+'<tr class="line-item"><td>Prepaid Expenses &amp; Other</td><td class="amt">'+prepaidAmt+'</td></tr>'+
+'<tr class="subtotal"><td>Total Current Assets</td><td class="amt">'+currentAssets+'</td></tr>'+
+'<tr class="blank"><td colspan="2"></td></tr>'+
+'<tr class="section-head"><td colspan="2">Non-Current Assets</td></tr>'+
+'<tr class="line-item"><td>Wintellex IP &amp; Global PaySystems IP, at cost <sup>(1)</sup></td><td class="amt">$24,500,000,000</td></tr>'+
+'<tr class="line-item indent2"><td>Less: Accumulated Amortization</td><td class="amt">'+accAmort+'</td></tr>'+
+'<tr class="line-item"><td><strong>Intangible Assets, net</strong></td><td class="amt"><strong>'+ipNet+'</strong></td></tr>'+
+'<tr class="line-item"><td>Property &amp; Equipment, net</td><td class="amt">$\u2014</td></tr>'+
+'<tr class="blank"><td colspan="2"></td></tr>'+
+'<tr class="grand-total"><td>TOTAL ASSETS</td><td class="amt">'+totalAssets+'</td></tr>'+
+'</table></div>'+
+'<div><div class="bs-col-title">Liabilities</div><table class="bs-tbl">'+
+'<tr class="section-head"><td colspan="2">Current Liabilities</td></tr>'+
+'<tr class="line-item"><td>Accounts Payable &amp; Accrued Expenses</td><td class="amt">'+apAmt+'</td></tr>'+
+'<tr class="line-item"><td>Short-Term Debt / Commercial Paper</td><td class="amt">'+stDebtAmt+'</td></tr>'+
+'<tr class="line-item"><td>Deferred Revenue</td><td class="amt">$\u2014</td></tr>'+
+'<tr class="subtotal"><td>Total Current Liabilities</td><td class="amt">'+currentLiab+'</td></tr>'+
+'<tr class="blank"><td colspan="2"></td></tr>'+
+'<tr class="section-head"><td colspan="2">Long-Term Liabilities</td></tr>'+
+'<tr class="line-item"><td>Long-Term Debt</td><td class="amt">'+ltDebtAmt+'</td></tr>'+
+'<tr class="line-item"><td>Deferred Tax Liabilities</td><td class="amt">$\u2014</td></tr>'+
+'<tr class="subtotal"><td>Total Long-Term Liabilities</td><td class="amt">'+ltLiabTotal+'</td></tr>'+
+'<tr class="blank"><td colspan="2"></td></tr>'+
+'<tr class="grand-total"><td>TOTAL LIABILITIES</td><td class="amt">'+totalLiab+'</td></tr>'+
+'</table></div></div>'+
+'<div class="bs-equity-section"><div class="bs-equity-title">Stockholders\' Equity</div><table class="bs-tbl">'+
+'<tr class="line-item"><td style="padding-left:0">Sole Member: The Gregory Fenelon Revocable Living Trust (EIN 42-6894149)<br><span style="font-size:7.5pt;color:#64748b">15,000,000,000 Common Shares &bull; 100.00% ownership <sup>(2)</sup></span></td><td class="amt">&nbsp;</td></tr>'+
+'<tr class="line-item"><td style="padding-left:12pt">Contributed Capital &mdash; Wintellex IP &amp; Global PaySystems IP</td><td class="amt">$24,500,000,000</td></tr>'+
+'<tr class="line-item"><td style="padding-left:12pt">Accumulated Deficit <sup>(4)</sup></td><td class="amt">'+retEarnings+'</td></tr>'+
+'<tr class="line-item"><td style="padding-left:12pt">Accumulated Other Comprehensive Income</td><td class="amt">$\u2014</td></tr>'+
+'<tr class="subtotal"><td style="padding-left:0">Total Stockholders\' Equity</td><td class="amt"><strong>'+totalEquity+'</strong></td></tr>'+
+'<tr class="blank"><td colspan="2"></td></tr>'+
+'<tr class="grand-total"><td>TOTAL LIABILITIES &amp; STOCKHOLDERS\' EQUITY</td><td class="amt">'+totalAssets+'</td></tr>'+
+'</table></div>'+
+'<div class="cert-block"><div class="cert-title">Management Certification</div><div class="cert-text">The undersigned, acting as Founder and Managing Member of Starlite Capital Inc. (DBA Starlite Capital Partners), certifies that the foregoing Consolidated Balance Sheet as of <strong>'+period+'</strong> has been prepared in accordance with generally accepted accounting principles consistently applied and presents fairly, in all material respects, the financial position of the Company as of the date indicated. This statement is provided for banking and financial institution purposes and is subject to independent audit and verification upon request.</div></div>'+
+'<div class="sig-section">'+
+'<div><div class="sig-line-draw"></div><div class="sig-name">Gregory Fenelon</div><div class="sig-title">Founder &amp; Managing Member<br>The Gregory Fenelon Revocable Living Trust<br>Starlite Capital Inc. / Starlite Capital Partners</div><div class="sig-date-label">Date: _________________________</div></div>'+
+'<div><div class="sig-line-draw"></div><div class="sig-name">Authorized Signatory / Controller</div><div class="sig-title">Title: _________________________</div><div class="sig-date-label">Date: _________________________</div></div>'+
+'</div>'+
+'<div class="notes-section"><div class="notes-title">Notes to Balance Sheet</div>'+
+'<div class="note-item"><span class="note-num">(1)</span><span><strong>Intangible Assets &amp; IP Monetization Backlog</strong> &mdash; Wintellex IP and Global PaySystems IP carried at gross cost of $24,500,000,000, amortized straight-line over 15 years under IRC &sect;197. Accumulated amortization as of '+period+': '+accAmort+'. Net carrying value: '+ipNet+'. The $24.5B IP portfolio provides long-term revenue visibility through enterprise licensing, module subscriptions, white-label partnerships, and government contracting.</span></div>'+
+'<div class="note-item"><span class="note-num">(2)</span><span>All 15,000,000,000 issued and outstanding shares of Common Stock are held by The Gregory Fenelon Revocable Living Trust (EIN 42-6894149), representing 100% ownership and sole voting control. No preferred shares, warrants, options, or dilutive securities outstanding.</span></div>'+
+'<div class="note-item"><span class="note-num">(3)</span><span>As of '+period+', total liabilities of '+totalLiab+' ('+liabPct+' of total assets), '+liabNote+'. Conservative leverage profile.</span></div>'+
+'<div class="note-item"><span class="note-num">(4)</span><span>Accumulated deficit primarily reflects non-cash amortization charges. EBITDA for '+yr+': '+ebitdaStr+'. Strong operating performance prior to non-cash items.'+(yr===2025?' Interest income of $35M recognized in 2025 from commercial paper holdings.':'')+'</span></div>'+
+'</div>'+
+'<div class="doc-footer"><div>Starlite Capital Inc. (DBA Starlite Capital Partners) &bull; EIN 33-1478204 &bull; Dallas, TX 75201 &bull; Printed: '+printDate+'</div><div>CONFIDENTIAL &bull; For Banking &amp; Financial Institution Use Only</div></div>'+
+'</div>'+renderStatementPage(yr,'pl')+renderStatementPage(yr,'cf')+
+'<script>window.onload=function(){window.print();}<\/script></body></html>');
+  w.document.close();
+}
+
+function openCapTableWindow(){
+  buildPrintWindow('Capitalization Table',
+    '<h1>Starlite Capital Inc. &mdash; Capitalization Table</h1><p class="doc-meta">As of December 31, 2025 &nbsp;&middot;&nbsp; Date of Formation: October 14, 2024</p>'+
+    '<table><thead><tr><th>Shareholder</th><th>EIN</th><th>Role</th><th>Class</th><th>Shares</th><th>Ownership</th><th>Implied Value</th></tr></thead>'+
+    '<tbody><tr><td><strong>The Gregory Fenelon Revocable Living Trust</strong></td><td>42-6894149</td><td>Founder &amp; Managing Member</td><td>Common</td><td>15,000,000,000</td><td><strong>100.00%</strong></td><td><strong>$24.5B</strong></td></tr>'+
+    '<tr class="total-row"><td><strong>Total</strong></td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td><strong>15,000,000,000</strong></td><td><strong>100.00%</strong></td><td><strong>$24.5 Billion</strong></td></tr></tbody></table>'+
+    '<div style="font-size:11px;color:#94a3b8;line-height:1.7;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px 12px;margin-top:10px"><strong style="color:#64748b">Notes:</strong> The Gregory Fenelon Revocable Living Trust (EIN 42-6894149) holds all 15,000,000,000 issued and outstanding shares (Common), representing 100% voting and economic ownership. No other shareholders, preferred share classes, or external institutional equity holders. $24.5B valuation via third-party comparable company analysis benchmarked against the Worldpay and Global Payments acquisitions.</div>'
+  );
+}
+
+let activeTab='pl',activeYear=2025,currentDoc=null;
+function openFinancialModal(doc){currentDoc=doc;activeYear=doc.fsYear;activeTab='pl';document.getElementById('modal-doc-name').textContent=doc.name;document.querySelectorAll('.modal-tab').forEach((t,i)=>t.classList.toggle('active',i===0));renderModalContent();document.getElementById('fs-modal').classList.add('open');}
+function closeModal(e){if(e.target===document.getElementById('fs-modal'))closeModalDirect();}
+function closeModalDirect(){document.getElementById('fs-modal').classList.remove('open');}
+function switchTab(el,tab){activeTab=tab;document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderModalContent();}
+function setYear(yr){activeYear=yr;renderModalContent();}
+
+function openFSWindow(){
+  const title=document.getElementById('modal-doc-name').textContent;
+  const tabLabels={pl:'Profit & Loss',bs:'Balance Sheet',cf:'Cash Flows'};
+  let allHTML='<h1>Starlite Capital Inc. / Wintellex Technologies</h1><p class="doc-meta">'+title+'</p>';
+  const saved=activeTab;
+  ['pl','bs','cf'].forEach(tab=>{activeTab=tab;allHTML+='<div style="margin-bottom:32px;page-break-inside:avoid"><h2>'+tabLabels[tab]+'</h2>'+getModalHTML()+'</div>';});
+  activeTab=saved;
+  buildPrintWindow(title,allHTML);
+}
+
+let currentDocKey=null;
+function openDocModal(docKey){currentDocKey=docKey;const d=textDocs[docKey];if(!d)return;document.getElementById('doc-modal-title').textContent=d.title;document.getElementById('doc-modal-subtitle').textContent=d.subtitle;document.getElementById('doc-modal-body').innerHTML=d.html;document.getElementById('doc-modal').classList.add('open');}
+function closeDocModal(e){if(e.target===document.getElementById('doc-modal'))closeDocModalDirect();}
+function closeDocModalDirect(){document.getElementById('doc-modal').classList.remove('open');}
+function openDocWindow(){const title=document.getElementById('doc-modal-title').textContent;const subtitle=document.getElementById('doc-modal-subtitle').textContent;const body=document.getElementById('doc-modal-body').innerHTML;buildPrintWindow(title,'<h1>'+title+'</h1><p class="doc-meta">'+subtitle+'</p>'+body);}
+
+function getModalHTML(){
+  const d=fsData[activeYear];
+  let rows,sectionTitle;
+  if(activeTab==='pl'){rows=d.pl;sectionTitle='Consolidated Statement of Operations';}
+  else if(activeTab==='bs'){rows=d.bs;sectionTitle='Consolidated Balance Sheet (excerpt)';}
+  else{rows=d.cf;sectionTitle='Consolidated Statement of Cash Flows';}
+  let kpiHtml='';
+  if(activeTab==='pl'){const rev=activeYear===2024?'$408M':'$705M';const ebitda=activeYear===2024?'$288M':'$460M';const margin=activeYear===2024?'70.6%':'65.2%';const netloss=activeYear===2024?'($120M)':'($1,173M)';kpiHtml='<div class="kpi-row"><div class="kpi-card"><div class="kpi-label">Revenue</div><div class="kpi-value pos">'+rev+'</div><div class="kpi-sub">Total</div></div><div class="kpi-card"><div class="kpi-label">EBITDA</div><div class="kpi-value pos">'+ebitda+'</div><div class="kpi-sub">'+margin+' margin</div></div><div class="kpi-card"><div class="kpi-label">Net Loss</div><div class="kpi-value neg">'+netloss+'</div><div class="kpi-sub">After D&A</div></div></div>';}
+  const tableRows=rows.map(r=>'<tr class="'+r.cls+'"><td>'+r.label+'</td><td class="'+(r.val.startsWith('(')?'neg':'')+'">'+r.val+'</td></tr>').join('');
+  let ebitdaHtml='';
+  if(activeTab==='pl'){const erows=d.ebitda.map(r=>'<tr class="'+r.cls+'"><td>'+r.label+'</td><td>'+r.val+'</td></tr>').join('');ebitdaHtml='<div class="fs-section" style="margin-top:24px"><div class="fs-section-title">Reconciliation to EBITDA</div><table class="fs-table"><thead><tr><th>Line Item</th><th>'+activeYear+'</th></tr></thead><tbody>'+erows+'</tbody></table></div>';}
+  return '<div style="font-size:12px;color:#94a3b8;margin-bottom:14px">'+d.period+' &nbsp;\u00b7&nbsp; in $ millions</div>'+kpiHtml+'<div class="fs-section"><div class="fs-section-title">'+sectionTitle+'</div><table class="fs-table"><thead><tr><th>Line Item</th><th>Amount</th></tr></thead><tbody>'+tableRows+'</tbody></table></div>'+ebitdaHtml;
+}
+function renderModalContent(){document.getElementById('modal-body').innerHTML='<div class="year-toggle"><span>Period:</span><button class="ytog-btn '+(activeYear===2024?'active':'')+'" onclick="setYear(2024)">Short Year 2024</button><button class="ytog-btn '+(activeYear===2025?'active':'')+'" onclick="setYear(2025)">Full Year 2025</button></div>'+getModalHTML();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModalDirect();closeDocModalDirect();closeUserMenu();}});
+
+function toggleUserMenu(e){e.stopPropagation();document.getElementById('user-menu').classList.toggle('open');}
+function closeUserMenu(){document.getElementById('user-menu').classList.remove('open');}
+document.addEventListener('click',e=>{const menu=document.getElementById('user-menu');const wrap=document.querySelector('.user-menu-wrap');if(menu&&menu.classList.contains('open')&&wrap&&!wrap.contains(e.target)){closeUserMenu();}});
+function logout(){closeUserMenu();document.body.innerHTML='<div style="height:100vh;display:flex;align-items:center;justify-content:center;background:#0a0e1f;font-family:\'Inter\',system-ui,sans-serif"><div style="text-align:center;color:#e8edff"><div style="font-family:\'Playfair Display\',serif;font-size:24px;margin-bottom:10px">Starlite Capital Partners</div><div style="font-size:13px;color:#94a3c0;letter-spacing:1px;text-transform:uppercase;margin-bottom:28px">Digital Data Exchange</div><div style="font-size:14px;color:#cbd5e1;margin-bottom:24px">You have been securely logged out.</div><button onclick="location.reload()" style="padding:9px 22px;font-size:13px;border:none;border-radius:20px;background:linear-gradient(90deg,#3b6bef,#6b8fff);color:#fff;cursor:pointer;font-weight:500">Log Back In</button></div></div>';}
+
+const fsData={
+  2024:{period:"Short Year Ended December 31, 2024",
+    pl:[{label:"Revenue",val:"$408",cls:""},{label:"Operating Expenses (ops + R&D + general)",val:"($120)",cls:""},{label:"Income from Operations (before D&A)",val:"$288",cls:"subtotal-row pos"},{label:"Depreciation & Amortization",val:"($408)",cls:""},{label:"Operating Loss",val:"($120)",cls:"total-row neg"},{label:"Other Income, net",val:"$0",cls:""},{label:"Loss Before Income Taxes",val:"($120)",cls:""},{label:"Income Tax Benefit",val:"$0",cls:""},{label:"Net Loss",val:"($120)",cls:"total-row neg"}],
+    ebitda:[{label:"Net Loss",val:"($120)",cls:"neg"},{label:"+ Depreciation & Amortization",val:"$408",cls:"pos"},{label:"EBITDA",val:"$288",cls:"total-row pos"},{label:"EBITDA margin",val:"70.6%",cls:"highlight-row"}],
+    bs:[{label:"Cash and cash equivalents",val:"$288",cls:""},{label:"Accounts Receivable, net",val:"$45",cls:""},{label:"Prepaid Expenses and Other Current Assets",val:"$12",cls:""},{label:"Total Current Assets",val:"$345",cls:"subtotal-row"},{label:"Wintellex IP & Global PaySystems IP, net",val:"$24,035",cls:""},{label:"Total Assets",val:"$24,380",cls:"total-row"},{label:"Accounts Payable & Accrued Expenses",val:"$35",cls:""},{label:"Short-Term Debt / Commercial Paper",val:"$65",cls:""},{label:"Total Current Liabilities",val:"$100",cls:"subtotal-row"},{label:"Long-Term Debt",val:"$\u2014",cls:""},{label:"Total Liabilities",val:"$100",cls:"subtotal-row"},{label:"Contributed Capital",val:"$24,500",cls:""},{label:"Accumulated Deficit",val:"($220)",cls:""},{label:"Total Stockholders' Equity",val:"$24,280",cls:"subtotal-row"},{label:"Total Liabilities & Equity",val:"$24,380",cls:"total-row"}],
+    cf:[{label:"Net Loss",val:"($120)",cls:"neg"},{label:"Adjustments for non-cash items (amortization)",val:"$408",cls:"pos"},{label:"Changes in working capital",val:"$0",cls:""},{label:"Net cash provided by operating activities",val:"$288",cls:"subtotal-row pos"},{label:"Capital expenditures",val:"$0",cls:""},{label:"Net cash used in investing activities",val:"$0",cls:"subtotal-row"},{label:"Net cash provided by financing activities",val:"$0",cls:""},{label:"Net increase in cash",val:"$288",cls:"total-row pos"},{label:"Beginning cash",val:"$0",cls:""}]},
+  2025:{period:"Year Ended December 31, 2025",
+    pl:[{label:"Revenue (payment processing + infrastructure license)",val:"$705",cls:""},{label:"Total Revenue",val:"$705",cls:"subtotal-row"},{label:"Interest Income",val:"$35",cls:""},{label:"Operating Expenses (ops + R&D + general)",val:"($280)",cls:""},{label:"Income from Operations (before D&A)",val:"$460",cls:"subtotal-row pos"},{label:"Depreciation & Amortization",val:"($1,633)",cls:""},{label:"Operating Loss",val:"($1,173)",cls:"total-row neg"},{label:"Other Income (Expense), net",val:"$0",cls:""},{label:"Loss Before Income Taxes",val:"($1,173)",cls:""},{label:"Provision (Benefit) for Income Taxes",val:"$0",cls:""},{label:"Net Loss",val:"($1,173)",cls:"total-row neg"}],
+    ebitda:[{label:"Net Loss",val:"($1,173)",cls:"neg"},{label:"+ Depreciation & Amortization",val:"$1,633",cls:"pos"},{label:"EBITDA",val:"$460",cls:"total-row pos"},{label:"EBITDA margin",val:"65.2%",cls:"highlight-row"}],
+    bs:[{label:"Cash and cash equivalents",val:"$460",cls:""},{label:"Other Investments",val:"$408",cls:""},{label:"Accounts Receivable, net",val:"$85",cls:""},{label:"Prepaid Expenses and Other Current Assets",val:"$28",cls:""},{label:"Total Current Assets",val:"$981",cls:"subtotal-row"},{label:"Wintellex IP & Global PaySystems IP, net",val:"$22,345",cls:""},{label:"Total Assets",val:"$23,326",cls:"total-row"},{label:"Accounts Payable & Accrued Expenses",val:"$65",cls:""},{label:"Short-Term Debt / Commercial Paper",val:"$150",cls:""},{label:"Total Current Liabilities",val:"$215",cls:"subtotal-row"},{label:"Long-Term Debt",val:"$185",cls:""},{label:"Total Liabilities",val:"$400",cls:"subtotal-row"},{label:"Contributed Capital",val:"$24,500",cls:""},{label:"Accumulated Deficit",val:"($1,574)",cls:""},{label:"Total Stockholders' Equity",val:"$22,926",cls:"subtotal-row"},{label:"Total Liabilities & Equity",val:"$23,326",cls:"total-row"}],
+    cf:[{label:"Net Loss",val:"($1,173)",cls:"neg"},{label:"Adjustments for non-cash items (amortization)",val:"$1,633",cls:"pos"},{label:"Changes in working capital",val:"$0",cls:""},{label:"Net cash provided by operating activities",val:"$460",cls:"subtotal-row pos"},{label:"Net cash used in investing activities",val:"$0",cls:"subtotal-row"},{label:"Net cash provided by financing activities",val:"$0",cls:""},{label:"Net increase in cash",val:"$460",cls:"total-row pos"},{label:"Beginning cash",val:"$0",cls:""},{label:"Ending cash",val:"$460",cls:"highlight-row pos"}]}
+};
+
+const textDocs={
+  opAgreement:{title:"Bylaws of Starlite Capital Inc.",subtitle:"Starlite Capital Inc. \u2014 Effective June 15, 2026",html:'<h1>Bylaws of Starlite Capital Inc.</h1><div class="doc-meta">DBA Starlite Capital Partners &nbsp;&middot;&nbsp; EIN 33-1478204 &nbsp;&middot;&nbsp; Effective Date: June 15, 2026</div><p>These Bylaws govern the affairs of Starlite Capital Inc., a Texas corporation (the "Company"), adopted by its sole shareholder, The Gregory Fenelon Revocable Living Trust (the "Shareholder").</p><h2>Article 1 \u2014 Organization</h2><p><strong>1.1 Incorporation.</strong> The Company was incorporated under the laws of the State of Texas on <strong>October 14, 2024</strong>.</p><p><strong>1.2 Sole Shareholder.</strong> The Gregory Fenelon Revocable Living Trust (EIN 42-6894149) is the sole shareholder of record, holding all 15,000,000,000 issued and outstanding shares of Common Stock, representing 100% voting and economic ownership.</p><p><strong>1.3 Purpose.</strong> Lawful business including investment holding, financial technology, payment processing, treasury management, and related activities. The Company holds Wintellex IP and Global PaySystems IP as its primary intangible assets.</p><p><strong>1.4 Principal Office.</strong> 1910 Pacific Ave Suite 2000, Dallas, TX 75201.</p><h2>Article 2 \u2014 Capital Stock</h2><p><strong>2.1 Sole Shareholder.</strong> The Gregory Fenelon Revocable Living Trust holds 100% of all issued and outstanding Common Stock as of October 14, 2024.</p><h2>Article 3 \u2014 Board of Directors &amp; Officers</h2><p><strong>3.1 Sole Director.</strong> Gregory Fenelon serves as sole Director, Founder, and Managing Member with full authority to manage the Company.</p><h2>Article 4 \u2014 Dividends and Distributions</h2><p><strong>4.1 Allocations.</strong> All dividends and distributions, if declared, paid 100% to The Gregory Fenelon Revocable Living Trust.</p><h2>Article 5 \u2014 Transfer of Shares</h2><p><strong>5.1 Restrictions.</strong> No shares may be transferred without prior written consent of the Board of Directors.</p><h2>Article 6 \u2014 General Provisions</h2><p><strong>6.1 Governing Law.</strong> Governed by the laws of the State of Texas.</p><div class="sig-line"><strong>Sole Shareholder &amp; Founder:</strong> The Gregory Fenelon Revocable Living Trust (EIN 42-6894149) &nbsp; <strong>Date:</strong> October 14, 2024<br><br><strong>Bylaws Effective:</strong> June 15, 2026</div>'},
+  investmentSummary:{title:"Investment Summary",subtitle:"Starlite Capital Partners \u2014 2024\u20132025",html:'<h1>Starlite Capital Partners \u2014 Investment Summary (2024\u20132025)</h1><div class="doc-meta">Prepared by Starlite Capital Partners &nbsp;&middot;&nbsp; Date: June 15, 2026</div><h2>Company Overview</h2><p>Starlite Capital Inc. (DBA Starlite Capital Partners) was formed on <strong>October 14, 2024</strong>. The Gregory Fenelon Revocable Living Trust (EIN 42-6894149) holds all 15,000,000,000 issued and outstanding Common shares as Founder and Managing Member, representing 100% voting and economic ownership. No other shareholders, preferred share classes, or external institutional equity holders. Primary intangible assets: <strong>Wintellex IP</strong> and <strong>Global PaySystems IP</strong>.</p><h2>Financial Performance</h2><p>Revenue grew from $408M in the 2024 short year to $705M in full-year 2025, a two-year total of $1.113 billion. EBITDA was $288M in 2024 (70.6% margin) and $460M in 2025 (65.2% margin). Interest income of $35M was recognized in 2025.</p><h2>Balance Sheet</h2><p>As of December 31, 2025, total assets stand at $23.326B, comprising $981M in total current assets ($460M cash, $408M other investments, $85M accounts receivable, $28M prepaid and other), $22.345B in net Wintellex IP and Global PaySystems IP. Total liabilities of $400M (1.7% of assets): $65M accounts payable, $150M short-term debt, $185M long-term debt. Stockholders\' equity: $22.926B.</p><h2>IP Monetization Backlog</h2><p>The $24.5 billion IP portfolio provides long-term revenue visibility through enterprise licensing, module subscriptions, white-label partnerships, and government contracting. Carried at cost, amortized over 15 years under IRC \u00a7197.</p><h2>Key Figures</h2><p>IP Valuation: $24.5 Billion. IP Monetization Backlog: $24.5 Billion. Cumulative NOLs as of December 31, 2025: approximately $1.574 Billion. 2025 EBITDA: $460M at 65.2% margin. Estimated enterprise valuation based on 2025 revenue run-rate: $5.0\u20135.5 Billion.</p>'}
+};
+
+const docs=[
+  {name:"Q1 2026 Capital Call Notice.pdf",type:"Capital Call",fund:"SCP Fund II",date:"2026-03-31",ext:"pdf"},
+  {name:"Bylaws \u2014 Starlite Capital Inc.pdf",type:"Legal",fund:"SCP Capital Partners",date:"2026-06-15",ext:"pdf",docKey:"opAgreement"},
+  {name:"2025 Annual Tax Statement K-1.pdf",type:"Tax",fund:"SCP Fund I",date:"2025-12-31",ext:"pdf"},
+  {name:"Q4 2025 Quarterly Report.pdf",type:"Quarterly Report",fund:"SCP Capital Partners",date:"2025-12-31",ext:"pdf"},
+  {name:"Consolidated Statements of Operations \u2014 FY2025.pdf",type:"Income Statement",fund:"SCP Capital Partners",date:"2025-12-31",ext:"pdf",hasFS:true,fsYear:2025},
+  {name:"Investment Summary 2024\u20132025.pdf",type:"Investment Summary",fund:"SCP Capital Partners",date:"2025-12-31",ext:"pdf",docKey:"investmentSummary"},
+  {name:"Q3 2025 Balance Sheet.pdf",type:"Balance Sheet",fund:"SCP Asset Management",date:"2025-09-30",ext:"pdf",hasFS:true,fsYear:2025},
+  {name:"Q3 2025 Income Statement.pdf",type:"Income Statement",fund:"SCP Asset Management",date:"2025-09-30",ext:"pdf"},
+  {name:"Q3 2025 Statement of Cash Flows.pdf",type:"Cash Flow",fund:"SCP Fund II",date:"2025-09-30",ext:"pdf"},
+  {name:"Distribution Notice \u2014 Q3 2025.pdf",type:"Distribution Notice",fund:"SCP Fund I",date:"2025-08-15",ext:"pdf"},
+  {name:"Investment Summary Q2 2025.pdf",type:"Investment Summary",fund:"SCP Capital Partners",date:"2025-06-30",ext:"pdf"},
+  {name:"Q2 2025 Dynamic Reporting Package.xlsx",type:"Dynamic Reporting",fund:"SCP Asset Management",date:"2025-06-30",ext:"xlsx"},
+  {name:"LP Agreement \u2014 Fund II.pdf",type:"Legal",fund:"SCP Fund II",date:"2025-04-01",ext:"pdf"},
+  {name:"Capital Call \u2014 March 2025.pdf",type:"Capital Call",fund:"SCP Fund I",date:"2025-03-15",ext:"pdf"},
+  {name:"Q1 2025 Quarterly Report.pdf",type:"Quarterly Report",fund:"SCP Capital Partners",date:"2025-03-31",ext:"pdf"},
+  {name:"Investor IDs 2025.xlsx",type:"Capital Call",fund:"SCP Asset Management",date:"2025-02-10",ext:"xlsx"},
+  {name:"2024 Annual Tax Statement K-1.pdf",type:"Tax",fund:"SCP Fund I",date:"2024-12-31",ext:"pdf"},
+  {name:"Q4 2024 Balance Sheet.pdf",type:"Balance Sheet",fund:"SCP Fund II",date:"2024-12-31",ext:"pdf",hasFS:true,fsYear:2024},
+  {name:"Q4 2024 Quarterly Report.pdf",type:"Quarterly Report",fund:"SCP Asset Management",date:"2024-12-31",ext:"pdf"},
+  {name:"Distribution Notice \u2014 Q4 2024.pdf",type:"Distribution Notice",fund:"SCP Capital Partners",date:"2024-11-20",ext:"pdf"},
+  {name:"Q3 2024 Income Statement.pdf",type:"Income Statement",fund:"SCP Fund I",date:"2024-09-30",ext:"pdf"},
+  {name:"Side Letter \u2014 Institutional LP.pdf",type:"Legal",fund:"SCP Fund II",date:"2024-07-01",ext:"pdf"},
+  {name:"Q2 2024 Investment Summary.pdf",type:"Investment Summary",fund:"SCP Capital Partners",date:"2024-06-30",ext:"pdf"},
+  {name:"Q1 2024 Dynamic Reporting.xlsx",type:"Dynamic Reporting",fund:"SCP Asset Management",date:"2024-03-31",ext:"xlsx"},
+  {name:"Capital Call \u2014 Jan 2024.pdf",type:"Capital Call",fund:"SCP Fund II",date:"2024-01-20",ext:"pdf"},
+  {name:"2023 Annual Report.pdf",type:"Quarterly Report",fund:"SCP Capital Partners",date:"2023-12-31",ext:"pdf"},
+  {name:"2023 K-1 Tax Package.pdf",type:"Tax",fund:"SCP Fund I",date:"2023-12-31",ext:"pdf"},
+  {name:"Q2 2019 Fund Quarterly Info.pdf",type:"Quarterly Report",fund:"SCP Fund I",date:"2019-09-30",ext:"pdf"},
+  {name:"Q1 2018 PCAP Report.pdf",type:"Quarterly Report",fund:"SCP Capital Partners",date:"2018-06-04",ext:"pdf"},
+];
+
+const typeBadge={"Capital Call":"badge-coral","Balance Sheet":"badge-blue","Distribution Notice":"badge-teal","Dynamic Reporting":"badge-purple","Income Statement":"badge-blue","Investment Summary":"badge-teal","Legal":"badge-gray","Quarterly Report":"badge-amber","Cash Flow":"badge-blue","Tax":"badge-gray"};
+const extIcon={pdf:"pdf-icon",xlsx:"xlsx-icon",docx:"doc-icon"};
+const extLabel={pdf:"PDF",xlsx:"XLS",docx:"DOC"};
+let filtered=[...docs],sortKey="date",sortDir=-1,activeTypeFilter="All";
+function fmtDate(d){const m=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],dt=new Date(d+"T00:00:00");return m[dt.getMonth()]+" "+dt.getDate()+", "+dt.getFullYear();}
+function applyFilters(){const fund=document.getElementById("fund-filter").value,year=document.getElementById("year-filter").value,type=document.getElementById("type-filter").value,q=document.getElementById("search-input").value.toLowerCase();filtered=docs.filter(d=>{if(fund!=="All"&&d.fund!==fund)return false;if(year!=="All"&&!d.date.startsWith(year))return false;if(type!=="All"&&d.type!==type)return false;if(activeTypeFilter!=="All"&&d.type!==activeTypeFilter)return false;if(q&&!d.name.toLowerCase().includes(q)&&!d.type.toLowerCase().includes(q)&&!d.fund.toLowerCase().includes(q))return false;return true;});sortAndRender();}
+function sortBy(k){if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1;}sortAndRender();}
+function sortAndRender(){
+  const s=[...filtered].sort((a,b)=>{const va=a[sortKey],vb=b[sortKey];return va<vb?-sortDir:va>vb?sortDir:0;});
+  const tbody=document.getElementById("doc-table"),count=s.length;
+  document.getElementById("doc-count").textContent="Displaying "+count+" item"+(count!==1?"s":"");
+  document.getElementById("status-count").textContent=count;
+  if(count===0){tbody.innerHTML='<tr><td colspan="6" style="padding:60px;text-align:center;color:#94a3b8"><p style="font-size:15px;color:#64748b;margin-bottom:6px">No documents found</p><small>Try adjusting your filters or search query</small></td></tr>';return;}
+  tbody.innerHTML=s.map((d,i)=>{
+    const isFS=!!d.hasFS,isTextDoc=!!d.docKey;
+    let viewClick,winClick;
+    if(isFS){viewClick="event.stopPropagation();openFinancialModal(window.filteredDocs["+i+"])";winClick="event.stopPropagation();openFinancialModal(window.filteredDocs["+i+"]);setTimeout(openFSWindow,300)";}
+    else if(isTextDoc){viewClick="event.stopPropagation();openDocModal('"+d.docKey+"')";winClick="event.stopPropagation();openDocModal('"+d.docKey+"');setTimeout(openDocWindow,300)";}
+    else{viewClick="event.stopPropagation();alert('No preview available for: "+d.name.replace(/'/g,"\\'")+"')";winClick=viewClick;}
+    const dot=(isFS||isTextDoc)?'<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3b6bef;margin-left:6px;vertical-align:middle;flex-shrink:0" title="Detailed view available"></span>':'';
+    const actionBtns=(isFS||isTextDoc)?'<div class="action-btn-group"><button class="action-btn" onclick="'+viewClick+'">View</button><button class="action-btn print-btn" title="Open in new window" onclick="'+winClick+'">&#8599;</button></div>':'<button class="action-btn" onclick="'+viewClick+'">View</button>';
+    return '<tr onclick="selectAndOpen(this,'+i+')"><td><div class="file-icon '+(extIcon[d.ext]||'doc-icon')+'">'+(extLabel[d.ext]||'DOC')+'</div></td><td><div class="file-cell"><span class="filename" title="'+d.name+'">'+d.name+'</span>'+dot+'</div></td><td><span class="badge '+(typeBadge[d.type]||'badge-gray')+'">'+d.type+'</span></td><td class="fund-name">'+d.fund+'</td><td class="date-cell">'+fmtDate(d.date)+'</td><td>'+actionBtns+'</td></tr>';
+  }).join("");
+  window.filteredDocs=s;
+}
+function selectAndOpen(tr,idx){document.querySelectorAll("tbody tr").forEach(r=>r.classList.remove("selected"));tr.classList.add("selected");const d=window.filteredDocs[idx];if(!d)return;if(d.hasFS)openFinancialModal(d);else if(d.docKey)openDocModal(d.docKey);}
+function setNav(el,label){document.querySelectorAll(".sidebar .nav-item").forEach(n=>n.classList.remove("active"));el.classList.add("active");document.getElementById("breadcrumb-label").textContent=label;}
+function filterSidebar(el,type){activeTypeFilter=type;document.querySelectorAll(".sidebar .nav-item").forEach(n=>n.classList.remove("active"));el.classList.add("active");document.getElementById("type-filter").value=type==="All"?"All":type;document.getElementById("breadcrumb-label").textContent=type==="All"?"Find Files":type;applyFilters();}
+function exportCSV(){const rows=[["Document Name","Type","Fund","Effective Date"],...filtered.map(d=>[d.name,d.type,d.fund,fmtDate(d.date)])];const csv=rows.map(r=>r.map(v=>'"'+v+'"').join(",")).join("\n");const a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(csv);a.download="starlite_documents.csv";a.click();}
+sortBy("date");applyFilters();
+</script>
+</body>
+</html>
