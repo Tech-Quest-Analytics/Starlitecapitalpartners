@@ -11,9 +11,215 @@ html{scroll-behavior:smooth;}
 body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.75;overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh;}
 .page-content{flex:1;}
 
+/* MARKET TICKER (shared header) */
+:root{ --ticker-h: 38px; }
+.ticker{
+  position:fixed;top:0;left:0;width:100%;z-index:1000;
+  height:var(--ticker-h);
+  background:#1a2138;
+  overflow:hidden;
+  display:flex;align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.ticker-label{
+  flex:none;
+  display:flex;align-items:center;gap:6px;
+  height:100%;
+  padding:0 16px;
+  background:linear-gradient(90deg,#0f1428,#1a2138);
+  color:#eef1ff;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  z-index:2;
+  box-shadow:14px 0 18px -10px #1a2138;
+}
+.ticker-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#5ee6a0;
+  box-shadow:0 0 0 0 rgba(94,230,160,0.6);
+  animation:ticker-pulse 1.8s ease-out infinite;
+}
+.ticker-status{
+  color:#6b7aaa;
+  font-size:9px;letter-spacing:1px;
+  text-transform:none;
+  margin-left:6px;
+}
+@keyframes ticker-pulse{
+  0%{box-shadow:0 0 0 0 rgba(94,230,160,0.55);}
+  70%{box-shadow:0 0 0 6px rgba(94,230,160,0);}
+  100%{box-shadow:0 0 0 0 rgba(94,230,160,0);}
+}
+.ticker-track-wrap{
+  flex:1;overflow:hidden;height:100%;position:relative;
+}
+.ticker-track{
+  display:flex;align-items:center;
+  width:max-content;
+  animation:ticker-scroll 90s linear infinite;
+}
+.ticker-track:hover{ animation-play-state:paused; }
+@keyframes ticker-scroll{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+.ticker-item{
+  display:flex;align-items:center;gap:8px;
+  padding:0 22px;
+  font-size:12px;font-weight:500;
+  color:#eef1ff;
+  white-space:nowrap;
+  border-right:1px solid rgba(255,255,255,0.08);
+}
+.ticker-sym{ color:#9aa3be;font-weight:400;letter-spacing:0.5px;}
+.ticker-price{ font-variant-numeric:tabular-nums; }
+.ticker-chg{
+  font-variant-numeric:tabular-nums;
+  display:flex;align-items:center;gap:3px;
+  transition:color 0.3s ease;
+}
+.ticker-chg.up{ color:#5ee6a0; }
+.ticker-chg.down{ color:#ff7a8a; }
+.ticker-chg .arrow{ font-size:9px; }
+@media(prefers-reduced-motion: reduce){
+  .ticker-track{ animation:none; }
+}
+@media(max-width:768px){
+  .ticker-label{ padding:0 10px;font-size:9px;letter-spacing:1.5px; }
+  .ticker-item{ padding:0 16px;font-size:11px; }
+}
+
+/* NAV (shared header) */
+.nav{
+  position:fixed;top:var(--ticker-h);left:0;width:100%;z-index:999;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.nav-inner{
+  max-width:1400px;margin:auto;
+  padding:20px 40px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:24px;
+}
+.brand{display:flex;flex-direction:column;align-items:flex-start;line-height:1;text-align:left;}
+.brand-link{text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;}
+.brand-main{
+  font-family:'Playfair Display',serif;
+  font-size:24px;letter-spacing:-0.5px;color:#1a2138;
+}
+.brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
+
+.nav-links{
+  display:flex;align-items:center;gap:36px;
+  list-style:none;
+}
+.nav-links > li{position:relative;}
+.nav-link{
+  text-decoration:none;color:#1a2138;
+  font-size:13px;letter-spacing:0.5px;
+  font-weight:400;
+  padding:8px 0;
+  display:flex;align-items:center;gap:6px;
+  transition:color 0.2s ease;
+  cursor:pointer;
+  background:none;border:none;font-family:'Inter',sans-serif;
+}
+.nav-link:hover{color:#4a7bff;}
+.nav-caret{
+  width:8px;height:8px;
+  border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg);
+  transition:transform 0.2s ease;
+  margin-top:-3px;
+}
+.has-dropdown.open .nav-caret{ transform:rotate(225deg);margin-top:3px; }
+
+.dropdown{
+  position:absolute;top:100%;left:50%;
+  transform:translate(-50%,8px);
+  min-width:220px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,0.07);
+  border-radius:14px;
+  box-shadow:0 18px 40px rgba(26,33,56,0.12);
+  padding:10px;
+  opacity:0;visibility:hidden;
+  transition:opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  z-index:1001;
+}
+.has-dropdown.open .dropdown,
+.has-dropdown:hover .dropdown{
+  opacity:1;visibility:visible;
+  transform:translate(-50%,0);
+}
+.dropdown a{
+  display:block;
+  text-decoration:none;
+  color:#1a2138;
+  font-size:13px;
+  padding:11px 14px;
+  border-radius:9px;
+  transition:background 0.15s ease,color 0.15s ease;
+}
+.dropdown a:hover{background:rgba(74,123,255,0.08);color:#4a7bff;}
+
+.nav-toggle{
+  display:none;
+  flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:6px;
+}
+.nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
+
+@media(max-width:900px){
+  .nav-links{
+    position:fixed;top:calc(var(--ticker-h) + 68px);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);
+    max-height:0;overflow:hidden;
+    transition:max-height 0.25s ease;
+  }
+  .nav-links.open{ max-height:520px; }
+  .nav-links > li{width:100%;}
+  .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
+  .dropdown{
+    position:static;transform:none;box-shadow:none;border:none;
+    border-radius:0;padding:0 0 0 12px;
+    max-height:0;overflow:hidden;opacity:1;visibility:visible;
+    transition:max-height 0.2s ease;
+  }
+  .has-dropdown:hover .dropdown{ max-height:0; }
+  .has-dropdown.open .dropdown{ max-height:320px; }
+  .nav-toggle{ display:flex; }
+}
+@media(max-width:768px){
+  .nav-inner{padding:16px 20px;}
+}
+
+/* PRIVACY */
+.privacy-banner{
+  position:fixed;bottom:20px;left:20px;right:20px;
+  background:#fff;border:1px solid rgba(0,0,0,0.10);
+  border-radius:16px;padding:20px 24px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:20px;z-index:5000;
+  box-shadow:0 8px 40px rgba(0,0,0,0.08);
+}
+.privacy-text{color:#6b7aaa;font-size:13px;line-height:1.7;max-width:700px;}
+.privacy-actions{display:flex;align-items:center;gap:16px;}
+.privacy-actions a{text-decoration:none;color:#6b7aaa;font-size:13px;}
+.privacy-actions button{
+  background:#1a2138;color:#fff;border:none;
+  padding:10px 22px;border-radius:999px;
+  font-size:12px;cursor:pointer;letter-spacing:0.5px;
+}
+@media(max-width:768px){
+  .privacy-banner{flex-direction:column;align-items:flex-start;left:14px;right:14px;bottom:14px;}
+}
+
 /* HERO */
 .hero{
-  padding:160px 40px 100px;
+  padding:calc(160px + var(--ticker-h)) 40px 100px;
   text-align:center;
   background:radial-gradient(circle at center,rgba(26,33,56,0.04) 0%,transparent 65%);
   border-bottom:1px solid rgba(0,0,0,0.07);
@@ -106,13 +312,61 @@ footer{
 .footer-bottom p{color:#9aa3be;font-size:13px;margin-bottom:0;}
 
 @media(max-width:768px){
-  .hero{padding:120px 20px 80px;}
+  .hero{padding:calc(120px + var(--ticker-h)) 20px 80px;}
   .container{padding:60px 24px 80px;}
   .footer-top{flex-direction:column;}
 }
 </style>
 </head>
 <body>
+
+<div class="privacy-banner" id="privacyBanner">
+  <div class="privacy-text">We use cookies and analytics to improve platform performance and user experience. By continuing, you agree to our privacy and use policies.</div>
+  <div class="privacy-actions">
+    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/privacy" target="_blank">Privacy Policy</a>
+    <button id="acceptPrivacy">Accept</button>
+  </div>
+</div>
+
+<div class="ticker" id="marketTicker">
+  <div class="ticker-label"><span class="ticker-dot"></span>Markets<span class="ticker-status" id="tickerStatus"></span></div>
+  <div class="ticker-track-wrap">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="brand-link">
+      <div class="brand">
+        <div class="brand-main">STARLITE</div>
+        <div class="brand-sub">Capital Partners</div>
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="nav-link">Home</a></li>
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/login" class="nav-link">Investor Login</a></li>
+      <li class="has-dropdown" id="productsDropdown">
+        <button class="nav-link" id="productsTrigger" aria-haspopup="true" aria-expanded="false">
+          Products<span class="nav-caret"></span>
+        </button>
+        <div class="dropdown">
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/venture-capital">Venture Capital</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-wealth">Private Wealth</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-credit">Private Credit</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-equity">Private Equity</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/partners">Partners</a>
+        </div>
+      </li>
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/about" class="nav-link">About Us</a></li>
+    </ul>
+  </div>
+</nav>
 
 <main class="page-content">
 
@@ -179,17 +433,17 @@ footer{
         <p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
       </div>
       <div class="footer-links">
-        <a href="https://www.starlitecp.com/contact-us">Contact Us</a>
-        <a href="https://www.starlitecp.com/modern-slavery-statement">Modern Slavery Statement</a>
-        <a href="https://www.starlitecp.com/privacy">Privacy</a>
-        <a href="https://www.starlitecp.com/use-policy">Use Policy</a>
-        <a href="https://www.starlitecp.com/sustainability">Sustainability</a>
-        <a href="https://www.starlitecp.com/news">News</a>
-        <a href="https://www.starlitecp.com/disclosures">Disclosures</a>
-        <a href="https://www.starlitecp.com/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
-        <a href="https://www.starlitecp.com/commercial">Commercial</a>
-        <a href="https://www.starlitecp.com/security">Security</a>
-        <a href="https://www.starlitecp.com/13f-filings">13F Filings</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/contact-us">Contact Us</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/modern-slavery-statement">Modern Slavery Statement</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/privacy">Privacy</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/use-policy">Use Policy</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/sustainability">Sustainability</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/news">News</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/disclosures">Disclosures</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/commercial">Commercial</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/security">Security</a>
+        <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/13f-filings">13F Filings</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -198,6 +452,141 @@ footer{
     </div>
   </div>
 </footer>
+
+<script>
+
+/* PRIVACY BANNER */
+const banner = document.getElementById('privacyBanner');
+if(localStorage.getItem('starlitePrivacyAccepted')) banner.style.display='none';
+document.getElementById('acceptPrivacy').addEventListener('click',()=>{
+  localStorage.setItem('starlitePrivacyAccepted','true');
+  banner.style.display='none';
+});
+
+/* NAV: mobile toggle + Products dropdown (same behavior as other pages) */
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', ()=>{
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+
+const productsDropdown = document.getElementById('productsDropdown');
+const productsTrigger = document.getElementById('productsTrigger');
+productsTrigger.addEventListener('click', (e)=>{
+  e.preventDefault();
+  const isOpen = productsDropdown.classList.toggle('open');
+  productsTrigger.setAttribute('aria-expanded', String(isOpen));
+});
+
+document.addEventListener('click', (e)=>{
+  if(!productsDropdown.contains(e.target)){
+    productsDropdown.classList.remove('open');
+    productsTrigger.setAttribute('aria-expanded','false');
+  }
+});
+
+/* MARKET TICKER */
+const TWELVE_DATA_API_KEY = 'c1eaf40e17c346f0ae8d2dde93f5deec';
+
+const tickerData = [
+  { sym:'S&P 500 (SPY)', td:'SPY', price:0, chg:0 },
+  { sym:'DOW (DIA)',     td:'DIA', price:0, chg:0 },
+  { sym:'NASDAQ-100 (QQQ)', td:'QQQ', price:0, chg:0 },
+  { sym:'AAPL',    td:'AAPL', price:0, chg:0 },
+  { sym:'MSFT',    td:'MSFT', price:0, chg:0 },
+  { sym:'NVDA',    td:'NVDA', price:0, chg:0 },
+  { sym:'BTC/USD', td:'BTC/USD', price:0, chg:0 }
+];
+
+function formatPrice(item){
+  const p = item.price;
+  if(!p) return '—';
+  if(p >= 1000) return p.toLocaleString('en-US', { maximumFractionDigits:0 });
+  return p.toFixed(2);
+}
+
+function tickerItemHTML(item, idx){
+  const up = item.chg >= 0;
+  return `<div class="ticker-item" data-idx="${idx}">
+    <span class="ticker-sym">${item.sym}</span>
+    <span class="ticker-price">${formatPrice(item)}</span>
+    <span class="ticker-chg ${up ? 'up' : 'down'}">
+      <span class="arrow">${up ? '▲' : '▼'}</span>${Math.abs(item.chg).toFixed(2)}%
+    </span>
+  </div>`;
+}
+
+function renderTicker(){
+  const track = document.getElementById('tickerTrack');
+  if(!track) return;
+  const itemsHTML = tickerData.map(tickerItemHTML).join('');
+  track.innerHTML = itemsHTML + itemsHTML;
+}
+
+function updateTickerDOM(){
+  document.querySelectorAll('#tickerTrack .ticker-item').forEach(el=>{
+    const idx = Number(el.dataset.idx);
+    const item = tickerData[idx];
+    const up = item.chg >= 0;
+    el.querySelector('.ticker-price').textContent = formatPrice(item);
+    const chgEl = el.querySelector('.ticker-chg');
+    chgEl.classList.toggle('up', up);
+    chgEl.classList.toggle('down', !up);
+    chgEl.innerHTML = `<span class="arrow">${up ? '▲' : '▼'}</span>${Math.abs(item.chg).toFixed(2)}%`;
+  });
+}
+
+function setTickerStatus(text){
+  const status = document.getElementById('tickerStatus');
+  if(status) status.textContent = '· ' + text;
+}
+
+let lastGoodFetch = null;
+
+async function refreshQuotes(){
+  setTickerStatus('Updating…');
+  const symbols = tickerData.map(i => i.td).join(',');
+  const url = 'https://api.twelvedata.com/quote?symbol=' + encodeURIComponent(symbols) + '&apikey=' + TWELVE_DATA_API_KEY;
+
+  try{
+    const res = await fetch(url, { cache:'no-store' });
+    const data = await res.json();
+
+    if(data && data.status === 'error'){
+      throw new Error(data.message || 'API error');
+    }
+
+    let anySucceeded = false;
+    tickerData.forEach(item=>{
+      const quote = tickerData.length === 1 ? data : data[item.td];
+      if(!quote || quote.code || quote.status === 'error') return;
+      const price = parseFloat(quote.close);
+      const pct = parseFloat(quote.percent_change);
+      if(Number.isNaN(price)) return;
+      item.price = price;
+      item.chg = Number.isNaN(pct) ? item.chg : pct;
+      anySucceeded = true;
+    });
+
+    updateTickerDOM();
+
+    if(anySucceeded){
+      lastGoodFetch = new Date();
+      setTickerStatus('Live · ' + lastGoodFetch.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }));
+    } else {
+      setTickerStatus(lastGoodFetch ? 'Last update ' + lastGoodFetch.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : 'Feed unavailable');
+    }
+  }catch(err){
+    setTickerStatus(lastGoodFetch ? 'Last update ' + lastGoodFetch.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : 'Feed unavailable');
+  }
+}
+
+renderTicker();
+refreshQuotes();
+setInterval(refreshQuotes, 90000);
+
+</script>
 
 </body>
 </html>
