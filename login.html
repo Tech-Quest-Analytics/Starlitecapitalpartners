@@ -11,7 +11,6 @@
         html { scroll-behavior: smooth; }
         html, body { min-height: 100vh; background: #ffffff; color: #1a2138; font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
         body { display: flex; flex-direction: column; }
-        /* MARKET TICKER */
         :root{ --ticker-h: 38px; }
         .ticker{
           position:fixed;top:0;left:0;width:100%;z-index:1000;
@@ -87,7 +86,6 @@
           .ticker-label{ padding:0 10px;font-size:9px;letter-spacing:1.5px; }
           .ticker-item{ padding:0 16px;font-size:11px; }
         }
-        /* NAV */
         .nav{
           position:fixed;top:var(--ticker-h);left:0;width:100%;z-index:999;
           background:rgba(255,255,255,0.92);
@@ -190,7 +188,6 @@
         @media(max-width:768px){
           .nav-inner{padding:16px 20px;}
         }
-        /* PRIVACY */
         .privacy-banner{
           position:fixed;bottom:20px;left:20px;right:20px;
           background:#fff;border:1px solid rgba(0,0,0,0.10);
@@ -431,9 +428,9 @@
       </div>
     </footer>
     <script>
-        // === UPDATED WITH YOUR NEW DEPLOYMENT ID ===
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4zTiXpZLkhnIvR71pSTOSNx-tluCxuL7nUNVJOl1BSNGeChTG_FLvRQ8MAr45svzw/exec';
-        const REDIRECT_URL = 'https://tech-quest-analytics.github.io/Starlitecapitalpartners/data-exchange';
+        const REDIRECT_URL = 'https://tech-quest-analytics.github.io/Starlitecapitalpartners/data-exchange.html';
+
         function togglePassword() {
             const input = document.getElementById('password');
             const icon = document.getElementById('eyeIcon');
@@ -445,6 +442,7 @@
                 icon.classList.replace('fa-eye-slash', 'fa-eye');
             }
         }
+
         function initVideo() {
             const video = document.getElementById('heroVideo');
             if (video) {
@@ -458,6 +456,7 @@
                 }
             }
         }
+
         function setLoading(on) {
             const btn = document.getElementById('loginBtn');
             const btnText = document.getElementById('btnText');
@@ -465,20 +464,24 @@
             btn.classList.toggle('loading', on);
             btnText.textContent = on ? 'Signing In…' : 'Sign In';
         }
+
         function showError(msg) {
             document.getElementById('successMsg').classList.remove('show');
             const errorEl = document.getElementById('errorMsg');
             document.getElementById('errorText').textContent = msg || 'Invalid email or access token. Please try again.';
             errorEl.classList.add('show');
         }
+
         function hideMessages() {
             document.getElementById('errorMsg').classList.remove('show');
             document.getElementById('successMsg').classList.remove('show');
         }
+
         function showSuccess() {
             document.getElementById('errorMsg').classList.remove('show');
             document.getElementById('successMsg').classList.add('show');
         }
+
         async function handleLogin(event) {
             if (event) event.preventDefault();
             const email = document.getElementById('email').value.trim();
@@ -496,7 +499,6 @@
                     body: JSON.stringify({ action: 'login', email, password })
                 });
                 const raw = await response.text();
-                console.log('Response:', raw);
                 if (!response.ok) {
                     showError(`Server error (${response.status})`);
                     return;
@@ -520,28 +522,28 @@
                 setLoading(false);
             }
         }
+
         document.addEventListener('DOMContentLoaded', function() {
             initVideo();
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
         });
-        // ------------------------------------------------------------------
+
         // Privacy banner
-        // ------------------------------------------------------------------
         const banner = document.getElementById('privacyBanner');
         if(localStorage.getItem('starlitePrivacyAccepted')) banner.style.display='none';
         document.getElementById('acceptPrivacy').addEventListener('click',()=>{
           localStorage.setItem('starlitePrivacyAccepted','true');
           banner.style.display='none';
         });
-        // ------------------------------------------------------------------
-        // Nav: mobile toggle + Products dropdown (same behavior as homepage)
-        // ------------------------------------------------------------------
+
+        // Nav toggle
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');
         navToggle.addEventListener('click', ()=>{
           const isOpen = navLinks.classList.toggle('open');
           navToggle.setAttribute('aria-expanded', String(isOpen));
         });
+
         const productsDropdown = document.getElementById('productsDropdown');
         const productsTrigger = document.getElementById('productsTrigger');
         productsTrigger.addEventListener('click', (e)=>{
@@ -555,11 +557,8 @@
             productsTrigger.setAttribute('aria-expanded','false');
           }
         });
-        // ------------------------------------------------------------------
-        // Market ticker — pulls real quotes from Twelve Data (same feed and
-        // caveats as the homepage ticker; see homepage source for full notes
-        // on API key exposure and the free-plan rate limit).
-        // ------------------------------------------------------------------
+
+        // Market ticker (unchanged)
         const TWELVE_DATA_API_KEY = 'c1eaf40e17c346f0ae8d2dde93f5deec';
         const tickerData = [
           { sym:'S&P 500 (SPY)', td:'SPY', price:0, chg:0 },
@@ -570,12 +569,14 @@
           { sym:'NVDA', td:'NVDA', price:0, chg:0 },
           { sym:'BTC/USD', td:'BTC/USD', price:0, chg:0 }
         ];
+
         function formatPrice(item){
           const p = item.price;
           if(!p) return '—';
           if(p >= 1000) return p.toLocaleString('en-US', { maximumFractionDigits:0 });
           return p.toFixed(2);
         }
+
         function tickerItemHTML(item, idx){
           const up = item.chg >= 0;
           return `<div class="ticker-item" data-idx="${idx}">
@@ -586,12 +587,14 @@
             </span>
           </div>`;
         }
+
         function renderTicker(){
           const track = document.getElementById('tickerTrack');
           if(!track) return;
           const itemsHTML = tickerData.map(tickerItemHTML).join('');
           track.innerHTML = itemsHTML + itemsHTML;
         }
+
         function updateTickerDOM(){
           document.querySelectorAll('#tickerTrack .ticker-item').forEach(el=>{
             const idx = Number(el.dataset.idx);
@@ -604,10 +607,12 @@
             chgEl.innerHTML = `<span class="arrow">${up ? '▲' : '▼'}</span>${Math.abs(item.chg).toFixed(2)}%`;
           });
         }
+
         function setTickerStatus(text){
           const status = document.getElementById('tickerStatus');
           if(status) status.textContent = '· ' + text;
         }
+
         let lastGoodFetch = null;
         async function refreshQuotes(){
           setTickerStatus('Updating…');
@@ -616,12 +621,10 @@
           try{
             const res = await fetch(url, { cache:'no-store' });
             const data = await res.json();
-            if(data && data.status === 'error'){
-              throw new Error(data.message || 'API error');
-            }
+            if(data && data.status === 'error') throw new Error(data.message || 'API error');
             let anySucceeded = false;
             tickerData.forEach(item=>{
-              const quote = tickerData.length === 1 ? data : data[item.td];
+              const quote = data[item.td] || data;
               if(!quote || quote.code || quote.status === 'error') return;
               const price = parseFloat(quote.close);
               const pct = parseFloat(quote.percent_change);
@@ -641,6 +644,7 @@
             setTickerStatus(lastGoodFetch ? 'Last update ' + lastGoodFetch.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : 'Feed unavailable');
           }
         }
+
         renderTicker();
         refreshQuotes();
         setInterval(refreshQuotes, 90000);
