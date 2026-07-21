@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- Favicon -->
+<link rel="icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png" type="image/png">
+<link rel="apple-touch-icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
+
+<title>Portfolio | Starlite Capital Partners</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hidden;}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;width:100%;z-index:999;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.nav-inner{
+  max-width:1400px;margin:auto;
+  padding:20px 40px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:24px;
+}
+.brand{display:flex;flex-direction:column;align-items:flex-start;line-height:1;text-align:left;}
+.brand-link{text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;}
+.brand-main{
+  font-family:'Playfair Display',serif;
+  font-size:24px;letter-spacing:-0.5px;color:#1a2138;
+}
+.brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
+.nav-links{
+  display:flex;align-items:center;gap:36px;
+  list-style:none;
+}
+.nav-links > li{position:relative;}
+.nav-link{
+  text-decoration:none;color:#1a2138;
+  font-size:13px;letter-spacing:0.5px;
+  font-weight:400;
+  padding:8px 0;
+  display:flex;align-items:center;gap:6px;
+  transition:color 0.2s ease;
+  cursor:pointer;
+  background:none;border:none;font-family:'Inter',sans-serif;
+}
+.nav-link:hover{color:#4a7bff;}
+.nav-link.active{color:#4a7bff;}
+.nav-caret{
+  width:8px;height:8px;
+  border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg);
+  transition:transform 0.2s ease;
+  margin-top:-3px;
+}
+.has-dropdown.open .nav-caret{ transform:rotate(225deg);margin-top:3px; }
+.dropdown{
+  position:absolute;top:100%;left:50%;
+  transform:translate(-50%,8px);
+  min-width:220px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,0.07);
+  border-radius:14px;
+  box-shadow:0 18px 40px rgba(26,33,56,0.12);
+  padding:10px;
+  opacity:0;visibility:hidden;
+  transition:opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  z-index:1001;
+}
+.has-dropdown.open .dropdown,
+.has-dropdown:hover .dropdown{
+  opacity:1;visibility:visible;
+  transform:translate(-50%,0);
+}
+.dropdown a{
+  display:block;
+  text-decoration:none;
+  color:#1a2138;
+  font-size:13px;
+  padding:11px 14px;
+  border-radius:9px;
+  transition:background 0.15s ease,color 0.15s ease;
+}
+.dropdown a:hover{background:rgba(74,123,255,0.08);color:#4a7bff;}
+.nav-toggle{
+  display:none;
+  flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:6px;
+}
+.nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
+
+/* PAGE HERO */
+.page-hero{
+  padding:170px 40px 90px;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(74,123,255,0.10) 0%,transparent 60%),
+    #fff;
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.page-hero-sub{
+  font-size:10px;letter-spacing:5px;text-transform:uppercase;color:#9aa3be;
+  margin-bottom:18px;
+}
+.page-hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,5.5vw,60px);
+  letter-spacing:-1.5px;color:#1a2138;margin-bottom:18px;
+}
+.page-hero p{
+  font-size:16px;line-height:1.9;color:#6b7aaa;font-weight:300;
+  max-width:660px;margin:0 auto;
+}
+
+/* FILTER BAR */
+.filter-bar{
+  max-width:1350px;margin:0 auto;padding:46px 40px 0;
+  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+}
+.filter-btn{
+  padding:9px 20px;border-radius:999px;
+  border:1px solid rgba(26,33,56,0.14);
+  background:#fff;color:#1a2138;
+  font-size:12px;letter-spacing:0.4px;
+  cursor:pointer;transition:0.2s ease;
+  font-family:'Inter',sans-serif;
+}
+.filter-btn:hover{border-color:#4a7bff;color:#4a7bff;}
+.filter-btn.active{background:#1a2138;border-color:#1a2138;color:#fff;}
+
+/* PORTFOLIO GRID */
+.portfolio-section{max-width:1350px;margin:0 auto;padding:50px 40px 110px;}
+.portfolio-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+.portfolio-card{
+  border:1px solid rgba(0,0,0,0.08);
+  border-radius:20px;
+  padding:30px;
+  display:flex;flex-direction:column;gap:18px;
+  transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  background:#fff;
+}
+.portfolio-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 50px rgba(26,33,56,0.09);
+  border-color:rgba(74,123,255,0.25);
+}
+.portfolio-card-top{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+}
+.portfolio-logo{
+  width:56px;height:56px;border-radius:14px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,0.08);
+  display:flex;align-items:center;justify-content:center;
+  flex:none;overflow:hidden;padding:6px;
+}
+.portfolio-logo img{
+  max-width:100%;max-height:100%;object-fit:contain;
+  display:block;
+}
+.portfolio-logo-fallback{
+  width:100%;height:100%;border-radius:10px;
+  background:linear-gradient(135deg,#1a2138,#3350a0);
+  display:none;align-items:center;justify-content:center;
+  color:#fff;font-family:'Playfair Display',serif;
+  font-size:18px;letter-spacing:-0.5px;
+}
+.portfolio-sector-tag{
+  font-size:10px;letter-spacing:1.2px;text-transform:uppercase;
+  color:#4a7bff;background:rgba(74,123,255,0.09);
+  padding:6px 12px;border-radius:999px;white-space:nowrap;
+}
+.portfolio-name{
+  font-family:'Playfair Display',serif;
+  font-size:21px;letter-spacing:-0.3px;color:#1a2138;
+}
+.portfolio-desc{
+  font-size:13.5px;line-height:1.75;color:#6b7aaa;font-weight:300;
+  flex:1;
+}
+.portfolio-card-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:14px;border-top:1px solid rgba(0,0,0,0.06);
+}
+.portfolio-status{font-size:11px;letter-spacing:0.6px;color:#9aa3be;text-transform:uppercase;}
+.portfolio-link{
+  text-decoration:none;font-size:12.5px;color:#1a2138;
+  display:flex;align-items:center;gap:6px;font-weight:500;
+}
+.portfolio-link:hover{color:#4a7bff;}
+.portfolio-link svg{width:12px;height:12px;transition:transform 0.2s ease;}
+.portfolio-link:hover svg{transform:translate(2px,-2px);}
+
+/* NOTE STRIP */
+.note-strip{
+  max-width:900px;margin:70px auto 0;padding:28px 34px;
+  background:#f8f9fc;border-radius:16px;
+  font-size:12.5px;color:#6b7aaa;line-height:1.8;text-align:center;
+}
+
+/* FOOTER */
+footer{
+  padding:90px 40px 50px;
+  border-top:1px solid rgba(0,0,0,0.07);
+}
+.footer-inner{max-width:1350px;margin:auto;}
+.footer-top{
+  display:flex;justify-content:space-between;
+  gap:60px;flex-wrap:wrap;margin-bottom:60px;
+  align-items:flex-start;
+}
+.footer-brand h3{
+  font-family:'Playfair Display',serif;
+  font-size:36px;font-weight:400;color:#1a2138;
+  margin-bottom:14px;
+}
+.footer-brand p{color:#6b7aaa;font-size:14px;line-height:1.9;max-width:420px;font-weight:300;}
+.footer-links{display:flex;flex-wrap:wrap;gap:14px 32px;max-width:600px;align-content:flex-start;}
+.footer-links a{text-decoration:none;color:#6b7aaa;font-size:13px;transition:0.2s;}
+.footer-links a:hover{color:#1a2138;}
+.footer-bottom{
+  border-top:1px solid rgba(0,0,0,0.07);
+  padding-top:30px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+}
+.footer-bottom p{color:#9aa3be;font-size:13px;}
+
+@media(max-width:1024px){
+  .portfolio-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:900px){
+  .nav-links{
+    position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);
+    max-height:0;overflow:hidden;
+    transition:max-height 0.25s ease;
+    z-index:998;
+    box-shadow:0 18px 40px rgba(26,33,56,0.12);
+  }
+  .nav-links.open{ max-height:520px;overflow-y:auto; }
+  .nav-links > li{width:100%;}
+  .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
+  .dropdown{
+    position:static;transform:none;box-shadow:none;border:none;
+    border-radius:0;padding:0 0 0 12px;
+    max-height:0;overflow:hidden;opacity:1;visibility:visible;
+    transition:max-height 0.2s ease;
+  }
+  .has-dropdown:hover .dropdown{ max-height:0; }
+  .has-dropdown.open .dropdown{ max-height:320px;transform:none; }
+  .nav-toggle{ display:flex; }
+}
+@media(max-width:768px){
+  .nav-inner{padding:16px 20px;}
+  .page-hero{padding:140px 24px 70px;}
+  .page-hero p{font-size:14.5px;}
+  .filter-bar{padding:36px 20px 0;}
+  .portfolio-section{padding:36px 20px 80px;}
+  .portfolio-grid{grid-template-columns:1fr;}
+  .footer-top{flex-direction:column;}
+  footer{padding:70px 24px 40px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://www.starlitecp.com/" class="brand-link">
+      <div class="brand">
+        <div class="brand-main">STARLITE</div>
+        <div class="brand-sub">Capital Partners</div>
+      </div>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://www.starlitecp.com/" class="nav-link">Home</a></li>
+      <li><a href="https://www.starlitecp.com/login.html" class="nav-link">Investor Login</a></li>
+      <li class="has-dropdown" id="productsDropdown">
+        <button class="nav-link" id="productsTrigger" aria-haspopup="true" aria-expanded="false">
+          Products<span class="nav-caret"></span>
+        </button>
+        <div class="dropdown">
+          <a href="https://www.starlitecp.com/products/venture-capital.html">Venture Capital</a>
+          <a href="https://www.starlitecp.com/products/private-wealth.html">Private Wealth</a>
+          <a href="https://www.starlitecp.com/products/private-credit.html">Private Credit</a>
+          <a href="https://www.starlitecp.com/products/private-equity.html">Private Equity</a>
+          <a href="https://www.starlitecp.com/products/partners.html">Partners</a>
+        </div>
+      </li>
+      <li><a href="https://www.starlitecp.com/portfolio.html" class="nav-link active">Portfolio</a></li>
+      <li><a href="https://www.starlitecp.com/about.html" class="nav-link">About Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-sub">Portfolio</div>
+  <h1>Public Equity Holdings</h1>
+</section>
+
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="communication-services">Communication Services</button>
+  <button class="filter-btn" data-filter="consumer-discretionary">Consumer Discretionary</button>
+  <button class="filter-btn" data-filter="financials">Financials</button>
+  <button class="filter-btn" data-filter="industrials">Industrials</button>
+  <button class="filter-btn" data-filter="information-technology">Information Technology</button>
+</div>
+
+<section class="portfolio-section">
+  <div class="portfolio-grid" id="portfolioGrid">
+    <!-- Portfolio cards are generated below via JS from the data array -->
+  </div>
+
+  <div class="note-strip">
+    The issuers shown reflect positions publicly disclosed by Starlite Capital as of the most recent Form 13F filing with the U.S. Securities and Exchange Commission. Holdings are subject to change quarterly and inclusion here should not be taken as an indication of investment performance. All trademarks are the property of their respective owners; their appearance here does not imply endorsement of, or affiliation with, Starlite Capital.
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Starlite</h3>
+        <p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.starlitecp.com/contactus.html">Contact Us</a>
+        <a href="https://www.starlitecp.com/modern-slavery-statement">Modern Slavery Statement</a>
+        <a href="https://www.starlitecp.com/privacy.html">Privacy</a>
+        <a href="https://www.starlitecp.com/use-policy.html">Use Policy</a>
+        <a href="https://www.starlitecp.com/sustainability.html">Sustainability</a>
+        <a href="https://www.starlitecp.com/news.html">News</a>
+        <a href="https://www.starlitecp.com/disclosures.html">Disclosures</a>
+        <a href="https://www.starlitecp.com/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
+        <a href="https://www.starlitecp.com/commercial.html">Commercial</a>
+        <a href="https://www.starlitecp.com/security.html">Security</a>
+        <a href="https://www.starlitecp.com/13f-filings.html">13F Filings</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Starlite Capital Inc. All Rights Reserved.</p>
+      <p>1910 Pacific Ave Suite 2000, Dallas, TX 75201, United States</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ------------------------------------------------------------------
+// Portfolio data. Replace this array with your actual holdings —
+// name, sector (must match a filter-btn data-filter value, or add
+// a new filter button above), a short description, and a website
+// link. By default `domain` pulls a site icon from Google's free
+// favicon service (https://www.google.com/s2/favicons?domain=...) —
+// no key required, but favicons are small/simplified and some
+// sites just don't have one worth showing. For those, set
+// `logoUrl` to point straight at a real logo image file instead
+// (it takes priority over the favicon lookup) — for the best
+// results, host your own logo files and point `logoUrl` at those.
+// `mono` is the two-letter fallback shown only if the image fails
+// to load.
+// ------------------------------------------------------------------
+const portfolioData = [
+  { name:"Alphabet Inc", mono:"AI", domain:"abc.xyz", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Alphabet_Inc_Logo_2015.svg", sector:"communication-services", sectorLabel:"Communication Services", desc:"Class A common stock.", status:"Current", url:"https://abc.xyz/investor/" },
+  { name:"Amazon.com Inc", mono:"AZ", domain:"amazon.com", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://ir.aboutamazon.com/overview/default.aspx" },
+  { name:"Berkshire Hathaway Inc", mono:"BH", domain:"berkshirehathaway.com", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Berkshire-Hathaway-Logo.svg", sector:"financials", sectorLabel:"Financials", desc:"Class B common stock.", status:"Current", url:"https://www.berkshirehathaway.com/" },
+  { name:"Chipotle Mexican Grill Inc", mono:"CM", domain:"chipotle.com", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://ir.chipotle.com/" },
+  { name:"Goldman Sachs Group Inc", mono:"GS", domain:"goldmansachs.com", sector:"financials", sectorLabel:"Financials", desc:"Common stock.", status:"Current", url:"https://www.goldmansachs.com/investor-relations/" },
+  { name:"Lowe's Companies Inc", mono:"LC", domain:"lowes.com", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Lowes_Companies_Logo.svg", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://corporate.lowes.com/investors" },
+  { name:"MGM Resorts International", mono:"MG", domain:"mgmresorts.com", sector:"industrials", sectorLabel:"Industrials", desc:"Common stock.", status:"Current", url:"https://investors.mgmresorts.com/" },
+  { name:"Microsoft Corp", mono:"MS", domain:"microsoft.com", sector:"information-technology", sectorLabel:"Information Technology", desc:"Common stock.", status:"Current", url:"https://www.microsoft.com/en-us/investor/default" },
+  { name:"Uber Technologies Inc", mono:"UB", domain:"uber.com", sector:"industrials", sectorLabel:"Industrials", desc:"Common stock.", status:"Current", url:"https://investor.uber.com/home/default.aspx" },
+  { name:"Ulta Beauty Inc", mono:"UL", domain:"ulta.com", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://ir.ulta.com/" },
+  { name:"Visa Inc", mono:"VI", domain:"visa.com", sector:"financials", sectorLabel:"Financials", desc:"Class A common stock.", status:"Current", url:"https://investor.visa.com/" }
+];
+
+
+function renderCard(item){
+  return `
+  <div class="portfolio-card" data-sector="${item.sector}">
+    <div class="portfolio-card-top">
+      <div class="portfolio-logo">
+        <img src="${item.logoUrl || ('https://www.google.com/s2/favicons?sz=128&domain=' + item.domain)}" alt="${item.name}"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="portfolio-logo-fallback">${item.mono}</div>
+      </div>
+      <div class="portfolio-sector-tag">${item.sectorLabel}</div>
+    </div>
+    <div>
+      <div class="portfolio-name">${item.name}</div>
+    </div>
+    <div class="portfolio-desc">${item.desc}</div>
+    <div class="portfolio-card-bottom">
+      <span class="portfolio-status">Held</span>
+      <a class="portfolio-link" href="${item.url}" target="_blank" rel="noopener">
+        View Website
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
+      </a>
+    </div>
+  </div>`;
+}
+
+const grid = document.getElementById('portfolioGrid');
+function renderGrid(filter){
+  const items = filter === 'all' ? portfolioData : portfolioData.filter(i => i.sector === filter);
+  grid.innerHTML = items.map(renderCard).join('');
+}
+renderGrid('all');
+
+document.getElementById('filterBar').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid(btn.dataset.filter);
+});
+
+// Nav: mobile toggle + Products dropdown
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', ()=>{
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+const productsDropdown = document.getElementById('productsDropdown');
+const productsTrigger = document.getElementById('productsTrigger');
+productsTrigger.addEventListener('click', (e)=>{
+  e.preventDefault();
+  const isOpen = productsDropdown.classList.toggle('open');
+  productsTrigger.setAttribute('aria-expanded', String(isOpen));
+});
+document.addEventListener('click', (e)=>{
+  if(!productsDropdown.contains(e.target)){
+    productsDropdown.classList.remove('open');
+    productsTrigger.setAttribute('aria-expanded','false');
+  }
+});
+</script>
+</body>
+</html>
