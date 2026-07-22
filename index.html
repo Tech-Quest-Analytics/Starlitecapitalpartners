@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
  
 <title>Starlite Capital Partners</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -311,23 +311,108 @@ footer{
   display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
 }
 .footer-bottom p{color:#9aa3be;font-size:13px;}
-/* PRIVACY */
+
+/* ---------- FANCY PRIVACY BAR ---------- */
 .privacy-banner{
-  position:fixed;bottom:20px;left:20px;right:20px;
-  background:#fff;border:1px solid rgba(0,0,0,0.10);
-  border-radius:16px;padding:20px 24px;
-  display:flex;justify-content:space-between;align-items:center;
-  gap:20px;z-index:5000;
-  box-shadow:0 8px 40px rgba(0,0,0,0.08);
+  position:fixed;
+  left:24px;right:24px;top:calc(var(--ticker-h) + 96px);
+  max-width:920px;margin:0 auto;
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(26,33,56,0.08);
+  border-radius:20px;
+  box-shadow:0 24px 60px rgba(26,33,56,0.18), inset 0 1px 0 rgba(255,255,255,0.6);
+  padding:24px 28px;
+  display:flex;
+  align-items:center;
+  gap:24px;
+  z-index:5000;
+  transform:translateY(-140%);
+  opacity:0;
+  transition:transform 0.6s cubic-bezier(.19,1,.22,1), opacity 0.6s ease;
 }
-.privacy-text{color:#6b7aaa;font-size:13px;line-height:1.7;max-width:700px;}
-.privacy-actions{display:flex;align-items:center;gap:16px;}
-.privacy-actions a{text-decoration:none;color:#6b7aaa;font-size:13px;}
-.privacy-actions button{
-  background:#1a2138;color:#fff;border:none;
-  padding:10px 22px;border-radius:999px;
-  font-size:12px;cursor:pointer;letter-spacing:0.5px;
+.privacy-banner.show{ transform:translateY(0); opacity:1; }
+
+.privacy-icon{
+  flex:none;
+  width:44px;height:44px;
+  border-radius:13px;
+  background:linear-gradient(135deg,#1a2138,#4a7bff);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 20px rgba(26,33,56,0.25);
+  position:relative;
 }
+.privacy-icon svg{ width:20px;height:20px; }
+.privacy-icon::after{
+  content:'';
+  position:absolute;inset:-5px;
+  border-radius:17px;
+  border:1px solid rgba(74,123,255,0.35);
+  animation:ring-pulse 2.4s ease-out infinite;
+}
+@keyframes ring-pulse{
+  0%{ opacity:0.9; transform:scale(0.9); }
+  70%{ opacity:0; transform:scale(1.25); }
+  100%{ opacity:0; transform:scale(1.25); }
+}
+
+.privacy-body{ flex:1; min-width:0; }
+.privacy-title{
+  font-family:'Playfair Display',serif;
+  font-size:16px;font-weight:500;letter-spacing:0.2px;
+  margin-bottom:6px;color:#1a2138;
+}
+.privacy-text{
+  font-size:13px;line-height:1.7;color:#6b7aaa;font-weight:300;
+  max-width:560px;
+}
+.privacy-text a{ color:#4a7bff;text-decoration:underline;text-underline-offset:2px; }
+
+.privacy-actions{
+  flex:none;
+  display:flex;align-items:center;gap:10px;
+}
+.privacy-btn{
+  border:none;cursor:pointer;
+  font-family:'Inter',sans-serif;
+  font-size:12.5px;letter-spacing:0.4px;
+  padding:11px 20px;border-radius:999px;
+  transition:transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  white-space:nowrap;
+}
+.privacy-btn:active{ transform:scale(0.96); }
+.privacy-btn-ghost{
+  background:transparent;color:#6b7aaa;
+  border:1px solid rgba(26,33,56,0.16);
+}
+.privacy-btn-ghost:hover{ color:#1a2138; border-color:rgba(26,33,56,0.32); }
+.privacy-btn-primary{
+  background:#1a2138;
+  color:#fff;
+  box-shadow:0 10px 24px rgba(26,33,56,0.22);
+}
+.privacy-btn-primary:hover{ background:#2d3a5c; box-shadow:0 12px 30px rgba(26,33,56,0.3); }
+
+.privacy-close{
+  position:absolute;top:10px;right:12px;
+  background:none;border:none;color:#9aa3be;
+  font-size:16px;cursor:pointer;line-height:1;
+  padding:4px;
+}
+.privacy-close:hover{ color:#1a2138; }
+
+@media(max-width:900px){
+  .privacy-banner{ flex-wrap:wrap; padding:22px 22px 20px; }
+  .privacy-actions{ width:100%; justify-content:flex-end; }
+}
+@media(max-width:480px){
+  .privacy-banner{ left:14px;right:14px;top:calc(var(--ticker-h) + 80px);padding:20px 18px; }
+  .privacy-icon{ width:38px;height:38px; }
+  .privacy-actions{ flex-wrap:wrap; }
+  .privacy-btn{ flex:1; text-align:center; }
+}
+
 @media(max-width:900px){
   /* NOTE: .nav-links used to be position:fixed here. But its parent
      .nav has backdrop-filter, which per spec makes .nav the
@@ -376,7 +461,6 @@ footer{
   .stats{gap:60px;padding:70px 24px;}
   .footer-top{flex-direction:column;}
   footer{padding:70px 24px 40px;}
-  .privacy-banner{flex-direction:column;align-items:flex-start;left:14px;right:14px;bottom:14px;}
 }
 @media(max-width:420px){
   .hero p{font-size:14px;}
@@ -385,10 +469,20 @@ footer{
 </head>
 <body>
 <div class="privacy-banner" id="privacyBanner">
-  <div class="privacy-text">We use cookies and analytics to improve platform performance and user experience. By continuing, you agree to our privacy and use policies.</div>
+  <button class="privacy-close" id="privacyClose" aria-label="Dismiss">&times;</button>
+  <div class="privacy-icon">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z" fill="#fff"/>
+      <path d="M9.5 12l2 2 3.5-4" stroke="#1a2138" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="privacy-body">
+    <div class="privacy-title">Your privacy, your choice</div>
+    <div class="privacy-text">We use cookies and analytics to improve platform performance and user experience. You can accept all, or review our <a href="https://www.starlitecp.com/privacy.html" target="_blank">Privacy Policy</a> at any time.</div>
+  </div>
   <div class="privacy-actions">
-    <a href="https://www.starlitecp.com/privacy.html" target="_blank">Privacy Policy</a>
-    <button id="acceptPrivacy">Accept</button>
+    <button class="privacy-btn privacy-btn-ghost" id="managePrivacy">Manage</button>
+    <button class="privacy-btn privacy-btn-primary" id="acceptPrivacy">Accept All</button>
   </div>
 </div>
 <div class="ticker" id="marketTicker">
@@ -499,12 +593,40 @@ footer{
   </div>
 </footer>
 <script>
+// ------------------------------------------------------------------
+// Fancy privacy banner: slides up after a short delay, dismisses on
+// Accept or the × button, and remembers the choice via localStorage.
+// "Manage" is wired to a stub — hook it up to your actual preferences
+// panel when you build one.
+// ------------------------------------------------------------------
 const banner = document.getElementById('privacyBanner');
-if(localStorage.getItem('starlitePrivacyAccepted')) banner.style.display='none';
-document.getElementById('acceptPrivacy').addEventListener('click',()=>{
+const acceptPrivacyBtn = document.getElementById('acceptPrivacy');
+const managePrivacyBtn = document.getElementById('managePrivacy');
+const closePrivacyBtn = document.getElementById('privacyClose');
+
+function showPrivacyBanner(){
+  banner.classList.add('show');
+}
+function hidePrivacyBanner(){
+  banner.classList.remove('show');
+}
+
+if(localStorage.getItem('starlitePrivacyAccepted')){
+  // Already accepted previously — keep it hidden, no entrance animation.
+} else {
+  setTimeout(showPrivacyBanner, 600);
+}
+
+acceptPrivacyBtn.addEventListener('click', ()=>{
   localStorage.setItem('starlitePrivacyAccepted','true');
-  banner.style.display='none';
+  hidePrivacyBanner();
 });
+closePrivacyBtn.addEventListener('click', hidePrivacyBanner);
+managePrivacyBtn.addEventListener('click', ()=>{
+  // TODO: open a real cookie-preferences modal here.
+  window.location.href = 'https://www.starlitecp.com/privacy.html';
+});
+
 // Ensure the hero video actually starts even if the browser blocks the
 // autoplay attribute in some contexts (e.g. sandboxed previews).
 const heroVideo = document.getElementById('heroVideo');
