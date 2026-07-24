@@ -272,19 +272,40 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hid
   width:100%;border:none;
   border-top:1px solid rgba(0,0,0,0.07);
 }
-/* STATS */
-.stats{
-  padding:90px 40px;
-  display:flex;justify-content:center;gap:120px;flex-wrap:wrap;
+/* MISSION BANNER */
+.mission-banner{
+  padding:110px 40px;
+  max-width:980px;
+  margin:0 auto;
+  text-align:center;
+  position:relative;
 }
-.stat h3{
+.mission-eyebrow{
+  font-size:10px;letter-spacing:5px;text-transform:uppercase;
+  color:#9aa3be;margin-bottom:26px;
+}
+.mission-mark{
   font-family:'Playfair Display',serif;
-  font-size:52px;font-weight:400;
-  color:#1a2138;margin-bottom:8px;
-  letter-spacing:-2px;
-  font-variant-numeric:tabular-nums;
+  font-size:56px;color:#c7d1f2;line-height:1;margin-bottom:8px;
+  user-select:none;
 }
-.stat p{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:#9aa3be;}
+.mission-text{
+  font-family:'Playfair Display',serif;
+  font-weight:400;
+  font-size:clamp(24px,3.2vw,38px);
+  line-height:1.55;
+  letter-spacing:-0.3px;
+  color:#1a2138;
+}
+.mission-text span{
+  background:linear-gradient(90deg,#1a2138,#4a7bff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+@media(max-width:768px){
+  .mission-banner{padding:70px 24px;}
+  .mission-mark{font-size:42px;}
+}
 /* FOOTER */
 footer{
   padding:90px 40px 50px;
@@ -357,7 +378,6 @@ footer{
     padding:0 4px;
     margin-bottom:36px;
   }
-  .stats{gap:60px;padding:70px 24px;}
   .footer-top{flex-direction:column;}
   footer{padding:70px 24px 40px;}
 }
@@ -433,20 +453,11 @@ footer{
   </div>
 </section>
 <hr class="divider">
-<div class="stats" id="statsSection">
-  <div class="stat">
-    <h3 class="stat-number" data-target="50" data-prefix="$" data-suffix="B+">$0B+</h3>
-    <p>Assets Under Management</p>
-  </div>
-  <div class="stat">
-    <h3 class="stat-number" data-target="150" data-suffix="+">0+</h3>
-    <p>Private Equity Portfolio Companies</p>
-  </div>
-  <div class="stat">
-    <h3 class="stat-number" data-target="7" data-suffix="">0</h3>
-    <p>World-Class Strategies</p>
-  </div>
-</div>
+<section class="mission-banner" id="missionBanner">
+  <div class="mission-mark">&#8220;</div>
+  <p class="mission-eyebrow">Our Mission</p>
+  <p class="mission-text">We back visionary founders and enduring institutions with <span>patient, principled capital</span> — building infrastructure that compounds for decades, not quarters.</p>
+</section>
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -483,46 +494,6 @@ if(heroVideo){
   const tryPlay = () => heroVideo.play().catch(()=>{});
   tryPlay();
   document.addEventListener('click', tryPlay, { once:true });
-}
-// Count-up animation for the stat numbers, triggered once the stats
-// section scrolls into view.
-function animateCount(el){
-  const target = parseFloat(el.dataset.target);
-  const prefix = el.dataset.prefix || '';
-  const suffix = el.dataset.suffix || '';
-  const duration = 1800; // ms
-  const startTime = performance.now();
-  function easeOutExpo(t){
-    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-  }
-  function tick(now){
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = easeOutExpo(progress);
-    const current = Math.round(target * eased);
-    el.textContent = prefix + current + suffix;
-    if(progress < 1){
-      requestAnimationFrame(tick);
-    } else {
-      el.textContent = prefix + target + suffix; // lock exact final value
-    }
-  }
-  requestAnimationFrame(tick);
-}
-const statNumbers = document.querySelectorAll('.stat-number');
-const statsSection = document.getElementById('statsSection');
-if('IntersectionObserver' in window && statsSection){
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        statNumbers.forEach(animateCount);
-        observer.disconnect();
-      }
-    });
-  }, { threshold: 0.4 });
-  observer.observe(statsSection);
-} else {
-  statNumbers.forEach(animateCount);
 }
 // ------------------------------------------------------------------
 // Scroll-linked hero blur effect
