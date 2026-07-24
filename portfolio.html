@@ -455,24 +455,27 @@ footer{
 // `mono` is the two-letter fallback shown only if the image fails
 // to load.
 //
-// Synced against informationtable.xml (13F) on 2026-07-24: added
-// the two Madison Square Garden holdings that were present in the
-// filing but missing from this list.
+// Rebuilt directly from informationtable.xml (13F) on 2026-07-24:
+// all 14 issuers in the filing are unique (no duplicate CUSIPs/
+// names), and one holding — Take-Two Interactive Software Inc,
+// the largest position by value in the filing — was missing from
+// the prior card list and has been added below.
 // ------------------------------------------------------------------
 const portfolioData = [
-  { name:"Alphabet Inc", mono:"AI", domain:"abc.xyz", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Alphabet_Inc_Logo_2015.svg", sector:"communication-services", sectorLabel:"Communication Services", desc:"Class A common stock.", status:"Current", url:"https://abc.xyz/investor/" },
+  { name:"Take-Two Interactive Software Inc", mono:"TT", domain:"take2games.com", sector:"communication-services", sectorLabel:"Communication Services", desc:"Common stock.", status:"Current", url:"https://ir.take2games.com/" },
   { name:"Amazon.com Inc", mono:"AZ", domain:"amazon.com", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://ir.aboutamazon.com/overview/default.aspx" },
-  { name:"Berkshire Hathaway Inc", mono:"BH", domain:"berkshirehathaway.com", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Berkshire-Hathaway-Logo.svg", sector:"financials", sectorLabel:"Financials", desc:"Class B common stock.", status:"Current", url:"https://www.berkshirehathaway.com/" },
-  { name:"Chipotle Mexican Grill Inc", mono:"CM", domain:"chipotle.com", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://ir.chipotle.com/" },
-  { name:"Goldman Sachs Group Inc", mono:"GS", domain:"goldmansachs.com", sector:"financials", sectorLabel:"Financials", desc:"Common stock.", status:"Current", url:"https://www.goldmansachs.com/investor-relations/" },
+  { name:"Visa Inc", mono:"VI", domain:"visa.com", sector:"financials", sectorLabel:"Financials", desc:"Class A common stock.", status:"Current", url:"https://investor.visa.com/" },
+  { name:"Alphabet Inc", mono:"AI", domain:"abc.xyz", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Alphabet_Inc_Logo_2015.svg", sector:"communication-services", sectorLabel:"Communication Services", desc:"Class A common stock.", status:"Current", url:"https://abc.xyz/investor/" },
+  { name:"Microsoft Corp", mono:"MS", domain:"microsoft.com", sector:"information-technology", sectorLabel:"Information Technology", desc:"Common stock.", status:"Current", url:"https://www.microsoft.com/en-us/investor/default" },
   { name:"Lowe's Companies Inc", mono:"LC", domain:"lowes.com", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Lowes_Companies_Logo.svg", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://corporate.lowes.com/investors" },
-  { name:"Madison Square Garden Entertainment Corp", mono:"ME", domain:"msgentertainment.com", sector:"communication-services", sectorLabel:"Communication Services", desc:"Class A common stock.", status:"Current", url:"https://investor.msgentertainment.com/" },
+  { name:"Berkshire Hathaway Inc", mono:"BH", domain:"berkshirehathaway.com", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Berkshire-Hathaway-Logo.svg", sector:"financials", sectorLabel:"Financials", desc:"Class B common stock.", status:"Current", url:"https://www.berkshirehathaway.com/" },
+  { name:"Goldman Sachs Group Inc", mono:"GS", domain:"goldmansachs.com", sector:"financials", sectorLabel:"Financials", desc:"Common stock.", status:"Current", url:"https://www.goldmansachs.com/investor-relations/" },
   { name:"Madison Square Garden Sports Corp", mono:"MQ", domain:"msgsports.com", sector:"communication-services", sectorLabel:"Communication Services", desc:"Class A common stock.", status:"Current", url:"https://investor.msgsports.com/" },
   { name:"MGM Resorts International", mono:"MG", domain:"mgmresorts.com", sector:"industrials", sectorLabel:"Industrials", desc:"Common stock.", status:"Current", url:"https://investors.mgmresorts.com/" },
-  { name:"Microsoft Corp", mono:"MS", domain:"microsoft.com", sector:"information-technology", sectorLabel:"Information Technology", desc:"Common stock.", status:"Current", url:"https://www.microsoft.com/en-us/investor/default" },
+  { name:"Chipotle Mexican Grill Inc", mono:"CM", domain:"chipotle.com", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://ir.chipotle.com/" },
   { name:"Uber Technologies Inc", mono:"UB", domain:"uber.com", sector:"industrials", sectorLabel:"Industrials", desc:"Common stock.", status:"Current", url:"https://investor.uber.com/home/default.aspx" },
   { name:"Ulta Beauty Inc", mono:"UL", domain:"ulta.com", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://ir.ulta.com/" },
-  { name:"Visa Inc", mono:"VI", domain:"visa.com", sector:"financials", sectorLabel:"Financials", desc:"Class A common stock.", status:"Current", url:"https://investor.visa.com/" }
+  { name:"Madison Square Garden Entertainment Corp", mono:"ME", domain:"msgentertainment.com", sector:"communication-services", sectorLabel:"Communication Services", desc:"Class A common stock.", status:"Current", url:"https://investor.msgentertainment.com/" }
 ];
 
 
