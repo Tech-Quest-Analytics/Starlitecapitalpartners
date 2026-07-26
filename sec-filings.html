@@ -346,11 +346,41 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   text-decoration:underline;
 }
 
+.tracker-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:flex-end;
+}
+.tracker-links a{
+  color:#4a7bff;
+  text-decoration:none;
+  font-weight:500;
+  white-space:nowrap;
+}
+.tracker-links a:hover{
+  color:#1a2138;
+  text-decoration:underline;
+}
+.tracker-links .sep{
+  color:#c7cee0;
+}
+@media(max-width:768px){
+  .tracker-links{justify-content:flex-start;}
+}
+
+.filing-cta-row{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:16px;
+  margin-top:44px;
+}
+
 .filing-cta{
   display:inline-flex;
   align-items:center;
   gap:8px;
-  margin-top:44px;
   padding:14px 30px;
   border-radius:999px;
   background:#1a2138;
@@ -364,6 +394,16 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
 .filing-cta:hover{background:#4a7bff;transform:translateY(-2px);}
 .filing-cta svg{width:13px;height:13px;transition:transform 0.2s ease;}
 .filing-cta:hover svg{transform:translate(2px,-2px);}
+
+.filing-cta.secondary{
+  background:#fff;
+  color:#1a2138;
+  border:1px solid rgba(26,33,56,0.18);
+}
+.filing-cta.secondary:hover{
+  background:#1a2138;
+  color:#fff;
+}
 
 .notify{
   margin-top:48px;
@@ -527,12 +567,20 @@ footer{
         <span class="detail-label">Source</span>
         <span class="detail-value"><a href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000002/0002147007-26-000002-index.html" target="_blank" rel="noopener">View on SEC EDGAR</a></span>
       </div>
+      <div class="detail-row">
+        <span class="detail-label">Track Holdings</span>
+        <span class="detail-value tracker-links">
+          <a href="https://www.quiverquant.com/institutions/Starlite%20Capital%20INC/" target="_blank" rel="noopener">QuiverQuant</a><span class="sep">·</span><a href="https://fintel.io/i/starlite-capital-inc-9816" target="_blank" rel="noopener">Fintel</a><span class="sep">·</span><a href="https://www.secform4.com/portfolio-holdings/2147007.html" target="_blank" rel="noopener">SecForm4</a><span class="sep">·</span><a href="https://www.streetinsider.com/SEC+Filings/Form++13F-HR+++++Starlite+Capital+INC++++++For%3A+Jun+30/26812898.html" target="_blank" rel="noopener">StreetInsider</a>
+        </span>
+      </div>
     </div>
 
-    <a class="filing-cta" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000002/0002147007-26-000002-index.html" target="_blank" rel="noopener">
-      View Official Filing on EDGAR
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
-    </a>
+    <div class="filing-cta-row">
+      <a class="filing-cta" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000002/0002147007-26-000002-index.html" target="_blank" rel="noopener">
+        View Official Filing on EDGAR
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
+      </a>
+    </div>
 
     <p class="notify"><a href="https://www.starlitecp.com/portfolio">See the full portfolio breakdown →</a></p>
 
@@ -559,6 +607,10 @@ footer{
         <a href="https://www.starlitecp.com/commercial">Commercial</a>
         <a href="https://www.starlitecp.com/security">Security</a>
         <a href="https://www.starlitecp.com/sec-filings">SEC Filings</a>
+        <a href="https://www.quiverquant.com/institutions/Starlite%20Capital%20INC/" target="_blank" rel="noopener">QuiverQuant</a>
+        <a href="https://fintel.io/i/starlite-capital-inc-9816" target="_blank" rel="noopener">Fintel</a>
+        <a href="https://www.secform4.com/portfolio-holdings/2147007.html" target="_blank" rel="noopener">SecForm4</a>
+        <a href="https://www.streetinsider.com/SEC+Filings/Form++13F-HR+++++Starlite+Capital+INC++++++For%3A+Jun+30/26812898.html" target="_blank" rel="noopener">StreetInsider</a>
       </div>
     </div>
     <div class="footer-bottom">
