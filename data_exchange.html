@@ -170,6 +170,10 @@ td{padding:10px 16px;font-size:13px;color:#1e293b;overflow:hidden;text-overflow:
       <button class="btn-upload">&#8593; Upload Document</button>
       <div class="user-menu-wrap">
         <div class="topbar-user" onclick="toggleUserMenu(event)"><div class="avatar">GF</div>Gregory Fenelon &#9662;</div>
+        <button onclick="logout()" style="display:flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,0.12);border-radius:6px;background:rgba(185,28,28,0.12);color:#fca5a5;cursor:pointer;font-family:inherit;transition:background 0.15s;" onmouseover="this.style.background='rgba(185,28,28,0.25)'" onmouseout="this.style.background='rgba(185,28,28,0.12)'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Log Out
+        </button>
         <div class="user-menu" id="user-menu">
           <div class="user-menu-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</div>
           <div class="user-menu-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</div>
@@ -736,30 +740,6 @@ function setNav(el,label){document.querySelectorAll(".sidebar .nav-item").forEac
 function filterSidebar(el,type){activeTypeFilter=type;document.querySelectorAll(".sidebar .nav-item").forEach(n=>n.classList.remove("active"));el.classList.add("active");document.getElementById("type-filter").value=type==="All"?"All":type;document.getElementById("breadcrumb-label").textContent=type==="All"?"Find Files":type;applyFilters();}
 function exportCSV(){const rows=[["Document Name","Type","Fund","Effective Date"],...filtered.map(d=>[d.name,d.type,d.fund,fmtDate(d.date)])];const csv=rows.map(r=>r.map(v=>'"'+v+'"').join(",")).join("\n");const a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(csv);a.download="starlite_documents.csv";a.click();}
 sortBy("date");applyFilters();
-
-/* ── AUTH GUARD ── */
-// Must have a session token set by the Starlite login page.
-// If not present, immediately redirect to login.
-(function authGuard(){
-  const token = sessionStorage.getItem('starlite_session_token');
-  if(!token){
-    window.location.replace('https://tech-quest-analytics.github.io/Starlitecapitalpartners/login');
-  }
-})();
-
-/* ── SESSION TIMEOUT — 2 hours ── */
-(function sessionTimeout(){
-  const LOGIN_TIME_KEY = 'starlite_login_time';
-  const MAX_MS = 2 * 60 * 60 * 1000; // 2 hours
-  const loginTime = sessionStorage.getItem(LOGIN_TIME_KEY);
-  if(!loginTime){
-    sessionStorage.setItem(LOGIN_TIME_KEY, Date.now().toString());
-  } else if(Date.now() - parseInt(loginTime) > MAX_MS){
-    sessionStorage.removeItem('starlite_session_token');
-    sessionStorage.removeItem(LOGIN_TIME_KEY);
-    window.location.replace('https://tech-quest-analytics.github.io/Starlitecapitalpartners/login');
-  }
-})();
 </script>
 </body>
 </html>
