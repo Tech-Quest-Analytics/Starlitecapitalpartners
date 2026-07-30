@@ -144,7 +144,11 @@ td{padding:10px 16px;font-size:13px;color:#1e293b;overflow:hidden;text-overflow:
 </style>
 </head>
 <body>
-<div class="app">
+<style>
+/* LOGIN GATE — removed, auth handled by starlite login page */
+</style>
+
+<div class="app" id="mainApp">
   <div class="topbar">
     <div class="topbar-logo">
       <span class="topbar-logo-name">Starlite Capital Partners</span>
@@ -279,6 +283,8 @@ td{padding:10px 16px;font-size:13px;color:#1e293b;overflow:hidden;text-overflow:
     </div>
   </div>
 </div>
+
+</div><!-- /mainApp -->
 
 <!-- FINANCIAL STATEMENTS MODAL -->
 <div class="modal-overlay" id="fs-modal" onclick="closeModal(event)">
@@ -588,7 +594,9 @@ function closeUserMenu(){document.getElementById('user-menu').classList.remove('
 document.addEventListener('click',e=>{const menu=document.getElementById('user-menu');const wrap=document.querySelector('.user-menu-wrap');if(menu&&menu.classList.contains('open')&&wrap&&!wrap.contains(e.target)){closeUserMenu();}});
 function logout(){
   closeUserMenu();
-  document.body.innerHTML=`<div style="height:100vh;display:flex;align-items:center;justify-content:center;background:#0a0e1f;font-family:'Inter',system-ui,sans-serif"><div style="text-align:center;color:#e8edff"><div style="font-family:'Playfair Display',serif;font-size:24px;margin-bottom:10px">Starlite Capital Partners</div><div style="font-size:13px;color:#94a3c0;letter-spacing:1px;text-transform:uppercase;margin-bottom:28px">Digital Data Exchange</div><div style="font-size:14px;color:#cbd5e1;margin-bottom:24px">You have been securely logged out.</div><button onclick="location.reload()" style="padding:9px 22px;font-size:13px;border:none;border-radius:20px;background:linear-gradient(90deg,#3b6bef,#6b8fff);color:#fff;cursor:pointer;font-weight:500">Log Back In</button></div></div>`;
+  sessionStorage.removeItem('starlite_session_token');
+  sessionStorage.removeItem('starlite_login_time');
+  window.location.replace('https://tech-quest-analytics.github.io/Starlitecapitalpartners/login');
 }
 
 const fsData={
@@ -718,6 +726,30 @@ function setNav(el,label){document.querySelectorAll(".sidebar .nav-item").forEac
 function filterSidebar(el,type){activeTypeFilter=type;document.querySelectorAll(".sidebar .nav-item").forEach(n=>n.classList.remove("active"));el.classList.add("active");document.getElementById("type-filter").value=type==="All"?"All":type;document.getElementById("breadcrumb-label").textContent=type==="All"?"Find Files":type;applyFilters();}
 function exportCSV(){const rows=[["Document Name","Type","Fund","Effective Date"],...filtered.map(d=>[d.name,d.type,d.fund,fmtDate(d.date)])];const csv=rows.map(r=>r.map(v=>'"'+v+'"').join(",")).join("\n");const a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(csv);a.download="starlite_documents.csv";a.click();}
 sortBy("date");applyFilters();
+
+/* ── AUTH GUARD ── */
+// Must have a session token set by the Starlite login page.
+// If not present, immediately redirect to login.
+(function authGuard(){
+  const token = sessionStorage.getItem('starlite_session_token');
+  if(!token){
+    window.location.replace('https://tech-quest-analytics.github.io/Starlitecapitalpartners/login');
+  }
+})();
+
+/* ── SESSION TIMEOUT — 2 hours ── */
+(function sessionTimeout(){
+  const LOGIN_TIME_KEY = 'starlite_login_time';
+  const MAX_MS = 2 * 60 * 60 * 1000; // 2 hours
+  const loginTime = sessionStorage.getItem(LOGIN_TIME_KEY);
+  if(!loginTime){
+    sessionStorage.setItem(LOGIN_TIME_KEY, Date.now().toString());
+  } else if(Date.now() - parseInt(loginTime) > MAX_MS){
+    sessionStorage.removeItem('starlite_session_token');
+    sessionStorage.removeItem(LOGIN_TIME_KEY);
+    window.location.replace('https://tech-quest-analytics.github.io/Starlitecapitalpartners/login');
+  }
+})();
 </script>
 </body>
 </html>
