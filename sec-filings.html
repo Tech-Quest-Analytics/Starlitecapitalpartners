@@ -257,10 +257,9 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
 
 /* CONTENT */
 .container{
-  max-width:720px;
+  max-width:920px;
   margin:0 auto;
-  padding:120px 40px 150px;
-  text-align:center;
+  padding:110px 40px 150px;
 }
 
 .status-pill{
@@ -275,7 +274,7 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   font-size:11px;
   letter-spacing:2.5px;
   text-transform:uppercase;
-  margin-bottom:36px;
+  margin-bottom:20px;
 }
 .status-dot{
   width:7px;height:7px;border-radius:50%;
@@ -290,84 +289,141 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   .status-dot{animation:none;}
 }
 
+.container-head{text-align:center;}
+
 .container h2{
   font-family:'Playfair Display',serif;
-  font-size:clamp(30px,4.5vw,42px);
+  font-size:clamp(28px,4.2vw,38px);
   font-weight:400;
   color:#1a2138;
-  margin-bottom:24px;
+  margin-bottom:16px;
   letter-spacing:-0.5px;
 }
 
-.container p{
-  font-size:17px;
+.container-head p{
+  font-size:16px;
   color:#6b7aaa;
-  margin-bottom:24px;
-  line-height:1.9;
+  margin:0 auto 8px;
+  line-height:1.85;
   font-weight:300;
+  max-width:560px;
 }
 
-.detail-block{
-  margin-top:56px;
-  padding:32px 28px;
-  background:rgba(26,33,56,0.03);
-  border:1px solid rgba(0,0,0,0.07);
-  border-radius:4px;
-  text-align:left;
-}
-.detail-block .detail-row{
+.filer-meta{
   display:flex;
-  justify-content:space-between;
-  gap:20px;
-  padding:14px 0;
-  border-bottom:1px solid rgba(0,0,0,0.06);
-  font-size:15px;
-}
-.detail-block .detail-row:last-child{border-bottom:none;}
-.detail-block .detail-label{
-  color:#9aa3be;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  font-size:11px;
-  padding-top:2px;
-}
-.detail-block .detail-value{
-  color:#1a2138;
-  font-weight:500;
-  text-align:right;
-}
-.detail-block .detail-value a{
-  color:#4a7bff;
-  text-decoration:none;
-  font-weight:500;
-}
-.detail-block .detail-value a:hover{
-  color:#1a2138;
-  text-decoration:underline;
-}
-
-.tracker-links{
-  display:flex;
+  justify-content:center;
   flex-wrap:wrap;
-  gap:8px;
-  justify-content:flex-end;
+  gap:6px 18px;
+  margin-top:22px;
+  font-size:12px;
+  color:#9aa3be;
+  letter-spacing:0.3px;
 }
-.tracker-links a{
-  color:#4a7bff;
-  text-decoration:none;
-  font-weight:500;
+.filer-meta span b{color:#4a5578;font-weight:500;}
+.filer-meta .sep{color:#d7dbe8;}
+
+/* FILINGS LIST — horizontal line items, PLTR-style */
+.filings-list{
+  margin-top:52px;
+  border-top:1px solid rgba(0,0,0,0.08);
+}
+.filing-row{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding:22px 4px;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  transition:background 0.15s ease;
+}
+.filing-row:hover{background:rgba(74,123,255,0.03);}
+
+.filing-row-top{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  flex-wrap:wrap;
+}
+
+.filing-date{
+  flex:0 0 108px;
+  font-size:12px;
+  color:#9aa3be;
+  letter-spacing:0.3px;
+  font-variant-numeric:tabular-nums;
+}
+.filing-form{
+  flex:0 0 auto;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.5px;
+  color:#1a2138;
+  background:rgba(26,33,56,0.06);
+  padding:5px 11px;
+  border-radius:5px;
   white-space:nowrap;
 }
-.tracker-links a:hover{
+.filing-desc{
+  flex:1 1 auto;
+  min-width:200px;
+  font-size:14px;
+  color:#4a5578;
+}
+
+.filing-docs{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:0;
+  padding-left:132px;
+}
+.filing-doc-link{
+  display:inline-flex;
+  align-items:baseline;
+  gap:5px;
+  font-size:12.5px;
+  font-weight:500;
+  letter-spacing:0.2px;
+  color:#4a7bff;
+  text-decoration:none;
+  padding:2px 0;
+}
+.filing-doc-link:hover{
   color:#1a2138;
   text-decoration:underline;
 }
-.tracker-links .sep{
+.filing-doc-link:not(:last-child)::after{
+  content:"";
+}
+.filing-doc-sep{
   color:#c7cee0;
+  padding:0 12px;
+  font-size:12px;
 }
-@media(max-width:768px){
-  .tracker-links{justify-content:flex-start;}
+.filing-doc-tag{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.5px;
+  color:#9aa3be;
+  opacity:0.85;
 }
+
+@media(max-width:640px){
+  .filing-row-top{gap:8px 14px;}
+  .filing-date{flex:0 0 auto;}
+  .filing-desc{flex:1 1 100%;order:3;min-width:0;}
+  .filing-docs{padding-left:0;}
+  .filing-doc-sep{padding:0 8px;}
+}
+
+.filings-footnote{
+  margin-top:28px;
+  font-size:12.5px;
+  color:#9aa3be;
+  text-align:center;
+  line-height:1.8;
+}
+.filings-footnote a{color:#4a7bff;text-decoration:none;font-weight:500;}
+.filings-footnote a:hover{text-decoration:underline;}
 
 .filing-cta-row{
   display:flex;
@@ -409,6 +465,7 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   margin-top:48px;
   font-size:14px;
   color:#9aa3be;
+  text-align:center;
 }
 .notify a{
   color:#4a7bff;
@@ -449,8 +506,6 @@ footer{
   .nav-inner{padding:16px 20px;}
   .hero{padding:calc(140px + var(--ticker-h)) 20px 80px;}
   .container{padding:80px 24px 100px;}
-  .detail-block .detail-row{flex-direction:column;gap:4px;}
-  .detail-block .detail-value{text-align:left;}
   .footer-top{flex-direction:column;}
   footer{padding:70px 24px 40px;}
 }
@@ -519,53 +574,96 @@ footer{
 
   <div class="container">
 
-    <div class="status-pill">
-      <span class="status-dot"></span>
-      Filed
+    <div class="container-head">
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Filed
+      </div>
+      <p>All filings submitted by Starlite Capital Partners with the U.S. Securities and Exchange Commission via EDGAR.</p>
+      <div class="filer-meta">
+        <span>CIK <b>0002147007</b></span>
+        <span class="sep">·</span>
+        <span>File No. <b>028-27055</b></span>
+        <span class="sep">·</span>
+        <span><a href="https://www.sec.gov/edgar/browse/?CIK=0002147007" target="_blank" rel="noopener" style="color:#4a7bff;text-decoration:none;font-weight:500;">View full history on EDGAR ↗</a></span>
+      </div>
     </div>
 
-    <div class="detail-block">
-      <div class="detail-row">
-        <span class="detail-label">Status</span>
-        <span class="detail-value">Filed &amp; Accepted</span>
+    <!--
+      Each row below is one filing: a top line (Date — Form — Description) plus a
+      plain text line of per-document links (HTML / XML / TXT — however many the
+      filing has), separated by middle-dot dividers, PLTR IR style. To add a new
+      filing, duplicate a <div class="filing-row"> block, update the top line, and
+      add one <a class="filing-doc-link"> per document (with a <span class="filing-doc-sep">·</span> between them).
+    -->
+    <div class="filings-list">
+
+      <div class="filing-row">
+        <div class="filing-row-top">
+          <span class="filing-date">Jul 31, 2026</span>
+          <span class="filing-form">13F-HR/A</span>
+          <span class="filing-desc">Amendment No. 1 (restatement) — Quarterly Report of Institutional Investment Manager Holdings, period ended June 30, 2026</span>
+        </div>
+        <div class="filing-docs">
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000004/xslForm13F_X02/primary_doc.xml" target="_blank" rel="noopener">Cover Page (HTML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000004/primary_doc.xml" target="_blank" rel="noopener">Cover Page (XML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000004/xslForm13F_X02/13F-HR_Holdings.xml" target="_blank" rel="noopener">Holdings Table (HTML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000004/13F-HR_Holdings.xml" target="_blank" rel="noopener">Holdings Table (XML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000004/0002147007-26-000004.txt" target="_blank" rel="noopener">Full Submission (TXT)</a>
+        </div>
       </div>
-      <div class="detail-row">
-        <span class="detail-label">Filing Type</span>
-        <span class="detail-value">SEC Form 13F-HR</span>
+
+      <div class="filing-row">
+        <div class="filing-row-top">
+          <span class="filing-date">Jul 24, 2026</span>
+          <span class="filing-form">13F-HR</span>
+          <span class="filing-desc">Quarterly Report of Institutional Investment Manager Holdings — period ended June 30, 2026</span>
+        </div>
+        <div class="filing-docs">
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000002/xslForm13F_X02/primary_doc.xml" target="_blank" rel="noopener">Cover Page (HTML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000002/primary_doc.xml" target="_blank" rel="noopener">Cover Page (XML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000002/xslForm13F_X02/informationtable.xml" target="_blank" rel="noopener">Holdings Table (HTML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000002/informationtable.xml" target="_blank" rel="noopener">Holdings Table (XML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000002/0002147007-26-000002.txt" target="_blank" rel="noopener">Full Submission (TXT)</a>
+        </div>
       </div>
-      <div class="detail-row">
-        <span class="detail-label">Period of Report</span>
-        <span class="detail-value">June 30, 2026</span>
+
+      <div class="filing-row">
+        <div class="filing-row-top">
+          <span class="filing-date">Jul 24, 2026</span>
+          <span class="filing-form">SC 13G</span>
+          <span class="filing-desc">Schedule 13G — beneficial ownership statement re: Madison Square Garden Sports Corp. (6.17%)</span>
+        </div>
+        <div class="filing-docs">
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/1636519/000214700726000001/xslSCHEDULE_13G_X02/primary_doc.xml" target="_blank" rel="noopener">Filing (HTML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/1636519/000214700726000001/primary_doc.xml" target="_blank" rel="noopener">Filing (XML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/1636519/000214700726000001/0002147007-26-000001.txt" target="_blank" rel="noopener">Full Submission (TXT)</a>
+        </div>
       </div>
-      <div class="detail-row">
-        <span class="detail-label">Filing Date</span>
-        <span class="detail-value">July 24, 2026</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Accession Number</span>
-        <span class="detail-value">0002147007-26-000002</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">CIK</span>
-        <span class="detail-value">0002147007</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">File Number</span>
-        <span class="detail-value">028-27055</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Filed With</span>
-        <span class="detail-value">U.S. Securities and Exchange Commission</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Source</span>
-        <span class="detail-value"><a href="https://www.sec.gov/edgar/browse/?CIK=0002147007" target="_blank" rel="noopener">View on SEC EDGAR</a></span>
-      </div>
+
+      <!-- Additional <div class="filing-row"> entries go here as new filings (10-K, 10-Q, 8-K, etc.) are made. -->
+
     </div>
+
+    <p class="filings-footnote">
+      Filed with the U.S. Securities and Exchange Commission. Accession numbers and filing dates are sourced from
+      <a href="https://www.sec.gov/edgar/browse/?CIK=0002147007" target="_blank" rel="noopener">SEC EDGAR</a>.
+      Each row links directly to the official filing index on sec.gov, where the source documents can be downloaded.
+    </p>
 
     <div class="filing-cta-row">
       <a class="filing-cta" href="https://www.sec.gov/edgar/browse/?CIK=0002147007" target="_blank" rel="noopener">
-        View Official Filings on EDGAR
+        View All Filings on EDGAR
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
       </a>
     </div>
@@ -595,10 +693,6 @@ footer{
         <a href="https://www.starlitecp.com/commercial">Commercial</a>
         <a href="https://www.starlitecp.com/security">Security</a>
         <a href="https://www.starlitecp.com/sec-filings">SEC Filings</a>
-        <a href="https://www.quiverquant.com/institutions/Starlite%20Capital%20INC/" target="_blank" rel="noopener">QuiverQuant</a>
-        <a href="https://fintel.io/i/starlite-capital-inc-9816" target="_blank" rel="noopener">Fintel</a>
-        <a href="https://www.secform4.com/portfolio-holdings/2147007.html" target="_blank" rel="noopener">SecForm4</a>
-        <a href="https://www.streetinsider.com/SEC+Filings/Form++13F-HR+++++Starlite+Capital+INC++++++For%3A+Jun+30/26812898.html" target="_blank" rel="noopener">StreetInsider</a>
       </div>
     </div>
     <div class="footer-bottom">
