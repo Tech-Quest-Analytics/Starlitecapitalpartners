@@ -14,28 +14,8 @@ html{scroll-behavior:smooth;}
 html,body{min-height:100vh;background:#fff;color:#1a2138;font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;}
 body{display:flex;flex-direction:column;}
 
-/* TICKER */
-:root{--ticker-h:38px;}
-.ticker{position:fixed;top:0;left:0;width:100%;z-index:1000;height:var(--ticker-h);background:#1a2138;overflow:hidden;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06);}
-.ticker-label{flex:none;display:flex;align-items:center;gap:6px;height:100%;padding:0 16px;background:linear-gradient(90deg,#0f1428,#1a2138);color:#eef1ff;font-size:10px;letter-spacing:2px;text-transform:uppercase;z-index:2;box-shadow:14px 0 18px -10px #1a2138;}
-.ticker-dot{width:6px;height:6px;border-radius:50%;background:#5ee6a0;animation:ticker-pulse 1.8s ease-out infinite;}
-@keyframes ticker-pulse{0%{box-shadow:0 0 0 0 rgba(94,230,160,0.55);}70%{box-shadow:0 0 0 6px rgba(94,230,160,0);}100%{box-shadow:0 0 0 0 rgba(94,230,160,0);}}
-.ticker-status{color:#6b7aaa;font-size:9px;letter-spacing:1px;margin-left:6px;}
-.ticker-track-wrap{flex:1;overflow:hidden;height:100%;position:relative;}
-.ticker-track{display:flex;align-items:center;width:max-content;animation:ticker-scroll 90s linear infinite;}
-.ticker-track:hover{animation-play-state:paused;}
-@keyframes ticker-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.ticker-item{display:flex;align-items:center;gap:8px;padding:0 22px;font-size:12px;font-weight:500;color:#eef1ff;white-space:nowrap;border-right:1px solid rgba(255,255,255,0.08);}
-.ticker-sym{color:#9aa3be;font-weight:400;letter-spacing:0.5px;}
-.ticker-price{font-variant-numeric:tabular-nums;}
-.ticker-chg{font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:3px;transition:color 0.3s;}
-.ticker-chg.up{color:#5ee6a0;}.ticker-chg.down{color:#ff7a8a;}
-.ticker-chg .arrow{font-size:9px;}
-@media(prefers-reduced-motion:reduce){.ticker-track{animation:none;}}
-@media(max-width:768px){.ticker-label{padding:0 10px;font-size:9px;}.ticker-item{padding:0 16px;font-size:11px;}}
-
 /* NAV */
-.nav{position:fixed;top:var(--ticker-h);left:0;width:100%;z-index:999;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.06);}
+.nav{position:fixed;top:0;left:0;width:100%;z-index:999;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.06);}
 .nav-inner{max-width:1400px;margin:auto;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px;}
 .brand-link{text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;}
 .brand-main{font-family:'Playfair Display',serif;font-size:24px;letter-spacing:-0.5px;color:#1a2138;}
@@ -53,7 +33,7 @@ body{display:flex;flex-direction:column;}
 .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
 .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
 @media(max-width:900px){
-  .nav-links{position:fixed;top:calc(var(--ticker-h) + 68px);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);max-height:0;overflow:hidden;transition:max-height 0.25s;}
+  .nav-links{position:fixed;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);max-height:0;overflow:hidden;transition:max-height 0.25s;}
   .nav-links.open{max-height:520px;}
   .nav-links>li{width:100%;}
   .nav-link{padding:16px 24px;width:100%;justify-content:space-between;}
@@ -65,7 +45,7 @@ body{display:flex;flex-direction:column;}
 @media(max-width:768px){.nav-inner{padding:16px 20px;}}
 
 /* HERO */
-.hero{position:relative;min-height:100vh;padding:calc(160px + var(--ticker-h)) 20px 120px;text-align:center;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:center;}
+.hero{position:relative;min-height:100vh;padding:160px 20px 120px;text-align:center;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:center;}
 .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-2;}
 .hero-overlay{position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at top left,rgba(73,110,255,0.25),transparent 35%),radial-gradient(circle at bottom right,rgba(120,80,255,0.25),transparent 35%),linear-gradient(180deg,rgba(255,255,255,0.88),rgba(255,255,255,0.93));}
 
@@ -131,7 +111,7 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
 .footer-bottom{border-top:1px solid rgba(0,0,0,0.07);padding-top:30px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;}
 .footer-bottom p{color:#9aa3be;font-size:13px;}
 @media(max-width:768px){
-  .hero{padding:calc(120px + var(--ticker-h)) 20px 80px;}
+  .hero{padding:120px 20px 80px;}
   .login-card,.mfa-card{margin:40px auto;padding:42px 26px;}
   .mfa-digit{width:42px;height:54px;font-size:22px;}
   .footer-top{flex-direction:column;}
@@ -139,11 +119,6 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
 </style>
 </head>
 <body>
-
-<div class="ticker" id="marketTicker">
-  <div class="ticker-label"><span class="ticker-dot"></span>Markets<span class="ticker-status" id="tickerStatus"></span></div>
-  <div class="ticker-track-wrap"><div class="ticker-track" id="tickerTrack"></div></div>
-</div>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -501,70 +476,6 @@ document.addEventListener('click', e=>{
     productsTrigger.setAttribute('aria-expanded','false');
   }
 });
-
-// ── MARKET TICKER ─────────────────────────────────────────
-const TWELVE_DATA_API_KEY = 'c1eaf40e17c346f0ae8d2dde93f5deec';
-const tickerData = [
-  {sym:'S&P 500 (SPY)',td:'SPY',price:0,chg:0},
-  {sym:'DOW (DIA)',td:'DIA',price:0,chg:0},
-  {sym:'NASDAQ-100 (QQQ)',td:'QQQ',price:0,chg:0},
-  {sym:'AAPL',td:'AAPL',price:0,chg:0},
-  {sym:'MSFT',td:'MSFT',price:0,chg:0},
-  {sym:'NVDA',td:'NVDA',price:0,chg:0},
-  {sym:'BTC/USD',td:'BTC/USD',price:0,chg:0}
-];
-function formatPrice(item){
-  if(!item.price) return '—';
-  return item.price >= 1000 ? item.price.toLocaleString('en-US',{maximumFractionDigits:0}) : item.price.toFixed(2);
-}
-function tickerItemHTML(item,idx){
-  const up = item.chg >= 0;
-  return `<div class="ticker-item" data-idx="${idx}"><span class="ticker-sym">${item.sym}</span><span class="ticker-price">${formatPrice(item)}</span><span class="ticker-chg ${up?'up':'down'}"><span class="arrow">${up?'▲':'▼'}</span>${Math.abs(item.chg).toFixed(2)}%</span></div>`;
-}
-function renderTicker(){
-  const track = document.getElementById('tickerTrack');
-  if(!track) return;
-  const html = tickerData.map(tickerItemHTML).join('');
-  track.innerHTML = html + html;
-}
-function updateTickerDOM(){
-  document.querySelectorAll('#tickerTrack .ticker-item').forEach(el=>{
-    const item = tickerData[Number(el.dataset.idx)];
-    const up   = item.chg >= 0;
-    el.querySelector('.ticker-price').textContent = formatPrice(item);
-    const chgEl = el.querySelector('.ticker-chg');
-    chgEl.classList.toggle('up',up);
-    chgEl.classList.toggle('down',!up);
-    chgEl.innerHTML = `<span class="arrow">${up?'▲':'▼'}</span>${Math.abs(item.chg).toFixed(2)}%`;
-  });
-}
-function setTickerStatus(text){ const s=document.getElementById('tickerStatus'); if(s) s.textContent='· '+text; }
-let lastGoodFetch=null;
-async function refreshQuotes(){
-  setTickerStatus('Updating…');
-  const url='https://api.twelvedata.com/quote?symbol='+encodeURIComponent(tickerData.map(i=>i.td).join(','))+'&apikey='+TWELVE_DATA_API_KEY;
-  try{
-    const res  = await fetch(url,{cache:'no-store'});
-    const data = await res.json();
-    if(data&&data.status==='error') throw new Error(data.message);
-    let ok=false;
-    tickerData.forEach(item=>{
-      const q=data[item.td];
-      if(!q||q.code||q.status==='error') return;
-      const price=parseFloat(q.close),pct=parseFloat(q.percent_change);
-      if(isNaN(price)) return;
-      item.price=price; item.chg=isNaN(pct)?item.chg:pct; ok=true;
-    });
-    updateTickerDOM();
-    if(ok){ lastGoodFetch=new Date(); setTickerStatus('Live · '+lastGoodFetch.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})); }
-    else setTickerStatus(lastGoodFetch?'Last update '+lastGoodFetch.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'Feed unavailable');
-  }catch(e){
-    setTickerStatus(lastGoodFetch?'Last update '+lastGoodFetch.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'Feed unavailable');
-  }
-}
-renderTicker();
-refreshQuotes();
-setInterval(refreshQuotes,90000);
 </script>
 </body>
 </html>
