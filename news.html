@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<!-- Favicon -->
+
+  <!-- Favicon -->
 <link rel="icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png" type="image/png">
 <link rel="apple-touch-icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
-
-<title>Portfolio | Starlite Capital Partners</title>
+  
+<title>Starlite Capital Partners – News</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hidden;}
+body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.75;overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh;}
+.page-content{flex:1;}
 
 /* NAV */
 .nav{
@@ -34,6 +36,7 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hid
   font-size:24px;letter-spacing:-0.5px;color:#1a2138;
 }
 .brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
+
 .nav-links{
   display:flex;align-items:center;gap:36px;
   list-style:none;
@@ -48,9 +51,26 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hid
   transition:color 0.2s ease;
   cursor:pointer;
   background:none;border:none;font-family:'Inter',sans-serif;
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  outline:none;
+  box-shadow:none;
+  border-radius:0;
 }
 .nav-link:hover{color:#4a7bff;}
-.nav-link.active{color:#4a7bff;}
+.nav-link:focus,
+.nav-link:focus-visible,
+.nav-link:active{
+  background:none;
+  outline:none;
+  box-shadow:none;
+}
+.nav-link:focus-visible{
+  color:#4a7bff;
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
 .nav-caret{
   width:8px;height:8px;
   border-right:1.5px solid currentColor;
@@ -60,6 +80,7 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hid
   margin-top:-3px;
 }
 .has-dropdown.open .nav-caret{ transform:rotate(225deg);margin-top:3px; }
+
 .dropdown{
   position:absolute;top:100%;left:50%;
   transform:translate(-50%,8px);
@@ -88,120 +109,122 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;overflow-x:hid
   transition:background 0.15s ease,color 0.15s ease;
 }
 .dropdown a:hover{background:rgba(74,123,255,0.08);color:#4a7bff;}
+
 .nav-toggle{
   display:none;
   flex-direction:column;gap:5px;
   background:none;border:none;cursor:pointer;padding:6px;
+  appearance:none;-webkit-appearance:none;outline:none;
 }
+.nav-toggle:focus,
+.nav-toggle:active{ background:none;outline:none;box-shadow:none; }
 .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
 
-/* PAGE HERO */
-.page-hero{
-  padding:170px 40px 90px;
-  text-align:center;
-  background:
-    radial-gradient(circle at 50% -10%,rgba(74,123,255,0.10) 0%,transparent 60%),
-    #fff;
-  border-bottom:1px solid rgba(0,0,0,0.06);
-}
-.page-hero-sub{
-  font-size:10px;letter-spacing:5px;text-transform:uppercase;color:#9aa3be;
-  margin-bottom:18px;
-}
-.page-hero h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(38px,5.5vw,60px);
-  letter-spacing:-1.5px;color:#1a2138;margin-bottom:18px;
-}
-.page-hero p{
-  font-size:16px;line-height:1.9;color:#6b7aaa;font-weight:300;
-  max-width:660px;margin:0 auto;
+@media(max-width:900px){
+  .nav-links{
+    position:fixed;top:68px;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);
+    max-height:0;overflow:hidden;
+    transition:max-height 0.25s ease;
+  }
+  .nav-links.open{ max-height:520px; }
+  .nav-links > li{width:100%;}
+  .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
+  .dropdown{
+    position:static;transform:none;box-shadow:none;border:none;
+    border-radius:0;padding:0 0 0 12px;
+    max-height:0;overflow:hidden;opacity:1;visibility:visible;
+    transition:max-height 0.2s ease;
+  }
+  .has-dropdown:hover .dropdown{ max-height:0; }
+  .has-dropdown.open .dropdown{ max-height:320px; }
+  .nav-toggle{ display:flex; }
 }
 
-/* FILTER BAR */
-.filter-bar{
-  max-width:1350px;margin:0 auto;padding:46px 40px 0;
-  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
-}
-.filter-btn{
-  padding:9px 20px;border-radius:999px;
-  border:1px solid rgba(26,33,56,0.14);
-  background:#fff;color:#1a2138;
-  font-size:12px;letter-spacing:0.4px;
-  cursor:pointer;transition:0.2s ease;
-  font-family:'Inter',sans-serif;
-}
-.filter-btn:hover{border-color:#4a7bff;color:#4a7bff;}
-.filter-btn.active{background:#1a2138;border-color:#1a2138;color:#fff;}
-
-/* PORTFOLIO GRID */
-.portfolio-section{max-width:1350px;margin:0 auto;padding:50px 40px 110px;}
-.portfolio-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:22px;
-}
-.portfolio-card{
-  border:1px solid rgba(0,0,0,0.08);
-  border-radius:20px;
-  padding:30px;
-  display:flex;flex-direction:column;gap:18px;
-  transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  background:#fff;
-}
-.portfolio-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 20px 50px rgba(26,33,56,0.09);
-  border-color:rgba(74,123,255,0.25);
-}
-.portfolio-card-top{
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
-}
-.portfolio-logo{
-  width:56px;height:56px;border-radius:14px;
-  background:#fff;
-  border:1px solid rgba(0,0,0,0.08);
-  display:flex;align-items:center;justify-content:center;
-  flex:none;overflow:hidden;padding:6px;
-}
-.portfolio-logo img{
-  max-width:100%;max-height:100%;object-fit:contain;
-  display:block;
-}
-.portfolio-logo-fallback{
-  width:100%;height:100%;border-radius:10px;
-  background:linear-gradient(135deg,#1a2138,#3350a0);
-  display:none;align-items:center;justify-content:center;
-  color:#fff;font-family:'Playfair Display',serif;
-  font-size:18px;letter-spacing:-0.5px;
-}
-.portfolio-sector-tag{
-  font-size:10px;letter-spacing:1.2px;text-transform:uppercase;
-  color:#4a7bff;background:rgba(74,123,255,0.09);
-  padding:6px 12px;border-radius:999px;white-space:nowrap;
-}
-.portfolio-name{
-  font-family:'Playfair Display',serif;
-  font-size:21px;letter-spacing:-0.3px;color:#1a2138;
-}
-.portfolio-card-bottom{
+/* PRIVACY BANNER */
+.privacy-banner{
+  position:fixed;bottom:20px;left:20px;right:20px;
+  background:#fff;border:1px solid rgba(0,0,0,0.10);
+  border-radius:16px;padding:20px 24px;
   display:flex;justify-content:space-between;align-items:center;
-  padding-top:14px;border-top:1px solid rgba(0,0,0,0.06);
+  gap:20px;z-index:5000;
+  box-shadow:0 8px 40px rgba(0,0,0,0.08);
 }
-.portfolio-status{font-size:11px;letter-spacing:0.6px;color:#9aa3be;text-transform:uppercase;}
-.portfolio-link{
-  text-decoration:none;font-size:12.5px;color:#1a2138;
-  display:flex;align-items:center;gap:6px;font-weight:500;
+.privacy-text{color:#6b7aaa;font-size:13px;line-height:1.7;max-width:700px;}
+.privacy-actions{display:flex;align-items:center;gap:16px;}
+.privacy-actions a{text-decoration:none;color:#6b7aaa;font-size:13px;}
+.privacy-actions button{
+  background:#1a2138;color:#fff;border:none;
+  padding:10px 22px;border-radius:999px;
+  font-size:12px;cursor:pointer;letter-spacing:0.5px;
 }
-.portfolio-link:hover{color:#4a7bff;}
-.portfolio-link svg{width:12px;height:12px;transition:transform 0.2s ease;}
-.portfolio-link:hover svg{transform:translate(2px,-2px);}
 
-/* NOTE STRIP */
-.note-strip{
-  max-width:900px;margin:70px auto 0;padding:28px 34px;
-  background:#f8f9fc;border-radius:16px;
-  font-size:12.5px;color:#6b7aaa;line-height:1.8;text-align:center;
+/* HERO */
+.hero{
+  padding:160px 40px 100px;
+  text-align:center;
+  background:radial-gradient(circle at center,rgba(26,33,56,0.04) 0%,transparent 65%);
+  border-bottom:1px solid rgba(0,0,0,0.07);
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(68px,12vw,150px);
+  line-height:0.9;
+  letter-spacing:-4px;
+  margin-bottom:20px;
+  background:linear-gradient(90deg,#1a2138,#4a7bff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.subtitle{
+  font-size:10px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#9aa3be;
+  margin-bottom:40px;
+}
+.hero h1{
+  font-size:clamp(22px,4vw,36px);
+  font-weight:300;
+  color:#6b7aaa;
+  max-width:820px;
+  margin:0 auto;
+  line-height:1.4;
+}
+
+hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
+
+/* CONTENT */
+.container{
+  max-width:820px;
+  margin:0 auto;
+  padding:80px 40px 120px;
+}
+
+.article-meta{
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#c0c8e8;
+  margin-bottom:32px;
+}
+
+h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,3.5vw,32px);
+  font-weight:400;
+  color:#1a2138;
+  line-height:1.3;
+  margin-bottom:40px;
+}
+
+p{
+  font-size:17px;
+  color:#6b7aaa;
+  margin-bottom:24px;
+  line-height:1.9;
+  font-weight:300;
 }
 
 /* FOOTER */
@@ -231,98 +254,90 @@ footer{
 }
 .footer-bottom p{color:#9aa3be;font-size:13px;}
 
-@media(max-width:1024px){
-  .portfolio-grid{grid-template-columns:repeat(2,1fr);}
-}
-@media(max-width:900px){
-  .nav-links{
-    position:absolute;top:100%;left:0;right:0;
-    flex-direction:column;align-items:stretch;gap:0;
-    background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);
-    max-height:0;overflow:hidden;
-    transition:max-height 0.25s ease;
-    z-index:998;
-    box-shadow:0 18px 40px rgba(26,33,56,0.12);
-  }
-  .nav-links.open{ max-height:520px;overflow-y:auto; }
-  .nav-links > li{width:100%;}
-  .nav-link{ padding:16px 24px;width:100%;justify-content:space-between; }
-  .dropdown{
-    position:static;transform:none;box-shadow:none;border:none;
-    border-radius:0;padding:0 0 0 12px;
-    max-height:0;overflow:hidden;opacity:1;visibility:visible;
-    transition:max-height 0.2s ease;
-  }
-  .has-dropdown:hover .dropdown{ max-height:0; }
-  .has-dropdown.open .dropdown{ max-height:320px;transform:none; }
-  .nav-toggle{ display:flex; }
-}
 @media(max-width:768px){
   .nav-inner{padding:16px 20px;}
-  .page-hero{padding:140px 24px 70px;}
-  .page-hero p{font-size:14.5px;}
-  .filter-bar{padding:36px 20px 0;}
-  .portfolio-section{padding:36px 20px 80px;}
-  .portfolio-grid{grid-template-columns:1fr;}
+  .hero{padding:120px 20px 80px;}
+  .container{padding:60px 24px 80px;}
   .footer-top{flex-direction:column;}
-  footer{padding:70px 24px 40px;}
+  .privacy-banner{flex-direction:column;align-items:flex-start;left:14px;right:14px;bottom:14px;}
 }
 </style>
 </head>
 <body>
 
+<div class="privacy-banner" id="privacyBanner">
+  <div class="privacy-text">We use cookies and analytics to improve platform performance and user experience. By continuing, you agree to our privacy and use policies.</div>
+  <div class="privacy-actions">
+    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/privacy" target="_blank">Privacy Policy</a>
+    <button id="acceptPrivacy">Accept</button>
+  </div>
+</div>
+
 <nav class="nav">
   <div class="nav-inner">
-    <a href="https://www.starlitecp.com/" class="brand-link">
+    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="brand-link">
       <div class="brand">
         <div class="brand-main">STARLITE</div>
         <div class="brand-sub">Capital Partners</div>
       </div>
     </a>
+
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
+
     <ul class="nav-links" id="navLinks">
-      <li><a href="https://www.starlitecp.com/" class="nav-link">Home</a></li>
-      <li><a href="https://www.starlitecp.com/login.html" class="nav-link">Investor Login</a></li>
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="nav-link">Home</a></li>
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/login" class="nav-link">Investor Login</a></li>
       <li class="has-dropdown" id="productsDropdown">
         <button class="nav-link" id="productsTrigger" aria-haspopup="true" aria-expanded="false">
           Products<span class="nav-caret"></span>
         </button>
         <div class="dropdown">
-          <a href="https://www.starlitecp.com/products/venture-capital.html">Venture Capital</a>
-          <a href="https://www.starlitecp.com/products/private-wealth.html">Private Wealth</a>
-          <a href="https://www.starlitecp.com/products/private-credit.html">Private Credit</a>
-          <a href="https://www.starlitecp.com/products/private-equity.html">Private Equity</a>
-          <a href="https://www.starlitecp.com/products/partners.html">Partners</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/venture-capital">Venture Capital</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-wealth">Private Wealth</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-credit">Private Credit</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-equity">Private Equity</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/partners">Partners</a>
         </div>
       </li>
-      <li><a href="https://www.starlitecp.com/portfolio.html" class="nav-link active">Portfolio</a></li>
-      <li><a href="https://www.starlitecp.com/about.html" class="nav-link">About Us</a></li>
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/portfolio" class="nav-link">Portfolio</a></li>
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/about" class="nav-link">About Us</a></li>
     </ul>
   </div>
 </nav>
 
-<section class="page-hero">
-  <div class="page-hero-sub">Portfolio</div>
-  <h1>Holdings</h1>
-</section>
+<main class="page-content">
 
-<div class="filter-bar" id="filterBar">
-  <button class="filter-btn active" data-filter="all">All</button>
-  <button class="filter-btn" data-filter="communication-services">Communication Services</button>
-  <button class="filter-btn" data-filter="consumer-discretionary">Consumer Discretionary</button>
-  <button class="filter-btn" data-filter="financials">Financials</button>
-  <button class="filter-btn" data-filter="industrials">Industrials</button>
-  <button class="filter-btn" data-filter="information-technology">Information Technology</button>
-</div>
-
-<section class="portfolio-section">
-  <div class="portfolio-grid" id="portfolioGrid">
-    <!-- Portfolio cards are generated below via JS from the data array -->
+  <div class="hero">
+    <div class="logo">STARLITE</div>
+    <div class="subtitle">Capital Partners</div>
+    <h1>News</h1>
   </div>
 
-</section>
+  <hr class="divider">
+
+  <div class="container">
+
+    <div class="article-meta">Published October 25, 2025</div>
+
+    <h2>Starlite Capital Partners Raises $700M+ to Expand AI and Enterprise Software Infrastructure</h2>
+
+    <p>Starlite Capital Partners, a leading private investment firm specializing in private credit and equity solutions, announced today that it has successfully raised over $700 million in strategic capital to accelerate the expansion of its AI and enterprise software integration infrastructure.</p>
+
+    <p>This capital raise represents a major milestone in the firm's mission to provide forward-thinking financing solutions and drive long-term value creation for portfolio companies and institutional investors. The funds will be deployed to scale AI-driven enterprise systems, enhance technology infrastructure, and support strategic investments across high-growth sectors.</p>
+
+    <p>Our focus has always been on bridging opportunity with innovation. Raising over $700 million is more than just capital — it's the momentum to build the next generation of AI and enterprise software infrastructure. This allows us to strengthen our partnerships and deliver smarter, technology-driven solutions across industries.</p>
+
+    <p>Starlite Capital Partners leverages data-driven insights, disciplined asset management, and proprietary analytics tools to identify underutilized opportunities in private credit, equity, and technology integration. The new capital will also enable the firm to expand its geographic footprint and invest in sectors demonstrating strong performance and long-term resilience, including logistics, technology, and infrastructure.</p>
+
+    <p>"Investors are seeking stability, innovation, and scalable technology solutions," the spokesperson added. "We're building a firm that embodies all three, combining institutional-grade strategy with forward-thinking agility."</p>
+
+    <p>Founded to redefine private investment, Starlite Capital Partners continues to align financial strength with strategic foresight, ensuring its partners and portfolio companies thrive in a rapidly evolving global economy.</p>
+
+  </div>
+
+</main>
 
 <footer>
   <div class="footer-inner">
@@ -353,97 +368,29 @@ footer{
 </footer>
 
 <script>
-// ------------------------------------------------------------------
-// Portfolio data. Replace this array with your actual holdings —
-// name, sector (must match a filter-btn data-filter value, or add
-// a new filter button above), a short description, and a website
-// link. By default `domain` pulls a site icon from Google's free
-// favicon service (https://www.google.com/s2/favicons?domain=...) —
-// no key required, but favicons are small/simplified and some
-// sites just don't have one worth showing. For those, set
-// `logoUrl` to point straight at a real logo image file instead
-// (it takes priority over the favicon lookup) — for the best
-// results, host your own logo files and point `logoUrl` at those.
-// `mono` is the two-letter fallback shown only if the image fails
-// to load.
-//
-// Rebuilt directly from informationtable.xml (13F) on 2026-07-24:
-// all 14 issuers in the filing are unique (no duplicate CUSIPs/
-// names), and one holding — Take-Two Interactive Software Inc,
-// the largest position by value in the filing — was missing from
-// the prior card list and has been added below.
-// ------------------------------------------------------------------
-const portfolioData = [
-  { name:"Wintellex", mono:"WX", logoBg:"#1a2138", sector:"financials", sectorLabel:"Financials", desc:"Private company investment.", status:"Private", url:"https://www.wintellex.com/" },
-  { name:"Take-Two Interactive Software Inc", mono:"TT", domain:"take2games.com", sector:"communication-services", sectorLabel:"Communication Services", desc:"Common stock.", status:"Current", url:"https://ir.take2games.com/" },
-  { name:"Amazon.com Inc", mono:"AZ", domain:"amazon.com", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://ir.aboutamazon.com/overview/default.aspx" },
-  { name:"Visa Inc", mono:"VI", domain:"visa.com", sector:"financials", sectorLabel:"Financials", desc:"Class A common stock.", status:"Current", url:"https://investor.visa.com/" },
-  { name:"Alphabet Inc", mono:"AI", domain:"abc.xyz", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Alphabet_Inc_Logo_2015.svg", sector:"communication-services", sectorLabel:"Communication Services", desc:"Class A common stock.", status:"Current", url:"https://abc.xyz/investor/" },
-  { name:"Microsoft Corp", mono:"MS", domain:"microsoft.com", sector:"information-technology", sectorLabel:"Information Technology", desc:"Common stock.", status:"Current", url:"https://www.microsoft.com/en-us/investor/default" },
-  { name:"Lowe's Companies Inc", mono:"LC", domain:"lowes.com", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Lowes_Companies_Logo.svg", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://corporate.lowes.com/investors" },
-  { name:"Berkshire Hathaway Inc", mono:"BH", domain:"berkshirehathaway.com", logoUrl:"https://commons.wikimedia.org/wiki/Special:FilePath/Berkshire-Hathaway-Logo.svg", sector:"financials", sectorLabel:"Financials", desc:"Class B common stock.", status:"Current", url:"https://www.berkshirehathaway.com/" },
-  { name:"Goldman Sachs Group Inc", mono:"GS", domain:"goldmansachs.com", sector:"financials", sectorLabel:"Financials", desc:"Common stock.", status:"Current", url:"https://www.goldmansachs.com/investor-relations/" },
-  { name:"Madison Square Garden Sports Corp", mono:"MQ", domain:"msgsports.com", sector:"communication-services", sectorLabel:"Communication Services", desc:"Class A common stock.", status:"Current", url:"https://investor.msgsports.com/" },
-  { name:"MGM Resorts International", mono:"MG", domain:"mgmresorts.com", sector:"industrials", sectorLabel:"Industrials", desc:"Common stock.", status:"Current", url:"https://investors.mgmresorts.com/" },
-  { name:"Chipotle Mexican Grill Inc", mono:"CM", domain:"chipotle.com", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://ir.chipotle.com/" },
-  { name:"Uber Technologies Inc", mono:"UB", domain:"uber.com", sector:"industrials", sectorLabel:"Industrials", desc:"Common stock.", status:"Current", url:"https://investor.uber.com/home/default.aspx" },
-  { name:"Ulta Beauty Inc", mono:"UL", domain:"ulta.com", sector:"consumer-discretionary", sectorLabel:"Consumer Discretionary", desc:"Common stock.", status:"Current", url:"https://ir.ulta.com/" },
-  { name:"Madison Square Garden Entertainment Corp", mono:"ME", domain:"msgentertainment.com", sector:"communication-services", sectorLabel:"Communication Services", desc:"Class A common stock.", status:"Current", url:"https://investor.msgentertainment.com/" }
-];
-
-
-function renderCard(item){
-  return `
-  <div class="portfolio-card" data-sector="${item.sector}">
-    <div class="portfolio-card-top">
-      <div class="portfolio-logo" ${item.logoBg ? `style="background:${item.logoBg};"` : ''}>
-        <img src="${item.logoUrl || ('https://www.google.com/s2/favicons?sz=128&domain=' + item.domain)}" alt="${item.name}"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="portfolio-logo-fallback">${item.mono}</div>
-      </div>
-      <div class="portfolio-sector-tag">${item.sectorLabel}</div>
-    </div>
-    <div style="flex:1;">
-      <div class="portfolio-name">${item.name}</div>
-    </div>
-    ${item.url ? `<div class="portfolio-card-bottom">
-      <a class="portfolio-link" href="${item.url}" target="_blank" rel="noopener">
-        View Website
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
-      </a>
-    </div>` : ''}
-  </div>`;
-}
-
-const grid = document.getElementById('portfolioGrid');
-function renderGrid(filter){
-  const items = filter === 'all' ? portfolioData : portfolioData.filter(i => i.sector === filter);
-  grid.innerHTML = items.map(renderCard).join('');
-}
-renderGrid('all');
-
-document.getElementById('filterBar').addEventListener('click', (e)=>{
-  const btn = e.target.closest('.filter-btn');
-  if(!btn) return;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderGrid(btn.dataset.filter);
+const banner = document.getElementById('privacyBanner');
+if(localStorage.getItem('starlitePrivacyAccepted')) banner.style.display='none';
+document.getElementById('acceptPrivacy').addEventListener('click',()=>{
+  localStorage.setItem('starlitePrivacyAccepted','true');
+  banner.style.display='none';
 });
 
-// Nav: mobile toggle + Products dropdown
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 navToggle.addEventListener('click', ()=>{
   const isOpen = navLinks.classList.toggle('open');
   navToggle.setAttribute('aria-expanded', String(isOpen));
 });
+
 const productsDropdown = document.getElementById('productsDropdown');
 const productsTrigger = document.getElementById('productsTrigger');
 productsTrigger.addEventListener('click', (e)=>{
   e.preventDefault();
   const isOpen = productsDropdown.classList.toggle('open');
   productsTrigger.setAttribute('aria-expanded', String(isOpen));
+  productsTrigger.blur();
 });
+
 document.addEventListener('click', (e)=>{
   if(!productsDropdown.contains(e.target)){
     productsDropdown.classList.remove('open');
@@ -451,5 +398,6 @@ document.addEventListener('click', (e)=>{
   }
 });
 </script>
+
 </body>
 </html>
