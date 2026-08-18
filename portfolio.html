@@ -365,7 +365,7 @@ footer{
 // (it takes priority over the favicon lookup) — for the best
 // results, host your own logo files and point `logoUrl` at those.
 // `mono` is the two-letter fallback shown only if the image fails
-// to load.
+// to load, or immediately if neither `logoUrl` nor `domain` is set.
 //
 // Rebuilt directly from informationtable.xml (13F) on 2026-07-24:
 // all 14 issuers in the filing are unique (no duplicate CUSIPs/
@@ -393,13 +393,14 @@ const portfolioData = [
 
 
 function renderCard(item){
+  const hasImg = item.logoUrl || item.domain;
   return `
   <div class="portfolio-card" data-sector="${item.sector}">
     <div class="portfolio-card-top">
       <div class="portfolio-logo" ${item.logoBg ? `style="background:${item.logoBg};"` : ''}>
-        <img src="${item.logoUrl || ('https://www.google.com/s2/favicons?sz=128&domain=' + item.domain)}" alt="${item.name}"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="portfolio-logo-fallback">${item.mono}</div>
+        ${hasImg ? `<img src="${item.logoUrl || ('https://www.google.com/s2/favicons?sz=128&domain=' + item.domain)}" alt="${item.name}"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
+        <div class="portfolio-logo-fallback" style="${hasImg ? '' : 'display:flex;'}">${item.mono}</div>
       </div>
       <div class="portfolio-sector-tag">${item.sectorLabel}</div>
     </div>
