@@ -3,18 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <!-- Favicon -->
 <link rel="icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png" type="image/png">
 <link rel="apple-touch-icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
-  
-
+ 
 <title>Starlite Capital Partners — Contact Us</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
-
 :root{
   --navy:#1a2138;
   --deep-navy:#0f1424;
@@ -26,15 +21,12 @@
   --faint:#9aa3be;
   --ticker-h: 0px;
 }
-
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
-
 html{scroll-behavior:smooth;}
-
 html,body{
   background:var(--soft-bg);
   color:var(--text);
@@ -42,7 +34,6 @@ html,body{
   overflow-x:hidden;
   min-height:100vh;
 }
-
 /* NAV (shared header) */
 .nav{
   position:fixed;top:var(--ticker-h);left:0;width:100%;z-index:999;
@@ -63,7 +54,6 @@ html,body{
   font-size:24px;letter-spacing:-0.5px;color:#1a2138;
 }
 .brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
-
 .nav-links{
   display:flex;align-items:center;gap:36px;
   list-style:none;
@@ -113,7 +103,6 @@ html,body{
   margin-top:-3px;
 }
 .has-dropdown.open .nav-caret{ transform:rotate(225deg);margin-top:3px; }
-
 .dropdown{
   position:absolute;top:100%;left:50%;
   transform:translate(-50%,8px);
@@ -142,7 +131,6 @@ html,body{
   transition:background 0.15s ease,color 0.15s ease;
 }
 .dropdown a:hover{background:rgba(74,123,255,0.08);color:#4a7bff;}
-
 .nav-toggle{
   display:none;
   flex-direction:column;gap:5px;
@@ -152,7 +140,6 @@ html,body{
 .nav-toggle:focus,
 .nav-toggle:active{ background:none;outline:none;box-shadow:none; }
 .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
-
 @media(max-width:900px){
   .nav-links{
     position:fixed;top:calc(var(--ticker-h) + 68px);left:0;right:0;
@@ -177,7 +164,6 @@ html,body{
 @media(max-width:768px){
   .nav-inner{padding:16px 20px;}
 }
-
 /* PRIVACY */
 .privacy-banner{
   position:fixed;bottom:20px;left:20px;right:20px;
@@ -198,7 +184,6 @@ html,body{
 @media(max-width:768px){
   .privacy-banner{flex-direction:column;align-items:flex-start;left:14px;right:14px;bottom:14px;}
 }
-
 .page{
   min-height:100vh;
   display:flex;
@@ -209,7 +194,6 @@ html,body{
     radial-gradient(circle at top left,rgba(74,123,255,0.08),transparent 34%),
     linear-gradient(to bottom,#f8f9fc,#f0ede6);
 }
-
 .form-container{
   background:#fff;
   padding:52px 44px;
@@ -219,7 +203,6 @@ html,body{
   box-shadow:0 24px 80px rgba(26,33,56,0.10);
   border:1px solid rgba(26,33,56,0.10);
 }
-
 .eyebrow{
   text-align:center;
   color:var(--blue);
@@ -229,7 +212,6 @@ html,body{
   text-transform:uppercase;
   margin-bottom:16px;
 }
-
 h1{
   text-align:center;
   font-family:'Playfair Display',serif;
@@ -243,7 +225,6 @@ h1{
   letter-spacing:-1.4px;
   line-height:1;
 }
-
 .subtitle{
   text-align:center;
   color:var(--muted);
@@ -252,7 +233,6 @@ h1{
   font-weight:300;
   line-height:1.7;
 }
-
 label{
   display:block;
   margin-top:22px;
@@ -260,7 +240,6 @@ label{
   color:#374151;
   font-size:0.94rem;
 }
-
 input,
 textarea{
   width:100%;
@@ -273,7 +252,6 @@ textarea{
   background:#fbfcfe;
   font-family:inherit;
 }
-
 input:focus,
 textarea:focus{
   outline:none;
@@ -281,12 +259,10 @@ textarea:focus{
   box-shadow:0 0 0 5px rgba(74,123,255,0.16);
   background:#fff;
 }
-
 textarea{
   resize:vertical;
   min-height:140px;
 }
-
 button[type="submit"]{
   margin-top:36px;
   width:100%;
@@ -303,13 +279,11 @@ button[type="submit"]{
   border:2px solid rgba(26,33,56,0.1);
   letter-spacing:0.2px;
 }
-
 button[type="submit"]:hover{
   transform:translateY(-6px);
   box-shadow:0 28px 90px rgba(26,33,56,0.45);
   opacity:0.95;
 }
-
 .success-msg{
   margin-top:28px;
   padding:22px;
@@ -322,7 +296,6 @@ button[type="submit"]:hover{
   line-height:1.5;
   display:none;
 }
-
 /* FOOTER — matches the shared footer used across the rest of the site */
 footer{
   padding:90px 40px 50px;
@@ -350,27 +323,19 @@ footer{
   display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
 }
 .footer-bottom p{color:#9aa3be;font-size:13px;}
-
 @media(max-width:780px){
-
   .page{ padding:calc(120px + var(--ticker-h)) 20px 70px; }
-
   .form-container{
     padding:42px 28px;
     border-radius:24px;
   }
-
   h1{ font-size:clamp(36px,12vw,48px); }
   .subtitle{ font-size:15px; }
-
   .footer-top{ flex-direction:column; }
 }
-
 </style>
 </head>
-
 <body>
-
 <div class="privacy-banner" id="privacyBanner">
   <div class="privacy-text">We use cookies and analytics to improve platform performance and user experience. By continuing, you agree to our privacy and use policies.</div>
   <div class="privacy-actions">
@@ -378,7 +343,6 @@ footer{
     <button id="acceptPrivacy">Accept</button>
   </div>
 </div>
-
 <nav class="nav">
   <div class="nav-inner">
     <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="brand-link">
@@ -387,11 +351,9 @@ footer{
         <div class="brand-sub">Capital Partners</div>
       </div>
     </a>
-
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-
     <ul class="nav-links" id="navLinks">
       <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="nav-link">Home</a></li>
       <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/login" class="nav-link">Investor Login</a></li>
@@ -412,47 +374,30 @@ footer{
     </ul>
   </div>
 </nav>
-
 <section class="page">
-
 <div class="form-container">
-
 <div class="eyebrow">Contact Starlite</div>
-
 <h1>Contact Us</h1>
-
 <p class="subtitle">Reach out to the Starlite Capital Partners team regarding inquiries, partnership opportunities, or questions about our investment platform.</p>
-
-<form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-
+<form id="contact-form" action="https://formspree.io/f/xpwnwlwn" method="POST">
 <label for="name">Full Name</label>
 <input type="text" id="name" name="name" placeholder="Your name" required>
-
 <label for="company">Company (optional)</label>
 <input type="text" id="company" name="company" placeholder="Your company">
-
 <label for="email">Email</label>
 <input type="email" id="email" name="email" placeholder="you@company.com" required>
-
 <label for="phone">Phone (optional)</label>
 <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-1234">
-
 <label for="message">Message</label>
 <textarea id="message" name="message" placeholder="How can we help you?" required></textarea>
-
 <button type="submit">Send Message</button>
-
 <div class="success-msg">
 Message sent successfully!<br>
 Thank you — we'll reply as promptly as possible.
 </div>
-
 </form>
-
 </div>
-
 </section>
-
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -480,9 +425,7 @@ Thank you — we'll reply as promptly as possible.
     </div>
   </div>
 </footer>
-
 <script>
-
 /* PRIVACY BANNER */
 const banner = document.getElementById('privacyBanner');
 if(localStorage.getItem('starlitePrivacyAccepted')) banner.style.display='none';
@@ -490,7 +433,6 @@ document.getElementById('acceptPrivacy').addEventListener('click',()=>{
   localStorage.setItem('starlitePrivacyAccepted','true');
   banner.style.display='none';
 });
-
 /* NAV: mobile toggle + Products dropdown (same behavior as other pages) */
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
@@ -498,7 +440,6 @@ navToggle.addEventListener('click', ()=>{
   const isOpen = navLinks.classList.toggle('open');
   navToggle.setAttribute('aria-expanded', String(isOpen));
 });
-
 const productsDropdown = document.getElementById('productsDropdown');
 const productsTrigger = document.getElementById('productsTrigger');
 productsTrigger.addEventListener('click', (e)=>{
@@ -509,18 +450,15 @@ productsTrigger.addEventListener('click', (e)=>{
   // was causing the lingering highlight pill in Chrome/macOS
   productsTrigger.blur();
 });
-
 document.addEventListener('click', (e)=>{
   if(!productsDropdown.contains(e.target)){
     productsDropdown.classList.remove('open');
     productsTrigger.setAttribute('aria-expanded','false');
   }
 });
-
 /* CONTACT FORM */
 const form = document.getElementById('contact-form');
 const success = document.querySelector('.success-msg');
-
 form.addEventListener('submit', function(e){
   e.preventDefault();
   const data = new FormData(form);
@@ -542,8 +480,6 @@ form.addEventListener('submit', function(e){
     alert('Network error – please check your connection and try again.');
   });
 });
-
 </script>
-
 </body>
 </html>
