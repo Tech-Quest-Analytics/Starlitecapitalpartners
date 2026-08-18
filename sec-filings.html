@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
   <!-- Favicon -->
 <link rel="icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png" type="image/png">
 <link rel="apple-touch-icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
-  
+ 
 <title>Starlite Capital Partners – SEC Filings</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -15,7 +14,6 @@
 html{scroll-behavior:smooth;}
 body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.75;overflow-x:hidden;display:flex;flex-direction:column;min-height:100vh;}
 .page-content{flex:1;}
-
 /* NAV */
 .nav{
   position:fixed;top:0;left:0;width:100%;z-index:999;
@@ -36,7 +34,6 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
   font-size:24px;letter-spacing:-0.5px;color:#1a2138;
 }
 .brand-sub{font-size:9px;letter-spacing:4px;color:#6b7aaa;margin-top:4px;text-transform:uppercase;}
-
 .nav-links{
   display:flex;align-items:center;gap:36px;
   list-style:none;
@@ -62,7 +59,6 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
   margin-top:-3px;
 }
 .has-dropdown.open .nav-caret{ transform:rotate(225deg);margin-top:3px; }
-
 .dropdown{
   position:absolute;top:100%;left:50%;
   transform:translate(-50%,8px);
@@ -91,7 +87,6 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
   transition:background 0.15s ease,color 0.15s ease;
 }
 .dropdown a:hover{background:rgba(74,123,255,0.08);color:#4a7bff;}
-
 /* mobile nav toggle */
 .nav-toggle{
   display:none;
@@ -99,7 +94,6 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
   background:none;border:none;cursor:pointer;padding:6px;
 }
 .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
-
 @media(max-width:900px){
   .nav-links{
     position:fixed;top:68px;left:0;right:0;
@@ -121,7 +115,6 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
   .has-dropdown.open .dropdown{ max-height:320px; }
   .nav-toggle{ display:flex; }
 }
-
 /* PRIVACY BANNER */
 .privacy-banner{
   position:fixed;bottom:20px;left:20px;right:20px;
@@ -142,7 +135,6 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
 @media(max-width:768px){
   .privacy-banner{flex-direction:column;align-items:flex-start;left:14px;right:14px;bottom:14px;}
 }
-
 /* HERO */
 .hero{
   padding:160px 40px 100px;
@@ -175,16 +167,13 @@ body{background:#fff;color:#1a2138;font-family:'Inter',sans-serif;line-height:1.
   margin:0 auto;
   line-height:1.4;
 }
-
 hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
-
 /* CONTENT */
 .container{
   max-width:920px;
   margin:0 auto;
   padding:110px 40px 150px;
 }
-
 .status-pill{
   display:inline-flex;
   align-items:center;
@@ -211,9 +200,7 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
 @media (prefers-reduced-motion: reduce){
   .status-dot{animation:none;}
 }
-
 .container-head{text-align:center;}
-
 .container h2{
   font-family:'Playfair Display',serif;
   font-size:clamp(28px,4.2vw,38px);
@@ -222,7 +209,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   margin-bottom:16px;
   letter-spacing:-0.5px;
 }
-
 .container-head p{
   font-size:16px;
   color:#6b7aaa;
@@ -231,7 +217,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   font-weight:300;
   max-width:560px;
 }
-
 .filer-meta{
   display:flex;
   justify-content:center;
@@ -244,7 +229,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
 }
 .filer-meta span b{color:#4a5578;font-weight:500;}
 .filer-meta .sep{color:#d7dbe8;}
-
 /* FILINGS LIST — horizontal line items, PLTR-style */
 .filings-list{
   margin-top:52px;
@@ -259,14 +243,12 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   transition:background 0.15s ease;
 }
 .filing-row:hover{background:rgba(74,123,255,0.03);}
-
 .filing-row-top{
   display:flex;
   align-items:center;
   gap:24px;
   flex-wrap:wrap;
 }
-
 .filing-date{
   flex:0 0 108px;
   font-size:12px;
@@ -291,7 +273,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   font-size:14px;
   color:#4a5578;
 }
-
 .filing-docs{
   display:flex;
   flex-wrap:wrap;
@@ -329,7 +310,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   color:#9aa3be;
   opacity:0.85;
 }
-
 @media(max-width:640px){
   .filing-row-top{gap:8px 14px;}
   .filing-date{flex:0 0 auto;}
@@ -337,7 +317,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   .filing-docs{padding-left:0;}
   .filing-doc-sep{padding:0 8px;}
 }
-
 .filings-footnote{
   margin-top:28px;
   font-size:12.5px;
@@ -347,7 +326,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
 }
 .filings-footnote a{color:#4a7bff;text-decoration:none;font-weight:500;}
 .filings-footnote a:hover{text-decoration:underline;}
-
 .filing-cta-row{
   display:flex;
   flex-wrap:wrap;
@@ -355,7 +333,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   gap:16px;
   margin-top:44px;
 }
-
 .filing-cta{
   display:inline-flex;
   align-items:center;
@@ -373,7 +350,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
 .filing-cta:hover{background:#4a7bff;transform:translateY(-2px);}
 .filing-cta svg{width:13px;height:13px;transition:transform 0.2s ease;}
 .filing-cta:hover svg{transform:translate(2px,-2px);}
-
 .filing-cta.secondary{
   background:#fff;
   color:#1a2138;
@@ -383,7 +359,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   background:#1a2138;
   color:#fff;
 }
-
 .notify{
   margin-top:48px;
   font-size:14px;
@@ -397,7 +372,6 @@ hr.divider{border:none;border-top:1px solid rgba(0,0,0,0.07);margin:0;}
   transition:color 0.2s;
 }
 .notify a:hover{color:#1a2138;}
-
 /* FOOTER (matches site) */
 footer{
   padding:90px 40px 50px;
@@ -424,7 +398,6 @@ footer{
   display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
 }
 .footer-bottom p{color:#9aa3be;font-size:13px;}
-
 @media(max-width:768px){
   .nav-inner{padding:16px 20px;}
   .hero{padding:140px 20px 80px;}
@@ -435,7 +408,6 @@ footer{
 </style>
 </head>
 <body>
-
 <div class="privacy-banner" id="privacyBanner">
   <div class="privacy-text">We use cookies and analytics to improve platform performance and user experience. By continuing, you agree to our privacy and use policies.</div>
   <div class="privacy-actions">
@@ -443,7 +415,6 @@ footer{
     <button id="acceptPrivacy">Accept</button>
   </div>
 </div>
-
 <nav class="nav">
   <div class="nav-inner">
     <a href="https://www.starlitecp.com/" class="brand-link">
@@ -452,11 +423,9 @@ footer{
         <div class="brand-sub">Capital Partners</div>
       </div>
     </a>
-
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-
     <ul class="nav-links" id="navLinks">
       <li><a href="https://www.starlitecp.com/" class="nav-link">Home</a></li>
       <li><a href="https://www.starlitecp.com/login" class="nav-link">Investor Login</a></li>
@@ -477,19 +446,14 @@ footer{
     </ul>
   </div>
 </nav>
-
 <main class="page-content">
-
   <div class="hero">
     <div class="logo">STARLITE</div>
     <div class="subtitle">Capital Partners</div>
     <h1>SEC Filings</h1>
   </div>
-
   <hr class="divider">
-
   <div class="container">
-
     <div class="container-head">
       <div class="status-pill">
         <span class="status-dot"></span>
@@ -504,7 +468,6 @@ footer{
         <span><a href="https://www.sec.gov/edgar/browse/?CIK=0002147007" target="_blank" rel="noopener" style="color:#4a7bff;text-decoration:none;font-weight:500;">View full history on EDGAR ↗</a></span>
       </div>
     </div>
-
     <!--
       Each row below is one filing: a top line (Date — Form — Description) plus a
       plain text line of per-document links (HTML / XML / TXT — however many the
@@ -513,7 +476,36 @@ footer{
       add one <a class="filing-doc-link"> per document (with a <span class="filing-doc-sep">·</span> between them).
     -->
     <div class="filings-list">
-
+      <!-- NEW: Take-Two Interactive Software Inc. -->
+      <div class="filing-row">
+        <div class="filing-row-top">
+          <span class="filing-date">Aug 17, 2026</span>
+          <span class="filing-form">SC 13G</span>
+          <span class="filing-desc">Schedule 13G — beneficial ownership statement re: Take-Two Interactive Software Inc. (5.2%)</span>
+        </div>
+        <div class="filing-docs">
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/946581/000214700726000007/xslSCHEDULE_13G_X02/primary_doc.xml" target="_blank" rel="noopener">Filing (HTML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/946581/000214700726000007/primary_doc.xml" target="_blank" rel="noopener">Filing (XML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/946581/000214700726000007/0002147007-26-000007.txt" target="_blank" rel="noopener">Full Submission (TXT)</a>
+        </div>
+      </div>
+      <!-- NEW: Madison Square Garden Sports Corp. Amendment -->
+      <div class="filing-row">
+        <div class="filing-row-top">
+          <span class="filing-date">Aug 17, 2026</span>
+          <span class="filing-form">SC 13G/A</span>
+          <span class="filing-desc">Schedule 13G/A (Amendment No. 1) — beneficial ownership statement re: Madison Square Garden Sports Corp. (5.0%)</span>
+        </div>
+        <div class="filing-docs">
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/1636519/000214700726000006/xslSCHEDULE_13G_X02/primary_doc.xml" target="_blank" rel="noopener">Filing (HTML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/1636519/000214700726000006/primary_doc.xml" target="_blank" rel="noopener">Filing (XML)</a>
+          <span class="filing-doc-sep">·</span>
+          <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/1636519/000214700726000006/0002147007-26-000006.txt" target="_blank" rel="noopener">Full Submission (TXT)</a>
+        </div>
+      </div>
       <div class="filing-row">
         <div class="filing-row-top">
           <span class="filing-date">Jul 31, 2026</span>
@@ -532,7 +524,6 @@ footer{
           <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000004/0002147007-26-000004.txt" target="_blank" rel="noopener">Full Submission (TXT)</a>
         </div>
       </div>
-
       <div class="filing-row">
         <div class="filing-row-top">
           <span class="filing-date">Jul 24, 2026</span>
@@ -551,7 +542,6 @@ footer{
           <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/2147007/000214700726000002/0002147007-26-000002.txt" target="_blank" rel="noopener">Full Submission (TXT)</a>
         </div>
       </div>
-
       <div class="filing-row">
         <div class="filing-row-top">
           <span class="filing-date">Jul 24, 2026</span>
@@ -566,30 +556,22 @@ footer{
           <a class="filing-doc-link" href="https://www.sec.gov/Archives/edgar/data/1636519/000214700726000001/0002147007-26-000001.txt" target="_blank" rel="noopener">Full Submission (TXT)</a>
         </div>
       </div>
-
       <!-- Additional <div class="filing-row"> entries go here as new filings (10-K, 10-Q, 8-K, etc.) are made. -->
-
     </div>
-
     <p class="filings-footnote">
       Filed with the U.S. Securities and Exchange Commission. Accession numbers and filing dates are sourced from
       <a href="https://www.sec.gov/edgar/browse/?CIK=0002147007" target="_blank" rel="noopener">SEC EDGAR</a>.
       Each row links directly to the official filing index on sec.gov, where the source documents can be downloaded.
     </p>
-
     <div class="filing-cta-row">
       <a class="filing-cta" href="https://www.sec.gov/edgar/browse/?CIK=0002147007" target="_blank" rel="noopener">
         View All Filings on EDGAR
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
       </a>
     </div>
-
     <p class="notify"><a href="https://www.starlitecp.com/portfolio">See the full portfolio breakdown →</a></p>
-
   </div>
-
 </main>
-
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -617,9 +599,7 @@ footer{
     </div>
   </div>
 </footer>
-
 <script>
-
 /* PRIVACY BANNER */
 const banner = document.getElementById('privacyBanner');
 if(localStorage.getItem('starlitePrivacyAccepted')) banner.style.display='none';
@@ -627,7 +607,6 @@ document.getElementById('acceptPrivacy').addEventListener('click',()=>{
   localStorage.setItem('starlitePrivacyAccepted','true');
   banner.style.display='none';
 });
-
 /* NAV: mobile toggle + Products dropdown (same behavior as other pages) */
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
@@ -635,7 +614,6 @@ navToggle.addEventListener('click', ()=>{
   const isOpen = navLinks.classList.toggle('open');
   navToggle.setAttribute('aria-expanded', String(isOpen));
 });
-
 const productsDropdown = document.getElementById('productsDropdown');
 const productsTrigger = document.getElementById('productsTrigger');
 productsTrigger.addEventListener('click', (e)=>{
@@ -643,7 +621,6 @@ productsTrigger.addEventListener('click', (e)=>{
   const isOpen = productsDropdown.classList.toggle('open');
   productsTrigger.setAttribute('aria-expanded', String(isOpen));
 });
-
 document.addEventListener('click', (e)=>{
   if(!productsDropdown.contains(e.target)){
     productsDropdown.classList.remove('open');
@@ -651,6 +628,5 @@ document.addEventListener('click', (e)=>{
   }
 });
 </script>
-
 </body>
 </html>
