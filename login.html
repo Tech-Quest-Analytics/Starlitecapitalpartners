@@ -13,7 +13,6 @@
 html{scroll-behavior:smooth;}
 html,body{min-height:100vh;background:#fff;color:#1a2138;font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;}
 body{display:flex;flex-direction:column;}
-
 /* NAV */
 .nav{position:fixed;top:0;left:0;width:100%;z-index:999;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.06);}
 .nav-inner{max-width:1400px;margin:auto;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px;}
@@ -43,12 +42,10 @@ body{display:flex;flex-direction:column;}
   .nav-toggle{display:flex;}
 }
 @media(max-width:768px){.nav-inner{padding:16px 20px;}}
-
 /* HERO */
 .hero{position:relative;min-height:100vh;padding:160px 20px 120px;text-align:center;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:center;}
 .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-2;}
 .hero-overlay{position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at top left,rgba(73,110,255,0.25),transparent 35%),radial-gradient(circle at bottom right,rgba(120,80,255,0.25),transparent 35%),linear-gradient(180deg,rgba(255,255,255,0.88),rgba(255,255,255,0.93));}
-
 /* LOGIN CARD */
 .login-card{position:relative;z-index:10;width:clamp(320px,90vw,440px);padding:48px 40px;background:rgba(246,248,252,0.92);backdrop-filter:blur(6px);border:1px solid rgba(70,100,200,0.14);border-radius:24px;box-shadow:0 25px 80px rgba(26,33,56,0.10);text-align:center;}
 .logo{font-family:'Playfair Display',serif;font-size:44px;letter-spacing:-1.5px;line-height:1;margin-bottom:6px;background:linear-gradient(90deg,#1a2138,#4a7bff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
@@ -83,8 +80,7 @@ h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;letter-sp
 .contact-link a{color:#4a7bff;text-decoration:none;font-weight:500;}
 .contact-link a:hover{text-decoration:underline;}
 .powered{margin-top:40px;font-size:13px;color:#9aa3be;}
-
-/* MFA CARD */
+/* MFA / OTP CARD */
 .mfa-card{display:none;position:relative;z-index:10;width:clamp(320px,90vw,440px);padding:48px 40px;background:rgba(246,248,252,0.96);backdrop-filter:blur(6px);border:1px solid rgba(70,100,200,0.14);border-radius:24px;box-shadow:0 25px 80px rgba(26,33,56,0.10);text-align:center;}
 .mfa-card.show{display:block;}
 .mfa-icon{font-size:40px;margin-bottom:16px;}
@@ -98,7 +94,6 @@ h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;letter-sp
 .mfa-back{display:inline-block;margin-top:18px;font-size:13px;color:#6b7aaa;cursor:pointer;text-decoration:none;}
 .mfa-back:hover{color:#4a7bff;}
 .mfa-timer{font-size:12px;color:#9aa3be;margin-top:12px;}
-
 /* FOOTER */
 footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid rgba(0,0,0,0.07);background:#fff;}
 .footer-inner{max-width:1350px;margin:auto;}
@@ -119,7 +114,6 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
 </style>
 </head>
 <body>
-
 <nav class="nav">
   <div class="nav-inner">
     <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="brand-link">
@@ -147,7 +141,6 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
     </ul>
   </div>
 </nav>
-
 <main class="page-content">
   <div class="hero">
     <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto">
@@ -184,39 +177,46 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
       </div>
       <div class="success-msg" id="successMsg">
         <i class="fa-solid fa-circle-check" style="margin-right:6px;"></i>
-        Verified — loading authenticator…
+        Verified — sending verification code…
       </div>
       <div class="divider">or</div>
       <div class="contact-link">Need access? <a href="mailto:info@starlitecp.com">Contact your administrator</a></div>
       <div class="powered">Powered by Tech Quest Analytics LLC</div>
     </div>
 
-    <!-- STEP 2: GOOGLE AUTHENTICATOR MFA -->
+    <!-- STEP 2: EMAIL OTP -->
     <div class="mfa-card" id="mfaCard">
-      <div class="mfa-icon">&#128274;</div>
-      <div class="mfa-title">Two-Factor Authentication</div>
-      <p class="mfa-sub">Open <strong>Google Authenticator</strong> and enter<br>the 6-digit code for Starlite Capital.</p>
+      <div class="mfa-icon">✉️</div>
+      <div class="mfa-title">Check Your Email</div>
+      <p class="mfa-sub">
+        We’ve sent a 6-digit verification code to<br>
+        <strong id="otpEmailDisplay"></strong><br>
+        Enter it below. The code expires in a few minutes.
+      </p>
       <div class="mfa-inputs" id="mfaInputs">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="off">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="off">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="off">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="off">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="off">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
       </div>
       <div class="mfa-error" id="mfaError">
         <i class="fa-solid fa-circle-exclamation" style="margin-right:6px;"></i>
-        Invalid code. Please try again.
+        Invalid or expired code. Please try again.
       </div>
       <button class="submit-btn" id="mfaBtn" onclick="verifyMFA()">
-        <span class="btn-inner"><span class="spinner" id="mfaSpinner"></span><span id="mfaBtnText">Verify Code</span></span>
+        <span class="btn-inner">
+          <span class="spinner" id="mfaSpinner"></span>
+          <span id="mfaBtnText">Verify Code</span>
+        </span>
       </button>
       <div class="mfa-timer" id="mfaTimer"></div>
-      <a class="mfa-back" onclick="backToLogin()">&#8592; Back to login</a>
+      <a class="mfa-back" href="#" onclick="resendOTP(); return false;">Resend code</a>
+      <a class="mfa-back" onclick="backToLogin()">← Back to login</a>
     </div>
   </div>
 </main>
-
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -245,16 +245,10 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
     </div>
   </div>
 </footer>
-
 <script>
 // ── CONFIG ──────────────────────────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4zTiXpZLkhnIvR71pSTOSNx-tluCxuL7nUNVJOl1BSNGeChTG_FLvRQ8MAr45svzw/exec';
 const REDIRECT_URL    = 'https://www.starlitecp.com/data_exchange';
-
-// Replace this with your Base32 TOTP secret from Google Authenticator setup
-// Setup guide: https://stefansundin.github.io/2fa-qr/
-// Account name: Starlite Capital Partners
-const TOTP_SECRET = 'REPLACE_WITH_YOUR_BASE32_SECRET';
 
 // ── PASSWORD TOGGLE ──────────────────────────────────────
 function togglePassword(){
@@ -305,7 +299,11 @@ async function handleLogin(e){
   if(!email || !password){ showError('Please enter both your email and access token.'); return; }
   setLoading(true);
   try {
-    const res  = await fetch(APPS_SCRIPT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({action:'login', email, password}) });
+    const res  = await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:'login', email, password})
+    });
     const raw  = await res.text();
     if(!res.ok){ showError(`Server error (${res.status})`); return; }
     const data = JSON.parse(raw);
@@ -313,6 +311,8 @@ async function handleLogin(e){
       window.__pendingToken = data.token;
       window.__pendingEmail = email;
       document.getElementById('successMsg').classList.add('show');
+      // Request email OTP immediately after successful login
+      await requestOTP(email, data.token);
       setTimeout(showMFA, 700);
     } else {
       showError(data.message || 'Invalid email or access token.');
@@ -324,10 +324,23 @@ async function handleLogin(e){
   }
 }
 
-// ── MFA STEP 2 ───────────────────────────────────────────
+// ── EMAIL OTP STEP 2 ─────────────────────────────────────
+async function requestOTP(email, token){
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:'send_otp', email, token})
+    });
+  } catch(e){
+    console.warn('OTP request failed', e);
+  }
+}
+
 function showMFA(){
   document.getElementById('loginCard').style.display = 'none';
   document.getElementById('mfaCard').classList.add('show');
+  document.getElementById('otpEmailDisplay').textContent = window.__pendingEmail || '';
   setTimeout(()=> document.querySelector('.mfa-digit').focus(), 100);
   startMFATimer();
 }
@@ -339,6 +352,19 @@ function backToLogin(){
   document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
   document.getElementById('mfaError').classList.remove('show');
   clearInterval(window.__mfaTimerInterval);
+}
+
+async function resendOTP(){
+  const btn = document.getElementById('mfaBtn');
+  btn.disabled = true;
+  document.getElementById('mfaError').classList.remove('show');
+  await requestOTP(window.__pendingEmail, window.__pendingToken);
+  document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
+  document.querySelector('.mfa-digit').focus();
+  startMFATimer();
+  btn.disabled = false;
+  const timer = document.getElementById('mfaTimer');
+  if(timer) timer.textContent = 'New code sent — check your inbox';
 }
 
 // Wire digit inputs
@@ -365,13 +391,22 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
-// Countdown timer showing seconds until code refreshes
+// Countdown timer (5 minutes)
 function startMFATimer(){
   clearInterval(window.__mfaTimerInterval);
+  let remaining = 300; // 5 minutes
   function tick(){
-    const secs = 30 - (Math.floor(Date.now()/1000) % 30);
     const el = document.getElementById('mfaTimer');
-    if(el) el.textContent = `Code refreshes in ${secs}s`;
+    if(!el) return;
+    if(remaining <= 0){
+      el.textContent = 'Code expired — request a new one';
+      clearInterval(window.__mfaTimerInterval);
+      return;
+    }
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    el.textContent = `Code expires in ${m}:${s.toString().padStart(2,'0')}`;
+    remaining--;
   }
   tick();
   window.__mfaTimerInterval = setInterval(tick, 1000);
@@ -382,10 +417,10 @@ async function verifyMFA(){
   const code   = Array.from(digits).map(d => d.value).join('');
   if(code.length < 6) return;
 
-  const btn    = document.getElementById('mfaBtn');
-  const spinner= document.getElementById('mfaSpinner');
-  const txt    = document.getElementById('mfaBtnText');
-  const error  = document.getElementById('mfaError');
+  const btn     = document.getElementById('mfaBtn');
+  const spinner = document.getElementById('mfaSpinner');
+  const txt     = document.getElementById('mfaBtnText');
+  const error   = document.getElementById('mfaError');
 
   btn.disabled = true;
   btn.classList.add('loading');
@@ -394,12 +429,24 @@ async function verifyMFA(){
   error.classList.remove('show');
 
   try {
-    const valid = await validateTOTP(TOTP_SECRET, code);
-    if(valid){
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({
+        action: 'verify_otp',
+        email: window.__pendingEmail,
+        token: window.__pendingToken,
+        code: code
+      })
+    });
+    const raw  = await res.text();
+    const data = JSON.parse(raw);
+
+    if(data.status === 'success'){
       clearInterval(window.__mfaTimerInterval);
       txt.textContent = 'Access Granted';
       spinner.style.display = 'none';
-      sessionStorage.setItem('starlite_session_token', window.__pendingToken || 'authenticated');
+      sessionStorage.setItem('starlite_session_token', data.token || window.__pendingToken || 'authenticated');
       setTimeout(()=>{ window.location.href = REDIRECT_URL; }, 600);
     } else {
       error.classList.add('show');
@@ -418,43 +465,6 @@ async function verifyMFA(){
     spinner.style.display = 'none';
     txt.textContent = 'Verify Code';
   }
-}
-
-// ── TOTP (RFC 6238) — runs entirely in the browser ───────
-function base32Decode(str){
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
-  str = str.replace(/=+$/,'').toUpperCase().replace(/\s/g,'');
-  let bits = 0, value = 0;
-  const out = [];
-  for(const c of str){
-    const idx = alphabet.indexOf(c);
-    if(idx < 0) continue;
-    value = (value << 5) | idx;
-    bits += 5;
-    if(bits >= 8){ out.push((value >>> (bits-8)) & 255); bits -= 8; }
-  }
-  return new Uint8Array(out);
-}
-
-async function validateTOTP(secret, token){
-  const key = base32Decode(secret);
-  const cryptoKey = await crypto.subtle.importKey('raw', key, {name:'HMAC',hash:'SHA-1'}, false, ['sign']);
-  const now = Math.floor(Date.now() / 1000 / 30);
-  for(const counter of [now-1, now, now+1]){
-    const buf = new ArrayBuffer(8);
-    new DataView(buf).setUint32(4, counter, false);
-    const sig  = await crypto.subtle.sign('HMAC', cryptoKey, buf);
-    const hmac = new Uint8Array(sig);
-    const offset = hmac[19] & 0xf;
-    const otp = (
-      ((hmac[offset]   & 0x7f) << 24) |
-      ((hmac[offset+1] & 0xff) << 16) |
-      ((hmac[offset+2] & 0xff) <<  8) |
-       (hmac[offset+3] & 0xff)
-    ) % 1000000;
-    if(String(otp).padStart(6,'0') === token) return true;
-  }
-  return false;
 }
 
 // ── NAV ──────────────────────────────────────────────────
