@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png" type="image/png">
+<link rel="apple-touch-icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
 <title>Starlite Capital Partners — Investor Login</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -31,14 +32,14 @@ body{display:flex;flex-direction:column;}
 .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
 .nav-toggle span{width:22px;height:1.5px;background:#1a2138;display:block;}
 @media(max-width:900px){
-  .nav-links{position:fixed;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);max-height:0;overflow:hidden;transition:max-height 0.25s;}
-  .nav-links.open{max-height:520px;}
-  .nav-links>li{width:100%;}
-  .nav-link{padding:16px 24px;width:100%;justify-content:space-between;}
-  .dropdown{position:static;transform:none;box-shadow:none;border:none;border-radius:0;padding:0 0 0 12px;max-height:0;overflow:hidden;opacity:1;visibility:visible;transition:max-height 0.2s;}
-  .has-dropdown:hover .dropdown{max-height:0;}
-  .has-dropdown.open .dropdown{max-height:320px;transform:none;}
-  .nav-toggle{display:flex;}
+  .nav-links{position:fixed;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);max-height:0;overflow:hidden;transition:max-height 0.25s;}
+  .nav-links.open{max-height:520px;}
+  .nav-links>li{width:100%;}
+  .nav-link{padding:16px 24px;width:100%;justify-content:space-between;}
+  .dropdown{position:static;transform:none;box-shadow:none;border:none;border-radius:0;padding:0 0 0 12px;max-height:0;overflow:hidden;opacity:1;visibility:visible;transition:max-height 0.2s;}
+  .has-dropdown:hover .dropdown{max-height:0;}
+  .has-dropdown.open .dropdown{max-height:320px;transform:none;}
+  .nav-toggle{display:flex;}
 }
 @media(max-width:768px){.nav-inner{padding:16px 20px;}}
 /* HERO */
@@ -105,384 +106,367 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
 .footer-bottom{border-top:1px solid rgba(0,0,0,0.07);padding-top:30px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;}
 .footer-bottom p{color:#9aa3be;font-size:13px;}
 @media(max-width:768px){
-  .hero{padding:120px 20px 80px;}
-  .login-card,.mfa-card{margin:40px auto;padding:42px 26px;}
-  .mfa-digit{width:42px;height:54px;font-size:22px;}
-  .footer-top{flex-direction:column;}
+  .hero{padding:120px 20px 80px;}
+  .login-card,.mfa-card{margin:40px auto;padding:42px 26px;}
+  .mfa-digit{width:42px;height:54px;font-size:22px;}
+  .footer-top{flex-direction:column;}
 }
 </style>
 </head>
 <body>
 <nav class="nav">
-  <div class="nav-inner">
-    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="brand-link">
-      <div class="brand-main">STARLITE</div>
-      <div class="brand-sub">Capital Partners</div>
-    </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="nav-link">Home</a></li>
-      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/login" class="nav-link">Investor Login</a></li>
-      <li class="has-dropdown" id="productsDropdown">
-        <button class="nav-link" id="productsTrigger" aria-haspopup="true" aria-expanded="false">Products<span class="nav-caret"></span></button>
-        <div class="dropdown">
-          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/venture-capital">Venture Capital</a>
-          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-wealth">Private Wealth</a>
-          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-credit">Private Credit</a>
-          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-equity">Private Equity</a>
-          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/partners">Partners</a>
-        </div>
-      </li>
-      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/portfolio" class="nav-link">Portfolio</a></li>
-      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/about" class="nav-link">About Us</a></li>
-    </ul>
-  </div>
+  <div class="nav-inner">
+    <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="brand-link">
+      <div class="brand-main">STARLITE</div>
+      <div class="brand-sub">Capital Partners</div>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/" class="nav-link">Home</a></li>
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/login" class="nav-link">Investor Login</a></li>
+      <li class="has-dropdown" id="productsDropdown">
+        <button class="nav-link" id="productsTrigger" aria-haspopup="true" aria-expanded="false">Products<span class="nav-caret"></span></button>
+        <div class="dropdown">
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/venture-capital">Venture Capital</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-wealth">Private Wealth</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-credit">Private Credit</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/private-equity">Private Equity</a>
+          <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/partners">Partners</a>
+        </div>
+      </li>
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/portfolio" class="nav-link">Portfolio</a></li>
+      <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/about" class="nav-link">About Us</a></li>
+    </ul>
+  </div>
 </nav>
 <main class="page-content">
-  <div class="hero">
-    <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto">
-      <source src="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1784045359264x838437002462346000/20492969-uhd_3840_2160_30fps.mp4" type="video/mp4">
-    </video>
-    <div class="hero-overlay"></div>
-    <!-- STEP 1: PASSWORD LOGIN -->
-    <div class="login-card" id="loginCard">
-      <div class="logo">STARLITE</div>
-      <div class="logo-sub">Capital Partners</div>
-      <h1>Investor Portal</h1>
-      <p class="subtitle">Secure Access for Partners</p>
-      <form id="loginForm" novalidate>
-        <div class="input-wrap">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="you@company.com" required autocomplete="email">
-        </div>
-        <div class="input-wrap">
-          <label for="password">Access Token</label>
-          <input type="password" id="password" placeholder="Enter your access token" required autocomplete="current-password">
-          <button type="button" class="toggle-pw" onclick="togglePassword()" aria-label="Toggle visibility">
-            <i class="fa-regular fa-eye" id="eyeIcon"></i>
-          </button>
-        </div>
-        <div class="forgot"><a href="mailto:info@starlitecp.com">Forgot token? Contact support</a></div>
-        <button type="submit" class="submit-btn" id="loginBtn">
-          <span class="btn-inner"><span class="spinner" id="spinner"></span><span id="btnText">Sign In</span></span>
-        </button>
-      </form>
-      <div class="error-msg" id="errorMsg">
-        <i class="fa-solid fa-circle-exclamation" style="margin-right:6px;"></i>
-        <span id="errorText">Invalid email or access token. Please try again.</span>
-      </div>
-      <div class="success-msg" id="successMsg">
-        <i class="fa-solid fa-circle-check" style="margin-right:6px;"></i>
-        Verified — sending verification code…
-      </div>
-      <div class="divider">or</div>
-      <div class="contact-link">Need access? <a href="mailto:info@starlitecp.com">Contact your administrator</a></div>
-      <div class="powered">Powered by Tech Quest Analytics LLC</div>
-    </div>
-    <!-- STEP 2: EMAIL OTP -->
-    <div class="mfa-card" id="mfaCard">
-      <div class="mfa-icon">✉️</div>
-      <div class="mfa-title">Check Your Email</div>
-      <p class="mfa-sub">
-        We’ve sent a 6-digit verification code to<br>
-        <strong id="otpEmailDisplay"></strong><br>
-        Enter it below. The code expires in a few minutes.
-      </p>
-      <div class="mfa-inputs" id="mfaInputs">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-      </div>
-      <div class="mfa-error" id="mfaError">
-        <i class="fa-solid fa-circle-exclamation" style="margin-right:6px;"></i>
-        Invalid or expired code. Please try again.
-      </div>
-      <button class="submit-btn" id="mfaBtn" onclick="verifyMFA()">
-        <span class="btn-inner">
-          <span class="spinner" id="mfaSpinner"></span>
-          <span id="mfaBtnText">Verify Code</span>
-        </span>
-      </button>
-      <div class="mfa-timer" id="mfaTimer"></div>
-      <a class="mfa-back" href="#" onclick="resendOTP(); return false;">Resend code</a>
-      <a class="mfa-back" onclick="backToLogin()">← Back to login</a>
-    </div>
-  </div>
+  <div class="hero">
+    <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1784045359264x838437002462346000/20492969-uhd_3840_2160_30fps.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <!-- STEP 1: PASSWORD LOGIN -->
+    <div class="login-card" id="loginCard">
+      <div class="logo">STARLITE</div>
+      <div class="logo-sub">Capital Partners</div>
+      <h1>Investor Portal</h1>
+      <p class="subtitle">Secure Access for Partners</p>
+      <form id="loginForm" novalidate>
+        <div class="input-wrap">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="input-wrap">
+          <label for="password">Access Token</label>
+          <input type="password" id="password" placeholder="Enter your access token" required autocomplete="current-password">
+          <button type="button" class="toggle-pw" onclick="togglePassword()" aria-label="Toggle visibility">
+            <i class="fa-regular fa-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+        <div class="forgot"><a href="mailto:info@starlitecp.com">Forgot token? Contact support</a></div>
+        <button type="submit" class="submit-btn" id="loginBtn">
+          <span class="btn-inner"><span class="spinner" id="spinner"></span><span id="btnText">Sign In</span></span>
+        </button>
+      </form>
+      <div class="error-msg" id="errorMsg">
+        <i class="fa-solid fa-circle-exclamation" style="margin-right:6px;"></i>
+        <span id="errorText">Invalid email or access token. Please try again.</span>
+      </div>
+      <div class="success-msg" id="successMsg">
+        <i class="fa-solid fa-circle-check" style="margin-right:6px;"></i>
+        Verified — sending verification code…
+      </div>
+      <div class="divider">or</div>
+      <div class="contact-link">Need access? <a href="mailto:info@starlitecp.com">Contact your administrator</a></div>
+      <div class="powered">Powered by Tech Quest Analytics LLC</div>
+    </div>
+    <!-- STEP 2: EMAIL OTP -->
+    <div class="mfa-card" id="mfaCard">
+      <div class="mfa-icon">✉️</div>
+      <div class="mfa-title">Check Your Email</div>
+      <p class="mfa-sub">
+        We’ve sent a 6-digit verification code to<br>
+        <strong id="otpEmailDisplay"></strong><br>
+        Enter it below. The code expires in a few minutes.
+      </p>
+      <div class="mfa-inputs" id="mfaInputs">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+      </div>
+      <div class="mfa-error" id="mfaError">
+        <i class="fa-solid fa-circle-exclamation" style="margin-right:6px;"></i>
+        Invalid or expired code. Please try again.
+      </div>
+      <button class="submit-btn" id="mfaBtn" onclick="verifyMFA()">
+        <span class="btn-inner">
+          <span class="spinner" id="mfaSpinner"></span>
+          <span id="mfaBtnText">Verify Code</span>
+        </span>
+      </button>
+      <div class="mfa-timer" id="mfaTimer"></div>
+      <a class="mfa-back" href="#" onclick="resendOTP(); return false;">Resend code</a>
+      <a class="mfa-back" onclick="backToLogin()">← Back to login</a>
+    </div>
+  </div>
 </main>
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <h3>Starlite</h3>
-        <p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
-      </div>
-      <div class="footer-links">
-        <a href="https://www.starlitecp.com/contact-us">Contact Us</a>
-        <a href="https://www.starlitecp.com/modern-slavery-statement">Modern Slavery Statement</a>
-        <a href="https://www.starlitecp.com/privacy">Privacy</a>
-        <a href="https://www.starlitecp.com/use-policy">Use Policy</a>
-        <a href="https://www.starlitecp.com/sustainability">Sustainability</a>
-        <a href="https://www.starlitecp.com/news">News</a>
-        <a href="https://www.starlitecp.com/disclosures">Disclosures</a>
-        <a href="https://www.starlitecp.com/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
-        <a href="https://www.starlitecp.com/commercial">Commercial</a>
-        <a href="https://www.starlitecp.com/security">Security</a>
-        <a href="https://www.starlitecp.com/sec-filings">SEC Filings</a>
-        <a href="https://www.bloomberg.com/profile/company/2675376D:US" target="_blank" rel="noopener noreferrer">Bloomberg Profile</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Starlite Capital Inc. All Rights Reserved.</p>
-      <p>1910 Pacific Ave Suite 2000, Dallas, TX 75201, United States</p>
-    </div>
-  </div>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Starlite</h3>
+        <p>A diversified investment platform focused on private markets, enterprise infrastructure, culture, media, and long-term strategic capital deployment.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.starlitecp.com/contact-us">Contact Us</a>
+        <a href="https://www.starlitecp.com/modern-slavery-statement">Modern Slavery Statement</a>
+        <a href="https://www.starlitecp.com/privacy">Privacy</a>
+        <a href="https://www.starlitecp.com/use-policy">Use Policy</a>
+        <a href="https://www.starlitecp.com/sustainability">Sustainability</a>
+        <a href="https://www.starlitecp.com/news">News</a>
+        <a href="https://www.starlitecp.com/disclosures">Disclosures</a>
+        <a href="https://www.starlitecp.com/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
+        <a href="https://www.starlitecp.com/commercial">Commercial</a>
+        <a href="https://www.starlitecp.com/security">Security</a>
+        <a href="https://www.starlitecp.com/sec-filings">SEC Filings</a>
+        <a href="https://www.bloomberg.com/profile/company/2675376D:US" target="_blank" rel="noopener noreferrer">Bloomberg Profile</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Starlite Capital Inc. All Rights Reserved.</p>
+      <p>1910 Pacific Ave Suite 2000, Dallas, TX 75201, United States</p>
+    </div>
+  </div>
 </footer>
 <script>
 // ── CONFIG ──────────────────────────────────────────────
-// ⚠️  REPLACE THIS with your new Web App deployment URL
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_NEW_DEPLOYMENT_ID/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4zTiXpZLkhnIvR71pSTOSNx-tluCxuL7nUNVJOl1BSNGeChTG_FLvRQ8MAr45svzw/exec';
 const REDIRECT_URL    = 'https://www.starlitecp.com/data_exchange';
-// ── PASSWORD TOGGLE ─────────────────────────────────────
+// ── PASSWORD TOGGLE ──────────────────────────────────────
 function togglePassword(){
-  const input = document.getElementById('password');
-  const icon  = document.getElementById('eyeIcon');
-  if(input.type === 'password'){
-    input.type = 'text';
-    icon.classList.replace('fa-eye','fa-eye-slash');
-  } else {
-    input.type = 'password';
-    icon.classList.replace('fa-eye-slash','fa-eye');
-  }
+  const input = document.getElementById('password');
+  const icon  = document.getElementById('eyeIcon');
+  if(input.type === 'password'){
+    input.type = 'text';
+    icon.classList.replace('fa-eye','fa-eye-slash');
+  } else {
+    input.type = 'password';
+    icon.classList.replace('fa-eye-slash','fa-eye');
+  }
 }
-// ── VIDEO ───────────────────────────────────────────────
+// ── VIDEO ────────────────────────────────────────────────
 function initVideo(){
-  const video = document.getElementById('heroVideo');
-  if(!video) return;
-  video.muted = true;
-  video.playsInline = true;
-  const p = video.play();
-  if(p) p.catch(()=> document.body.addEventListener('click',()=>video.play().catch(()=>{}),{once:true}));
+  const video = document.getElementById('heroVideo');
+  if(!video) return;
+  video.muted = true;
+  video.playsInline = true;
+  const p = video.play();
+  if(p) p.catch(()=> document.body.addEventListener('click',()=>video.play().catch(()=>{}),{once:true}));
 }
-// ── LOGIN STEP 1 ────────────────────────────────────────
+// ── LOGIN STEP 1 ─────────────────────────────────────────
 function setLoading(on){
-  const btn = document.getElementById('loginBtn');
-  const txt = document.getElementById('btnText');
-  btn.disabled = on;
-  btn.classList.toggle('loading', on);
-  txt.textContent = on ? 'Signing In…' : 'Sign In';
+  const btn = document.getElementById('loginBtn');
+  const txt = document.getElementById('btnText');
+  btn.disabled = on;
+  btn.classList.toggle('loading', on);
+  txt.textContent = on ? 'Signing In…' : 'Sign In';
 }
 function showError(msg){
-  document.getElementById('successMsg').classList.remove('show');
-  document.getElementById('errorText').textContent = msg || 'Invalid email or access token.';
-  document.getElementById('errorMsg').classList.add('show');
+  document.getElementById('successMsg').classList.remove('show');
+  document.getElementById('errorText').textContent = msg || 'Invalid email or access token.';
+  document.getElementById('errorMsg').classList.add('show');
 }
 function hideMessages(){
-  document.getElementById('errorMsg').classList.remove('show');
-  document.getElementById('successMsg').classList.remove('show');
+  document.getElementById('errorMsg').classList.remove('show');
+  document.getElementById('successMsg').classList.remove('show');
 }
 async function handleLogin(e){
-  if(e) e.preventDefault();
-  const email    = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value.trim();
-  hideMessages();
-  if(!email || !password){ showError('Please enter both your email and access token.'); return; }
-  setLoading(true);
-  try {
-    const res  = await fetch(APPS_SCRIPT_URL, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({action:'login', email, password})
-    });
-    const raw  = await res.text();
-    if(!res.ok){ showError(`Server error (${res.status})`); return; }
-    const data = JSON.parse(raw);
-    if(data.status === 'success'){
-      window.__pendingToken = data.token;
-      window.__pendingEmail = email;
-      document.getElementById('successMsg').classList.add('show');
-      // Request OTP and only proceed if it succeeds
-      const otpSent = await requestOTP(email, data.token);
-      if(otpSent){
-        setTimeout(showMFA, 700);
-      } else {
-        // Error already shown by requestOTP
-      }
-    } else {
-      showError(data.message || 'Invalid email or access token.');
-    }
-  } catch(err){
-    showError('Could not connect to server. Please try again.');
-  } finally {
-    setLoading(false);
-  }
+  if(e) e.preventDefault();
+  const email    = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  hideMessages();
+  if(!email || !password){ showError('Please enter both your email and access token.'); return; }
+  setLoading(true);
+  try {
+    const res  = await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:'login', email, password})
+    });
+    const raw  = await res.text();
+    if(!res.ok){ showError(`Server error (${res.status})`); return; }
+    const data = JSON.parse(raw);
+    if(data.status === 'success'){
+      window.__pendingToken = data.token;
+      window.__pendingEmail = email;
+      document.getElementById('successMsg').classList.add('show');
+      // Request email OTP immediately after successful login
+      await requestOTP(email, data.token);
+      setTimeout(showMFA, 700);
+    } else {
+      showError(data.message || 'Invalid email or access token.');
+    }
+  } catch(err){
+    showError('Could not connect to server. Please try again.');
+  } finally {
+    setLoading(false);
+  }
 }
-// ── EMAIL OTP STEP 2 ────────────────────────────────────
+// ── EMAIL OTP STEP 2 ─────────────────────────────────────
 async function requestOTP(email, token){
-  try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({action:'send_otp', email, token})
-    });
-    const raw = await res.text();
-    const data = JSON.parse(raw);
-    if(data.status === 'success'){
-      return true;
-    } else {
-      showError(data.message || 'Failed to send verification code.');
-      return false;
-    }
-  } catch(e){
-    console.error('OTP request failed', e);
-    showError('Could not send verification code. Please try again.');
-    return false;
-  }
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:'send_otp', email, token})
+    });
+  } catch(e){
+    console.warn('OTP request failed', e);
+  }
 }
 function showMFA(){
-  document.getElementById('loginCard').style.display = 'none';
-  document.getElementById('mfaCard').classList.add('show');
-  document.getElementById('otpEmailDisplay').textContent = window.__pendingEmail || '';
-  setTimeout(()=> document.querySelector('.mfa-digit').focus(), 100);
-  startMFATimer();
+  document.getElementById('loginCard').style.display = 'none';
+  document.getElementById('mfaCard').classList.add('show');
+  document.getElementById('otpEmailDisplay').textContent = window.__pendingEmail || '';
+  setTimeout(()=> document.querySelector('.mfa-digit').focus(), 100);
+  startMFATimer();
 }
 function backToLogin(){
-  document.getElementById('mfaCard').classList.remove('show');
-  document.getElementById('loginCard').style.display = 'block';
-  document.getElementById('successMsg').classList.remove('show');
-  document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
-  document.getElementById('mfaError').classList.remove('show');
-  clearInterval(window.__mfaTimerInterval);
+  document.getElementById('mfaCard').classList.remove('show');
+  document.getElementById('loginCard').style.display = 'block';
+  document.getElementById('successMsg').classList.remove('show');
+  document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
+  document.getElementById('mfaError').classList.remove('show');
+  clearInterval(window.__mfaTimerInterval);
 }
 async function resendOTP(){
-  const btn = document.getElementById('mfaBtn');
-  btn.disabled = true;
-  document.getElementById('mfaError').classList.remove('show');
-  const sent = await requestOTP(window.__pendingEmail, window.__pendingToken);
-  if(sent){
-    document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
-    document.querySelector('.mfa-digit').focus();
-    startMFATimer();
-    const timer = document.getElementById('mfaTimer');
-    if(timer) timer.textContent = 'New code sent — check your inbox';
-  }
-  btn.disabled = false;
+  const btn = document.getElementById('mfaBtn');
+  btn.disabled = true;
+  document.getElementById('mfaError').classList.remove('show');
+  await requestOTP(window.__pendingEmail, window.__pendingToken);
+  document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
+  document.querySelector('.mfa-digit').focus();
+  startMFATimer();
+  btn.disabled = false;
+  const timer = document.getElementById('mfaTimer');
+  if(timer) timer.textContent = 'New code sent — check your inbox';
 }
 // Wire digit inputs
 document.addEventListener('DOMContentLoaded', function(){
-  initVideo();
-  document.getElementById('loginForm').addEventListener('submit', handleLogin);
-  const digits = document.querySelectorAll('.mfa-digit');
-  digits.forEach((input, i) => {
-    input.addEventListener('input', function(){
-      this.value = this.value.replace(/[^0-9]/g,'').slice(-1);
-      if(this.value && i < digits.length - 1) digits[i+1].focus();
-      if(i === digits.length - 1 && this.value) verifyMFA();
-    });
-    input.addEventListener('keydown', function(e){
-      if(e.key === 'Backspace' && !this.value && i > 0) digits[i-1].focus();
-    });
-    input.addEventListener('paste', function(e){
-      const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'');
-      digits.forEach((d,j) => d.value = paste[j] || '');
-      if(paste.length >= 6) verifyMFA();
-      e.preventDefault();
-    });
-  });
+  initVideo();
+  document.getElementById('loginForm').addEventListener('submit', handleLogin);
+  const digits = document.querySelectorAll('.mfa-digit');
+  digits.forEach((input, i) => {
+    input.addEventListener('input', function(){
+      this.value = this.value.replace(/[^0-9]/g,'').slice(-1);
+      if(this.value && i < digits.length - 1) digits[i+1].focus();
+      if(i === digits.length - 1 && this.value) verifyMFA();
+    });
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Backspace' && !this.value && i > 0) digits[i-1].focus();
+    });
+    input.addEventListener('paste', function(e){
+      const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'');
+      digits.forEach((d,j) => d.value = paste[j] || '');
+      if(paste.length >= 6) verifyMFA();
+      e.preventDefault();
+    });
+  });
 });
 // Countdown timer (5 minutes)
 function startMFATimer(){
-  clearInterval(window.__mfaTimerInterval);
-  let remaining = 300;
-  function tick(){
-    const el = document.getElementById('mfaTimer');
-    if(!el) return;
-    if(remaining <= 0){
-      el.textContent = 'Code expired — request a new one';
-      clearInterval(window.__mfaTimerInterval);
-      return;
-    }
-    const m = Math.floor(remaining / 60);
-    const s = remaining % 60;
-    el.textContent = `Code expires in ${m}:${s.toString().padStart(2,'0')}`;
-    remaining--;
-  }
-  tick();
-  window.__mfaTimerInterval = setInterval(tick, 1000);
+  clearInterval(window.__mfaTimerInterval);
+  let remaining = 300; // 5 minutes
+  function tick(){
+    const el = document.getElementById('mfaTimer');
+    if(!el) return;
+    if(remaining <= 0){
+      el.textContent = 'Code expired — request a new one';
+      clearInterval(window.__mfaTimerInterval);
+      return;
+    }
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    el.textContent = `Code expires in ${m}:${s.toString().padStart(2,'0')}`;
+    remaining--;
+  }
+  tick();
+  window.__mfaTimerInterval = setInterval(tick, 1000);
 }
 async function verifyMFA(){
-  const digits = document.querySelectorAll('.mfa-digit');
-  const code   = Array.from(digits).map(d => d.value).join('');
-  if(code.length < 6) return;
-  const btn     = document.getElementById('mfaBtn');
-  const spinner = document.getElementById('mfaSpinner');
-  const txt     = document.getElementById('mfaBtnText');
-  const error   = document.getElementById('mfaError');
-  btn.disabled = true;
-  btn.classList.add('loading');
-  spinner.style.display = 'block';
-  txt.textContent = 'Verifying…';
-  error.classList.remove('show');
-  try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({
-        action: 'verify_otp',
-        email: window.__pendingEmail,
-        token: window.__pendingToken,
-        code: code
-      })
-    });
-    const raw  = await res.text();
-    const data = JSON.parse(raw);
-    if(data.status === 'success'){
-      clearInterval(window.__mfaTimerInterval);
-      txt.textContent = 'Access Granted';
-      spinner.style.display = 'none';
-      sessionStorage.setItem('starlite_session_token', data.token || window.__pendingToken || 'authenticated');
-      setTimeout(()=>{ window.location.href = REDIRECT_URL; }, 600);
-    } else {
-      error.classList.add('show');
-      digits.forEach(d => d.value = '');
-      digits[0].focus();
-      btn.disabled = false;
-      btn.classList.remove('loading');
-      spinner.style.display = 'none';
-      txt.textContent = 'Verify Code';
-    }
-  } catch(err){
-    error.textContent = 'Verification error — please try again.';
-    error.classList.add('show');
-    btn.disabled = false;
-    btn.classList.remove('loading');
-    spinner.style.display = 'none';
-    txt.textContent = 'Verify Code';
-  }
+  const digits = document.querySelectorAll('.mfa-digit');
+  const code   = Array.from(digits).map(d => d.value).join('');
+  if(code.length < 6) return;
+  const btn     = document.getElementById('mfaBtn');
+  const spinner = document.getElementById('mfaSpinner');
+  const txt     = document.getElementById('mfaBtnText');
+  const error   = document.getElementById('mfaError');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  spinner.style.display = 'block';
+  txt.textContent = 'Verifying…';
+  error.classList.remove('show');
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({
+        action: 'verify_otp',
+        email: window.__pendingEmail,
+        token: window.__pendingToken,
+        code: code
+      })
+    });
+    const raw  = await res.text();
+    const data = JSON.parse(raw);
+    if(data.status === 'success'){
+      clearInterval(window.__mfaTimerInterval);
+      txt.textContent = 'Access Granted';
+      spinner.style.display = 'none';
+      sessionStorage.setItem('starlite_session_token', data.token || window.__pendingToken || 'authenticated');
+      setTimeout(()=>{ window.location.href = REDIRECT_URL; }, 600);
+    } else {
+      error.classList.add('show');
+      digits.forEach(d => d.value = '');
+      digits[0].focus();
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      spinner.style.display = 'none';
+      txt.textContent = 'Verify Code';
+    }
+  } catch(err){
+    error.textContent = 'Verification error — please try again.';
+    error.classList.add('show');
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    spinner.style.display = 'none';
+    txt.textContent = 'Verify Code';
+  }
 }
-// ── NAV ─────────────────────────────────────────────────
+// ── NAV ──────────────────────────────────────────────────
 const navToggle = document.getElementById('navToggle');
 const navLinksEl = document.getElementById('navLinks');
 navToggle.addEventListener('click',()=>{
-  const open = navLinksEl.classList.toggle('open');
-  navToggle.setAttribute('aria-expanded', String(open));
+  const open = navLinksEl.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(open));
 });
 const productsDropdown = document.getElementById('productsDropdown');
 const productsTrigger  = document.getElementById('productsTrigger');
 productsTrigger.addEventListener('click', e=>{
-  e.preventDefault();
-  const open = productsDropdown.classList.toggle('open');
-  productsTrigger.setAttribute('aria-expanded', String(open));
+  e.preventDefault();
+  const open = productsDropdown.classList.toggle('open');
+  productsTrigger.setAttribute('aria-expanded', String(open));
 });
 document.addEventListener('click', e=>{
-  if(!productsDropdown.contains(e.target)){
-    productsDropdown.classList.remove('open');
-    productsTrigger.setAttribute('aria-expanded','false');
-  }
+  if(!productsDropdown.contains(e.target)){
+    productsDropdown.classList.remove('open');
+    productsTrigger.setAttribute('aria-expanded','false');
+  }
 });
 </script>
 </body>
