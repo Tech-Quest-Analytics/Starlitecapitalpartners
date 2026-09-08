@@ -4,7 +4,6 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png" type="image/png">
-<link rel="apple-touch-icon" href="https://f4106b695ee260aafd87fdcf0205d09d.cdn.bubble.io/f1765658953444x631435179987697400/Starlite%20Capital%20Partners%20%289%29.png">
 <title>Starlite Capital Partners — Investor Login</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -141,6 +140,7 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
     </ul>
   </div>
 </nav>
+
 <main class="page-content">
   <div class="hero">
     <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto">
@@ -217,6 +217,7 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
     </div>
   </div>
 </main>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -245,12 +246,14 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
     </div>
   </div>
 </footer>
+
 <script>
 // ── CONFIG ──────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4zTiXpZLkhnIvR71pSTOSNx-tluCxuL7nUNVJOl1BSNGeChTG_FLvRQ8MAr45svzw/exec';
+// ⚠️  REPLACE THIS with your new Web App deployment URL
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_NEW_DEPLOYMENT_ID/exec';
 const REDIRECT_URL    = 'https://www.starlitecp.com/data_exchange';
 
-// ── PASSWORD TOGGLE ──────────────────────────────────────
+// ── PASSWORD TOGGLE ─────────────────────────────────────
 function togglePassword(){
   const input = document.getElementById('password');
   const icon  = document.getElementById('eyeIcon');
@@ -263,7 +266,7 @@ function togglePassword(){
   }
 }
 
-// ── VIDEO ────────────────────────────────────────────────
+// ── VIDEO ───────────────────────────────────────────────
 function initVideo(){
   const video = document.getElementById('heroVideo');
   if(!video) return;
@@ -273,7 +276,7 @@ function initVideo(){
   if(p) p.catch(()=> document.body.addEventListener('click',()=>video.play().catch(()=>{}),{once:true}));
 }
 
-// ── LOGIN STEP 1 ─────────────────────────────────────────
+// ── LOGIN STEP 1 ────────────────────────────────────────
 function setLoading(on){
   const btn = document.getElementById('loginBtn');
   const txt = document.getElementById('btnText');
@@ -281,11 +284,13 @@ function setLoading(on){
   btn.classList.toggle('loading', on);
   txt.textContent = on ? 'Signing In…' : 'Sign In';
 }
+
 function showError(msg){
   document.getElementById('successMsg').classList.remove('show');
   document.getElementById('errorText').textContent = msg || 'Invalid email or access token.';
   document.getElementById('errorMsg').classList.add('show');
 }
+
 function hideMessages(){
   document.getElementById('errorMsg').classList.remove('show');
   document.getElementById('successMsg').classList.remove('show');
@@ -311,9 +316,14 @@ async function handleLogin(e){
       window.__pendingToken = data.token;
       window.__pendingEmail = email;
       document.getElementById('successMsg').classList.add('show');
-      // Request email OTP immediately after successful login
-      await requestOTP(email, data.token);
-      setTimeout(showMFA, 700);
+
+      // Request OTP and only proceed if it succeeds
+      const otpSent = await requestOTP(email, data.token);
+      if(otpSent){
+        setTimeout(showMFA, 700);
+      } else {
+        // Error already shown by requestOTP
+      }
     } else {
       showError(data.message || 'Invalid email or access token.');
     }
@@ -324,16 +334,27 @@ async function handleLogin(e){
   }
 }
 
-// ── EMAIL OTP STEP 2 ─────────────────────────────────────
+// ── EMAIL OTP STEP 2 ────────────────────────────────────
 async function requestOTP(email, token){
   try {
-    await fetch(APPS_SCRIPT_URL, {
+    const res = await fetch(APPS_SCRIPT_URL, {
       method:'POST',
       headers:{'Content-Type':'text/plain;charset=utf-8'},
       body: JSON.stringify({action:'send_otp', email, token})
     });
+    const raw = await res.text();
+    const data = JSON.parse(raw);
+
+    if(data.status === 'success'){
+      return true;
+    } else {
+      showError(data.message || 'Failed to send verification code.');
+      return false;
+    }
   } catch(e){
-    console.warn('OTP request failed', e);
+    console.error('OTP request failed', e);
+    showError('Could not send verification code. Please try again.');
+    return false;
   }
 }
 
@@ -358,13 +379,16 @@ async function resendOTP(){
   const btn = document.getElementById('mfaBtn');
   btn.disabled = true;
   document.getElementById('mfaError').classList.remove('show');
-  await requestOTP(window.__pendingEmail, window.__pendingToken);
-  document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
-  document.querySelector('.mfa-digit').focus();
-  startMFATimer();
+
+  const sent = await requestOTP(window.__pendingEmail, window.__pendingToken);
+  if(sent){
+    document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
+    document.querySelector('.mfa-digit').focus();
+    startMFATimer();
+    const timer = document.getElementById('mfaTimer');
+    if(timer) timer.textContent = 'New code sent — check your inbox';
+  }
   btn.disabled = false;
-  const timer = document.getElementById('mfaTimer');
-  if(timer) timer.textContent = 'New code sent — check your inbox';
 }
 
 // Wire digit inputs
@@ -394,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function(){
 // Countdown timer (5 minutes)
 function startMFATimer(){
   clearInterval(window.__mfaTimerInterval);
-  let remaining = 300; // 5 minutes
+  let remaining = 300;
   function tick(){
     const el = document.getElementById('mfaTimer');
     if(!el) return;
@@ -467,7 +491,7 @@ async function verifyMFA(){
   }
 }
 
-// ── NAV ──────────────────────────────────────────────────
+// ── NAV ─────────────────────────────────────────────────
 const navToggle = document.getElementById('navToggle');
 const navLinksEl = document.getElementById('navLinks');
 navToggle.addEventListener('click',()=>{
