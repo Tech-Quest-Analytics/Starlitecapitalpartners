@@ -91,7 +91,7 @@ h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:400;letter-sp
 .mfa-digit:focus{border-color:#4a7bff;box-shadow:0 0 0 4px rgba(74,123,255,0.14);}
 .mfa-error{font-size:13px;color:#c0392b;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.25);border-radius:10px;padding:10px;margin-bottom:16px;display:none;}
 .mfa-error.show{display:block;}
-.mfa-back{display:inline-block;margin-top:18px;font-size:13px;color:#6b7aaa;cursor:pointer;text-decoration:none;}
+.mfa-back{display:inline-block;margin-top:18px;margin-right:14px;font-size:13px;color:#6b7aaa;cursor:pointer;text-decoration:none;}
 .mfa-back:hover{color:#4a7bff;}
 .mfa-timer{font-size:12px;color:#9aa3be;margin-top:12px;}
 /* FOOTER */
@@ -136,7 +136,6 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
           <a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/products/partners">Partners</a>
         </div>
       </li>
-      
       <li><a href="https://tech-quest-analytics.github.io/Starlitecapitalpartners/about" class="nav-link">About Us</a></li>
     </ul>
   </div>
@@ -176,7 +175,7 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
       </div>
       <div class="success-msg" id="successMsg">
         <i class="fa-solid fa-circle-check" style="margin-right:6px;"></i>
-        Verified — sending verification code…
+        Verified — verification code sent.
       </div>
       <div class="divider">or</div>
       <div class="contact-link">Need access? <a href="mailto:info@starlitecp.com">Contact your administrator</a></div>
@@ -189,7 +188,7 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
       <p class="mfa-sub">
         We’ve sent a 6-digit verification code to<br>
         <strong id="otpEmailDisplay"></strong><br>
-        Enter it below. The code expires in a few minutes.
+        Enter it below. The code expires in a few minutes. Check your spam folder if you don’t see it.
       </p>
       <div class="mfa-inputs" id="mfaInputs">
         <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
@@ -211,7 +210,7 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
       </button>
       <div class="mfa-timer" id="mfaTimer"></div>
       <a class="mfa-back" href="#" onclick="resendOTP(); return false;">Resend code</a>
-      <a class="mfa-back" onclick="backToLogin()">← Back to login</a>
+      <a class="mfa-back" href="#" onclick="backToLogin(); return false;">← Back to login</a>
     </div>
   </div>
 </main>
@@ -233,7 +232,6 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
         <a href="https://www.starlitecp.com/commitment-to-responsible-investment">Commitment to Responsible Investment</a>
         <a href="https://www.starlitecp.com/commercial">Commercial</a>
         <a href="https://www.starlitecp.com/security">Security</a>
-        
         <a href="https://www.bloomberg.com/profile/company/2675376D:US" target="_blank" rel="noopener noreferrer">Bloomberg Profile</a>
       </div>
     </div>
@@ -245,8 +243,22 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
 </footer>
 <script>
 // ── CONFIG ──────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4zTiXpZLkhnIvR71pSTOSNx-tluCxuL7nUNVJOl1BSNGeChTG_FLvRQ8MAr45svzw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-VTAxD5DPWzNsU-2Tov66PJF9bZ_MuokBZlWMnvdFxD1YGfwF0S3eweVmxdYtMmx6/exec';
 const REDIRECT_URL    = 'https://www.starlitecp.com/data_exchange';
+
+// ── API HELPER ───────────────────────────────────────────
+async function api(payload){
+  const res = await fetch(APPS_SCRIPT_URL, {
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body: JSON.stringify(payload)
+  });
+  if(!res.ok) throw new Error('Server error (' + res.status + ')');
+  const text = await res.text();
+  try { return JSON.parse(text); }
+  catch(e){ throw new Error('Unexpected server response. Check the Apps Script deployment.'); }
+}
+
 // ── PASSWORD TOGGLE ──────────────────────────────────────
 function togglePassword(){
   const input = document.getElementById('password');
@@ -259,6 +271,7 @@ function togglePassword(){
     icon.classList.replace('fa-eye-slash','fa-eye');
   }
 }
+
 // ── VIDEO ────────────────────────────────────────────────
 function initVideo(){
   const video = document.getElementById('heroVideo');
@@ -268,13 +281,13 @@ function initVideo(){
   const p = video.play();
   if(p) p.catch(()=> document.body.addEventListener('click',()=>video.play().catch(()=>{}),{once:true}));
 }
-// ── LOGIN STEP 1 ─────────────────────────────────────────
+
+// ── UI HELPERS ───────────────────────────────────────────
 function setLoading(on){
   const btn = document.getElementById('loginBtn');
-  const txt = document.getElementById('btnText');
   btn.disabled = on;
   btn.classList.toggle('loading', on);
-  txt.textContent = on ? 'Signing In…' : 'Sign In';
+  document.getElementById('btnText').textContent = on ? 'Signing In…' : 'Sign In';
 }
 function showError(msg){
   document.getElementById('successMsg').classList.remove('show');
@@ -285,6 +298,13 @@ function hideMessages(){
   document.getElementById('errorMsg').classList.remove('show');
   document.getElementById('successMsg').classList.remove('show');
 }
+function showMfaError(msg){
+  const el = document.getElementById('mfaError');
+  el.innerHTML = '<i class="fa-solid fa-circle-exclamation" style="margin-right:6px;"></i>' + msg;
+  el.classList.add('show');
+}
+
+// ── LOGIN STEP 1 ─────────────────────────────────────────
 async function handleLogin(e){
   if(e) e.preventDefault();
   const email    = document.getElementById('email').value.trim();
@@ -293,42 +313,30 @@ async function handleLogin(e){
   if(!email || !password){ showError('Please enter both your email and access token.'); return; }
   setLoading(true);
   try {
-    const res  = await fetch(APPS_SCRIPT_URL, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({action:'login', email, password})
-    });
-    const raw  = await res.text();
-    if(!res.ok){ showError(`Server error (${res.status})`); return; }
-    const data = JSON.parse(raw);
-    if(data.status === 'success'){
-      window.__pendingToken = data.token;
-      window.__pendingEmail = email;
-      document.getElementById('successMsg').classList.add('show');
-      // Request email OTP immediately after successful login
-      await requestOTP(email, data.token);
-      setTimeout(showMFA, 700);
-    } else {
+    const data = await api({action:'login', email, password});
+    if(data.status !== 'success'){
       showError(data.message || 'Invalid email or access token.');
+      return;
     }
+    window.__pendingToken = data.token;
+    window.__pendingEmail = email;
+
+    // Send the OTP and WAIT for confirmation before showing the code screen
+    const sent = await api({action:'send_otp', email, token:data.token});
+    if(sent.status !== 'success'){
+      showError(sent.message || 'Could not send the verification code. Please try again.');
+      return;
+    }
+    document.getElementById('successMsg').classList.add('show');
+    setTimeout(showMFA, 700);
   } catch(err){
-    showError('Could not connect to server. Please try again.');
+    showError(err.message || 'Could not connect to server. Please try again.');
   } finally {
     setLoading(false);
   }
 }
+
 // ── EMAIL OTP STEP 2 ─────────────────────────────────────
-async function requestOTP(email, token){
-  try {
-    await fetch(APPS_SCRIPT_URL, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({action:'send_otp', email, token})
-    });
-  } catch(e){
-    console.warn('OTP request failed', e);
-  }
-}
 function showMFA(){
   document.getElementById('loginCard').style.display = 'none';
   document.getElementById('mfaCard').classList.add('show');
@@ -348,15 +356,20 @@ async function resendOTP(){
   const btn = document.getElementById('mfaBtn');
   btn.disabled = true;
   document.getElementById('mfaError').classList.remove('show');
-  await requestOTP(window.__pendingEmail, window.__pendingToken);
-  document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
-  document.querySelector('.mfa-digit').focus();
-  startMFATimer();
-  btn.disabled = false;
-  const timer = document.getElementById('mfaTimer');
-  if(timer) timer.textContent = 'New code sent — check your inbox';
+  try {
+    const sent = await api({action:'send_otp', email:window.__pendingEmail, token:window.__pendingToken});
+    if(sent.status !== 'success'){ showMfaError(sent.message || 'Could not resend code.'); return; }
+    document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
+    document.querySelector('.mfa-digit').focus();
+    startMFATimer();
+    document.getElementById('mfaTimer').textContent = 'New code sent — check your inbox and spam folder';
+  } catch(err){
+    showMfaError(err.message);
+  } finally {
+    btn.disabled = false;
+  }
 }
-// Wire digit inputs
+
 document.addEventListener('DOMContentLoaded', function(){
   initVideo();
   document.getElementById('loginForm').addEventListener('submit', handleLogin);
@@ -378,10 +391,10 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 });
-// Countdown timer (5 minutes)
+
 function startMFATimer(){
   clearInterval(window.__mfaTimerInterval);
-  let remaining = 300; // 5 minutes
+  let remaining = 300;
   function tick(){
     const el = document.getElementById('mfaTimer');
     if(!el) return;
@@ -390,64 +403,59 @@ function startMFATimer(){
       clearInterval(window.__mfaTimerInterval);
       return;
     }
-    const m = Math.floor(remaining / 60);
-    const s = remaining % 60;
+    const m = Math.floor(remaining / 60), s = remaining % 60;
     el.textContent = `Code expires in ${m}:${s.toString().padStart(2,'0')}`;
     remaining--;
   }
   tick();
   window.__mfaTimerInterval = setInterval(tick, 1000);
 }
+
 async function verifyMFA(){
   const digits = document.querySelectorAll('.mfa-digit');
   const code   = Array.from(digits).map(d => d.value).join('');
   if(code.length < 6) return;
-  const btn     = document.getElementById('mfaBtn');
+  const btn = document.getElementById('mfaBtn');
   const spinner = document.getElementById('mfaSpinner');
-  const txt     = document.getElementById('mfaBtnText');
-  const error   = document.getElementById('mfaError');
+  const txt = document.getElementById('mfaBtnText');
+  if(btn.disabled) return; // prevent double submit
   btn.disabled = true;
   btn.classList.add('loading');
   spinner.style.display = 'block';
   txt.textContent = 'Verifying…';
-  error.classList.remove('show');
-  try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({
-        action: 'verify_otp',
-        email: window.__pendingEmail,
-        token: window.__pendingToken,
-        code: code
-      })
-    });
-    const raw  = await res.text();
-    const data = JSON.parse(raw);
-    if(data.status === 'success'){
-      clearInterval(window.__mfaTimerInterval);
-      txt.textContent = 'Access Granted';
-      spinner.style.display = 'none';
-      sessionStorage.setItem('starlite_session_token', data.token || window.__pendingToken || 'authenticated');
-      setTimeout(()=>{ window.location.href = REDIRECT_URL; }, 600);
-    } else {
-      error.classList.add('show');
-      digits.forEach(d => d.value = '');
-      digits[0].focus();
-      btn.disabled = false;
-      btn.classList.remove('loading');
-      spinner.style.display = 'none';
-      txt.textContent = 'Verify Code';
-    }
-  } catch(err){
-    error.textContent = 'Verification error — please try again.';
-    error.classList.add('show');
+  document.getElementById('mfaError').classList.remove('show');
+  const reset = () => {
     btn.disabled = false;
     btn.classList.remove('loading');
     spinner.style.display = 'none';
     txt.textContent = 'Verify Code';
+  };
+  try {
+    const data = await api({
+      action:'verify_otp',
+      email: window.__pendingEmail,
+      token: window.__pendingToken,
+      code
+    });
+    if(data.status === 'success'){
+      clearInterval(window.__mfaTimerInterval);
+      txt.textContent = 'Access Granted';
+      spinner.style.display = 'none';
+      try { sessionStorage.setItem('starlite_session_token', data.token); } catch(e){}
+      // sessionStorage doesn't cross domains, so pass the session token in the URL fragment
+      setTimeout(()=>{ window.location.href = REDIRECT_URL + '#session=' + encodeURIComponent(data.token); }, 600);
+    } else {
+      showMfaError(data.message || 'Invalid or expired code. Please try again.');
+      digits.forEach(d => d.value = '');
+      digits[0].focus();
+      reset();
+    }
+  } catch(err){
+    showMfaError(err.message || 'Verification error — please try again.');
+    reset();
   }
 }
+
 // ── NAV ──────────────────────────────────────────────────
 const navToggle = document.getElementById('navToggle');
 const navLinksEl = document.getElementById('navLinks');
