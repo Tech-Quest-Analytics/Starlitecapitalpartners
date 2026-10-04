@@ -175,42 +175,11 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
       </div>
       <div class="success-msg" id="successMsg">
         <i class="fa-solid fa-circle-check" style="margin-right:6px;"></i>
-        Verified — verification code sent.
+        Verified — signing you in…
       </div>
       <div class="divider">or</div>
       <div class="contact-link">Need access? <a href="mailto:info@starlitecp.com">Contact your administrator</a></div>
       <div class="powered">Powered by Tech Quest Analytics LLC</div>
-    </div>
-    <!-- STEP 2: EMAIL OTP -->
-    <div class="mfa-card" id="mfaCard">
-      <div class="mfa-icon">✉️</div>
-      <div class="mfa-title">Check Your Email</div>
-      <p class="mfa-sub">
-        We’ve sent a 6-digit verification code to<br>
-        <strong id="otpEmailDisplay"></strong><br>
-        Enter it below. The code expires in a few minutes. Check your spam folder if you don’t see it.
-      </p>
-      <div class="mfa-inputs" id="mfaInputs">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-        <input class="mfa-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
-      </div>
-      <div class="mfa-error" id="mfaError">
-        <i class="fa-solid fa-circle-exclamation" style="margin-right:6px;"></i>
-        Invalid or expired code. Please try again.
-      </div>
-      <button class="submit-btn" id="mfaBtn" onclick="verifyMFA()">
-        <span class="btn-inner">
-          <span class="spinner" id="mfaSpinner"></span>
-          <span id="mfaBtnText">Verify Code</span>
-        </span>
-      </button>
-      <div class="mfa-timer" id="mfaTimer"></div>
-      <a class="mfa-back" href="#" onclick="resendOTP(); return false;">Resend code</a>
-      <a class="mfa-back" href="#" onclick="backToLogin(); return false;">← Back to login</a>
     </div>
   </div>
 </main>
@@ -243,7 +212,7 @@ footer{position:relative;z-index:3;padding:90px 40px 50px;border-top:1px solid r
 </footer>
 <script>
 // ── CONFIG ──────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-VTAxD5DPWzNsU-2Tov66PJF9bZ_MuokBZlWMnvdFxD1YGfwF0S3eweVmxdYtMmx6/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNlinryy4NpxVHSTjXHYixs7mmOT8LQYiBnVoZR9bBNKBjidLN3Z_kSIblOWWaEzxZ/exec';
 const REDIRECT_URL    = 'https://www.starlitecp.com/data_exchange';
 
 // ── API HELPER ───────────────────────────────────────────
@@ -298,13 +267,8 @@ function hideMessages(){
   document.getElementById('errorMsg').classList.remove('show');
   document.getElementById('successMsg').classList.remove('show');
 }
-function showMfaError(msg){
-  const el = document.getElementById('mfaError');
-  el.innerHTML = '<i class="fa-solid fa-circle-exclamation" style="margin-right:6px;"></i>' + msg;
-  el.classList.add('show');
-}
 
-// ── LOGIN STEP 1 ─────────────────────────────────────────
+// ── LOGIN ────────────────────────────────────────────────
 async function handleLogin(e){
   if(e) e.preventDefault();
   const email    = document.getElementById('email').value.trim();
@@ -318,143 +282,20 @@ async function handleLogin(e){
       showError(data.message || 'Invalid email or access token.');
       return;
     }
-    window.__pendingToken = data.token;
-    window.__pendingEmail = email;
-
-    // Send the OTP and WAIT for confirmation before showing the code screen
-    const sent = await api({action:'send_otp', email, token:data.token});
-    if(sent.status !== 'success'){
-      showError(sent.message || 'Could not send the verification code. Please try again.');
-      return;
-    }
     document.getElementById('successMsg').classList.add('show');
-    setTimeout(showMFA, 700);
+    try { sessionStorage.setItem('starlite_session_token', data.token); } catch(e){}
+    // sessionStorage doesn't cross domains, so pass the session token in the URL fragment
+    setTimeout(()=>{ window.location.href = REDIRECT_URL + '#session=' + encodeURIComponent(data.token); }, 500);
   } catch(err){
     showError(err.message || 'Could not connect to server. Please try again.');
-  } finally {
     setLoading(false);
-  }
-}
-
-// ── EMAIL OTP STEP 2 ─────────────────────────────────────
-function showMFA(){
-  document.getElementById('loginCard').style.display = 'none';
-  document.getElementById('mfaCard').classList.add('show');
-  document.getElementById('otpEmailDisplay').textContent = window.__pendingEmail || '';
-  setTimeout(()=> document.querySelector('.mfa-digit').focus(), 100);
-  startMFATimer();
-}
-function backToLogin(){
-  document.getElementById('mfaCard').classList.remove('show');
-  document.getElementById('loginCard').style.display = 'block';
-  document.getElementById('successMsg').classList.remove('show');
-  document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
-  document.getElementById('mfaError').classList.remove('show');
-  clearInterval(window.__mfaTimerInterval);
-}
-async function resendOTP(){
-  const btn = document.getElementById('mfaBtn');
-  btn.disabled = true;
-  document.getElementById('mfaError').classList.remove('show');
-  try {
-    const sent = await api({action:'send_otp', email:window.__pendingEmail, token:window.__pendingToken});
-    if(sent.status !== 'success'){ showMfaError(sent.message || 'Could not resend code.'); return; }
-    document.querySelectorAll('.mfa-digit').forEach(d => d.value = '');
-    document.querySelector('.mfa-digit').focus();
-    startMFATimer();
-    document.getElementById('mfaTimer').textContent = 'New code sent — check your inbox and spam folder';
-  } catch(err){
-    showMfaError(err.message);
-  } finally {
-    btn.disabled = false;
   }
 }
 
 document.addEventListener('DOMContentLoaded', function(){
   initVideo();
   document.getElementById('loginForm').addEventListener('submit', handleLogin);
-  const digits = document.querySelectorAll('.mfa-digit');
-  digits.forEach((input, i) => {
-    input.addEventListener('input', function(){
-      this.value = this.value.replace(/[^0-9]/g,'').slice(-1);
-      if(this.value && i < digits.length - 1) digits[i+1].focus();
-      if(i === digits.length - 1 && this.value) verifyMFA();
-    });
-    input.addEventListener('keydown', function(e){
-      if(e.key === 'Backspace' && !this.value && i > 0) digits[i-1].focus();
-    });
-    input.addEventListener('paste', function(e){
-      const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'');
-      digits.forEach((d,j) => d.value = paste[j] || '');
-      if(paste.length >= 6) verifyMFA();
-      e.preventDefault();
-    });
-  });
 });
-
-function startMFATimer(){
-  clearInterval(window.__mfaTimerInterval);
-  let remaining = 300;
-  function tick(){
-    const el = document.getElementById('mfaTimer');
-    if(!el) return;
-    if(remaining <= 0){
-      el.textContent = 'Code expired — request a new one';
-      clearInterval(window.__mfaTimerInterval);
-      return;
-    }
-    const m = Math.floor(remaining / 60), s = remaining % 60;
-    el.textContent = `Code expires in ${m}:${s.toString().padStart(2,'0')}`;
-    remaining--;
-  }
-  tick();
-  window.__mfaTimerInterval = setInterval(tick, 1000);
-}
-
-async function verifyMFA(){
-  const digits = document.querySelectorAll('.mfa-digit');
-  const code   = Array.from(digits).map(d => d.value).join('');
-  if(code.length < 6) return;
-  const btn = document.getElementById('mfaBtn');
-  const spinner = document.getElementById('mfaSpinner');
-  const txt = document.getElementById('mfaBtnText');
-  if(btn.disabled) return; // prevent double submit
-  btn.disabled = true;
-  btn.classList.add('loading');
-  spinner.style.display = 'block';
-  txt.textContent = 'Verifying…';
-  document.getElementById('mfaError').classList.remove('show');
-  const reset = () => {
-    btn.disabled = false;
-    btn.classList.remove('loading');
-    spinner.style.display = 'none';
-    txt.textContent = 'Verify Code';
-  };
-  try {
-    const data = await api({
-      action:'verify_otp',
-      email: window.__pendingEmail,
-      token: window.__pendingToken,
-      code
-    });
-    if(data.status === 'success'){
-      clearInterval(window.__mfaTimerInterval);
-      txt.textContent = 'Access Granted';
-      spinner.style.display = 'none';
-      try { sessionStorage.setItem('starlite_session_token', data.token); } catch(e){}
-      // sessionStorage doesn't cross domains, so pass the session token in the URL fragment
-      setTimeout(()=>{ window.location.href = REDIRECT_URL + '#session=' + encodeURIComponent(data.token); }, 600);
-    } else {
-      showMfaError(data.message || 'Invalid or expired code. Please try again.');
-      digits.forEach(d => d.value = '');
-      digits[0].focus();
-      reset();
-    }
-  } catch(err){
-    showMfaError(err.message || 'Verification error — please try again.');
-    reset();
-  }
-}
 
 // ── NAV ──────────────────────────────────────────────────
 const navToggle = document.getElementById('navToggle');
